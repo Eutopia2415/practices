@@ -121,12 +121,12 @@
     .gloss p { margin: 9px 0 0; }
     .source { margin-top: 18px; color: var(--muted); font: 12px/1.5 system-ui, sans-serif; }
     .visual-stage { min-height: 280px; display: grid; place-items: center; padding: 28px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
-    .visual-stage svg, .visual-stage img { display: block; max-width: 100%; max-height: 440px; height: auto; border-radius: 6px; }
-    .visual-stage .portrait { width: min(100%, 390px); }
-    .visual-stage .flag-art { width: min(100%, 460px); }
+    .visual-stage svg, .visual-stage img { display: block; max-width: 100%; max-height: min(65dvh, 560px); height: auto; border-radius: 6px; }
+    .visual-stage .portrait { width: min(100%, 520px); }
+    .visual-stage .flag-art { width: min(100%, 540px); }
     .equation { font-size: clamp(30px, 4vw, 50px); text-align: center; }
-    .equation small { display: block; margin-bottom: 20px; color: var(--muted); font: 600 14px system-ui, sans-serif; }
-    .bonus-chip { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid #d6b96d; border-radius: 20px; color: #f9e5a4; font: 700 12px/1 system-ui, sans-serif; white-space: nowrap; }
+    .number-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .number-card { display: grid; place-items: center; width: 86px; height: 118px; border: 2px solid #d4be8e; border-radius: 9px; background: #fff9ec; color: #263630; box-shadow: 0 5px 0 #071d1b55; font: 700 48px Georgia, serif; }
     .visual-open { display: none; margin: -5px 0 18px; }
     a { color: var(--page-text); }
 
@@ -257,14 +257,18 @@
       .footer-middle .button { max-width: 106px; }
     }
 
-    .wildcard-mode .topbar { background: #0a4234; color: #f9f2df; border-bottom: 2px solid #b89b5e; }
+    .wildcard-mode { --felt-light: #1b7054; --felt-mid: #0c4c3c; --felt-deep: #072f29; --felt-header: #0a4234; --felt-card: #125540; --felt-card-deep: #0a3e33; }
+    .wildcard-mode[data-wild-color="ruby"] { --felt-light: #963f50; --felt-mid: #682939; --felt-deep: #361824; --felt-header: #592130; --felt-card: #793247; --felt-card-deep: #4a1d2c; }
+    .wildcard-mode[data-wild-color="sapphire"] { --felt-light: #3a77a8; --felt-mid: #23537d; --felt-deep: #112a48; --felt-header: #1b456d; --felt-card: #2c618e; --felt-card-deep: #173b62; }
+    .wildcard-mode[data-wild-color="amethyst"] { --felt-light: #8059a2; --felt-mid: #5b3c7b; --felt-deep: #2e2042; --felt-header: #50346e; --felt-card: #674789; --felt-card-deep: #3d2a5c; }
+    .wildcard-mode[data-wild-color="copper"] { --felt-light: #a87842; --felt-mid: #76502c; --felt-deep: #3d291c; --felt-header: #684329; --felt-card: #895b34; --felt-card-deep: #513521; }
+    .wildcard-mode .topbar { background: var(--felt-header); color: #f9f2df; border-bottom: 2px solid #b89b5e; }
     .wildcard-mode .top-actions .button { background: #f9f2df; color: #123d30; border-color: #d3ba81; }
-    .wildcard-mode .layout { background: radial-gradient(circle at 70% 15%, #1b7054 0, #0c4c3c 45%, #072f29 100%); }
-    .wildcard-mode .passage { color: #fff7e7; border-right-color: #bc9d60; background: radial-gradient(circle at 30% 20%, #1d7054 0, #0d493a 55%, #07342d 100%); }
+    .wildcard-mode .layout { background: radial-gradient(circle at 70% 15%, var(--felt-light) 0, var(--felt-mid) 45%, var(--felt-deep) 100%); }
+    .wildcard-mode .passage { color: #fff7e7; border-right-color: #bc9d60; background: radial-gradient(circle at 30% 20%, var(--felt-light) 0, var(--felt-mid) 55%, var(--felt-deep) 100%); }
     .wildcard-mode .author { color: #e6dbc0; }
-    .wildcard-mode .visual-stage { border: 1px solid #c7a96b; background: #052f29a8; box-shadow: inset 0 0 0 1px #ffffff1a, 0 18px 40px #001c1870; }
-    .wildcard-mode .equation small { color: #ead8ab; }
-    .wildcard-mode .question-pane, .wildcard-mode .question-pane.is-wrong { color: #fff8e9; border: 2px solid #c6a765; background: linear-gradient(155deg, #125540, #0a3e33); box-shadow: 0 18px 45px #001c186b, inset 0 0 0 1px #ffffff1b; }
+    .wildcard-mode .visual-stage { border: 1px solid #c7a96b; background: #00000032; box-shadow: inset 0 0 0 1px #ffffff1a, 0 18px 40px #001c186b; }
+    .wildcard-mode .question-pane, .wildcard-mode .question-pane.is-wrong { color: #fff8e9; border: 2px solid #c6a765; background: linear-gradient(155deg, var(--felt-card), var(--felt-card-deep)); box-shadow: 0 18px 45px #001c186b, inset 0 0 0 1px #ffffff1b; }
     .wildcard-mode .question-head { align-items: center; flex-wrap: wrap; padding-bottom: 17px; border-bottom: 1px solid #d6bc7b66; }
     .wildcard-mode .question-head h2 { display: flex; align-items: center; gap: 11px; }
     .wildcard-mode .question-head h2::before { content: "♠"; display: grid; place-items: center; width: 34px; height: 34px; border: 3px dashed #fff0c1; border-radius: 50%; background: #c5a45f; color: #133b30; font: 700 22px/1 Georgia, serif; }
@@ -288,12 +292,12 @@
     .wildcard-mode .incorrect, .wildcard-mode .other-choices .your-choice-note { color: #ffc0b8; }
     .wildcard-mode .other-choices { border-top-color: #d6bc7b66; }
     .wildcard-mode .other-choices li.your-choice { background: #803f3977; }
-    .wildcard-mode .footer { border-color: #bc9d60; background: #093b30; }
+    .wildcard-mode .footer { border-color: #bc9d60; background: var(--felt-header); }
     .wildcard-mode .footer .button { border-color: #c8ac74; background: #fff8e9; color: #153b30; }
     .wildcard-mode .footer .button.primary { border-color: #e2c47e; background: #d8b66b; color: #13392e; }
     .wildcard-mode #progress { color: #e0e9df; }
-    .wildcard-mode .mobile-tabs { border-bottom-color: #bc9d60; background: #0a4234; }
-    .wildcard-mode .mobile-tabs button { background: #0a4234; color: #fff5de; }
+    .wildcard-mode .mobile-tabs { border-bottom-color: #bc9d60; background: var(--felt-header); }
+    .wildcard-mode .mobile-tabs button { background: var(--felt-header); color: #fff5de; }
     .wildcard-mode .mobile-tabs button[aria-selected="true"] { border-bottom-color: #dbb86d; }
     @media (max-width: 680px) {
       .wildcard-mode .question-pane, .wildcard-mode .question-pane.is-wrong { margin: 0; border: 0; border-radius: 0; box-shadow: none; }
@@ -350,7 +354,6 @@
         <p class="source"><a href="https://poets.org/poem/autumn" target="_blank" rel="noopener">Poem source</a></p>
         </div>
         <div id="wildcard-content" hidden>
-          <h2 id="wildcard-title">Wildcard</h2>
           <div id="wildcard-visual" class="visual-stage"></div>
         </div>
       </section>
@@ -805,32 +808,49 @@
     const bonusBank = {
       questions: [
         { kind: "bonus", topic: "Flag & capital", stem: "This flag belongs to a country with which capital city?", options: ["Rio de Janeiro", "Brasília", "São Paulo", "Buenos Aires", "Lisbon"], visual: `<svg class="flag-art" viewBox="0 0 720 504" role="img" aria-label="Green flag with a yellow diamond and blue globe"><rect width="720" height="504" fill="#119447"/><path d="M360 43 682 252 360 461 38 252Z" fill="#f8d447"/><circle cx="360" cy="252" r="118" fill="#253c94"/><path d="M244 236c83-20 167-3 231 43" fill="none" stroke="#fff" stroke-width="18"/><g fill="#fff"><circle cx="352" cy="185" r="4"/><circle cx="399" cy="207" r="3"/><circle cx="321" cy="230" r="3"/><circle cx="391" cy="311" r="4"/><circle cx="308" cy="291" r="3"/></g></svg>` },
-        { kind: "bonus", topic: "Synthetic biology", stem: "A student wants E. coli to produce a fluorescent protein from a synthesized coding sequence. Which plasmid design is most likely to work?", options: ["A bacterial promoter and ribosome-binding site placed before the coding sequence", "An origin of replication, but no promoter before the coding sequence", "The coding sequence inserted backward behind a bacterial promoter", "A transcription terminator placed immediately before the coding sequence", "A promoter recognized only by human cells before the coding sequence"], visual: `<div class="equation"><small>Gene expression</small>DNA → RNA → protein</div>` },
-        { kind: "bonus", topic: "Face merge", stem: "Which two celebrities were combined to generate this portrait?", options: ["Taylor Swift and Dwayne Johnson", "Adele and Jason Momoa", "Billie Eilish and Vin Diesel", "Jennifer Lawrence and Chris Hemsworth", "Lady Gaga and John Cena"], visual: `<img class="portrait" src="assets/celebrity-blend.png" alt="Generated portrait blending two celebrities">` },
-        { kind: "bonus", topic: "Math", stem: "A $75 item is discounted by 20%. What is the sale price?", options: ["$55", "$57.50", "$60", "$65", "$70"], visual: `<div class="equation"><small>Percentage change</small>$75 × (1 − 0.20) = ?</div>` },
-        { kind: "bonus", topic: "Calculus", stem: "What is the derivative of this function?", options: ["3x − 4", "6x − 4", "6x + 7", "x³ − 2x² + 7x", "6x"], visual: `<div class="equation"><small>Differentiate</small>f(x) = 3x² − 4x + 7</div>` }
+        { kind: "bonus", topic: "Synthetic biology", stem: "A student wants E. coli to produce a fluorescent protein from a synthesized coding sequence. Which plasmid design is most likely to work?", options: ["A bacterial promoter and ribosome-binding site placed before the coding sequence", "An origin of replication, but no promoter before the coding sequence", "The coding sequence inserted backward behind a bacterial promoter", "A transcription terminator placed immediately before the coding sequence", "A promoter recognized only by human cells before the coding sequence"], visual: `<div class="equation" role="img" aria-label="DNA leads to RNA, which leads to protein">DNA → RNA → protein</div>` },
+        { kind: "bonus", topic: "Face merge", stem: "Look at the blended portrait. Which two celebrities does it combine?", options: ["Taylor Swift and Dwayne Johnson", "Adele and Jason Momoa", "Billie Eilish and Vin Diesel", "Jennifer Lawrence and Chris Hemsworth", "Lady Gaga and John Cena"], visual: `<img class="portrait" src="assets/celebrity-blend.png" alt="A clear portrait blending the faces and styling of two celebrities">` },
+        { kind: "bonus", topic: "Math", stem: "A $75 item is discounted by 20%. What is the sale price?", options: ["$55", "$57.50", "$60", "$65", "$70"], visual: `<div class="equation" role="img" aria-label="75 dollars multiplied by one minus 0.20 equals an unknown amount">$75 × (1 − 0.20) = ?</div>` },
+        { kind: "bonus", topic: "Calculus", stem: "What is the derivative of the function shown?", options: ["3x − 4", "6x − 4", "6x + 7", "x³ − 2x² + 7x", "6x"], visual: `<div class="equation" role="img" aria-label="f of x equals 3 x squared minus 4 x plus 7">f(x) = 3x² − 4x + 7</div>` },
+        { kind: "bonus", topic: "Flag & capital", stem: "Look at the flag. What is the capital of this country?", options: ["Kyoto", "Osaka", "Tokyo", "Seoul", "Beijing"], visual: `<svg class="flag-art" viewBox="0 0 720 480" role="img" aria-label="White flag with one large red circle in the center"><rect width="720" height="480" fill="#fff"/><circle cx="360" cy="240" r="144" fill="#bc002d"/></svg>` },
+        { kind: "bonus", topic: "Synthetic biology", stem: "Mabry puts an antibiotic-resistance marker on a plasmid and grows the bacteria on that antibiotic. What does a growing colony show most directly?", options: ["The intended protein is being made", "The cells carry a working resistance marker", "Every plasmid contains the correct gene insert", "The cells no longer contain DNA", "The antibiotic has become a nutrient"], visual: `<div class="equation" role="img" aria-label="Plasmid goes into bacterial cells; cells grow on an antibiotic plate">Plasmid → cells → growth</div>` },
+        { kind: "bonus", topic: "Flag & capital", stem: "Look at the flag. What is the capital of this country?", options: ["Lyon", "Marseille", "Paris", "Brussels", "Geneva"], visual: `<svg class="flag-art" viewBox="0 0 720 480" role="img" aria-label="Flag with three vertical blue, white, and red stripes"><path fill="#002395" d="M0 0h240v480H0z"/><path fill="#fff" d="M240 0h240v480H240z"/><path fill="#ed2939" d="M480 0h240v480H480z"/></svg>` },
+        { kind: "bonus", topic: "Math", stem: "One of the four cards shown is picked at random. What is the probability that its number is greater than 5?", options: ["1/4", "1/3", "1/2", "3/4", "1"], visual: `<div class="number-cards" role="img" aria-label="Four cards numbered 2, 4, 6, and 8"><span class="number-card">2</span><span class="number-card">4</span><span class="number-card">6</span><span class="number-card">8</span></div>` },
+        { kind: "bonus", topic: "Calculus", stem: "For the function shown, what is f′(2)?", options: ["6", "8", "10", "12", "14"], visual: `<div class="equation" role="img" aria-label="f of x equals x cubed minus 2 x">f(x) = x³ − 2x</div>` }
       ],
-      key: ["B", "A", "A", "C", "B"],
+      key: ["B", "A", "A", "C", "B", "C", "B", "C", "C", "C"],
       explanations: [
         "The flag is Brazil’s; its capital is Brasília. Rio de Janeiro was the capital before 1960.",
         "The coding sequence needs signals that E. coli can use to transcribe and translate it. A bacterial promoter and ribosome-binding site supply those signals.",
         "This portrait was generated by blending Taylor Swift and Dwayne Johnson.",
         "Twenty percent of $75 is $15; $75 − $15 = $60.",
-        "By the power rule, the derivative of 3x² is 6x, of −4x is −4, and of 7 is 0."
+        "By the power rule, the derivative of 3x² is 6x, of −4x is −4, and of 7 is 0.",
+        "The flag is Japan’s; its capital is Tokyo.",
+        "Growth on the antibiotic shows that the cells have a working resistance marker. It does not, by itself, prove that the intended gene is correct or expressed.",
+        "The blue, white, and red vertical tricolor is France’s flag; its capital is Paris.",
+        "Two of the four cards, 6 and 8, are greater than 5, so the probability is 2/4 = 1/2.",
+        "f′(x) = 3x² − 2, so f′(2) = 3(4) − 2 = 10."
       ],
       distractors: [
         { A: "Rio de Janeiro is famous, but it is not Brazil’s current capital.", C: "São Paulo is Brazil’s largest city, but it is not the capital.", D: "Buenos Aires is Argentina’s capital.", E: "Lisbon is Portugal’s capital." },
         { B: "Replication does not initiate transcription of the inserted gene.", C: "A backward insertion typically prevents the promoter from driving the intended coding sequence.", D: "A terminator before the gene stops transcription before it reaches the coding sequence.", E: "A human-specific promoter is not expected to work in E. coli." },
         { B: "Those are not the two people used to generate the portrait.", C: "Those are not the two people used to generate the portrait.", D: "Those are not the two people used to generate the portrait.", E: "Those are not the two people used to generate the portrait." },
         { A: "$55 would be a $20 discount, not 20% of $75.", B: "$57.50 subtracts $17.50, rather than $15.", D: "$65 subtracts only $10.", E: "$70 subtracts only $5." },
-        { A: "The derivative of 3x² is 6x, not 3x.", C: "The constant 7 differentiates to 0, while −4x differentiates to −4.", D: "That expression is an antiderivative, not the derivative.", E: "The −4x term contributes −4." }
+        { A: "The derivative of 3x² is 6x, not 3x.", C: "The constant 7 differentiates to 0, while −4x differentiates to −4.", D: "That expression is an antiderivative, not the derivative.", E: "The −4x term contributes −4." },
+        { A: "Kyoto is a former capital, not the current one.", B: "Osaka is a major city, not the capital.", D: "Seoul is South Korea’s capital.", E: "Beijing is China’s capital." },
+        { A: "Antibiotic selection does not demonstrate protein expression.", C: "The marker can work even when the intended insert is absent or incorrect.", D: "Growing bacteria still contain DNA.", E: "The antibiotic is a selection agent, not a nutrient." },
+        { A: "Lyon is a French city, but not the capital.", B: "Marseille is a French city, but not the capital.", D: "Brussels is Belgium’s capital.", E: "Geneva is in Switzerland." },
+        { A: "Only one card would be 1/4, but both 6 and 8 qualify.", B: "There are four equally likely cards, not three.", D: "Three cards do not exceed 5.", E: "The cards 2 and 4 do not exceed 5." },
+        { A: "The derivative is 3x² − 2, not 3x² − 6.", B: "This misses two units from the derivative of −2x.", D: "12 is the derivative of x³ at 2 before subtracting 2.", E: "Adding 2 gives 14, but the linear term contributes −2." }
       ]
     };
     const sourceBank = bank;
     const sourceDistractors = distractorExplanations;
     const CORE_COUNT = 15;
-    const BONUS_COUNT = 5;
-    const TOTAL_COUNT = CORE_COUNT + BONUS_COUNT;
+    const MIN_BONUS_COUNT = 2;
+    const MAX_BONUS_COUNT = 5;
+    const WILD_COLORS = ["emerald", "ruby", "sapphire", "amethyst", "copper"];
+    let TOTAL_COUNT = CORE_COUNT;
     const STORAGE_KEY = "ap-lit-to-autumn-surprise-mock-v1";
     const COLOR_KEY = "ap-lit-to-autumn-colors-v1";
     const LETTERS = "ABCDE";
@@ -856,13 +876,18 @@
       }
       return result;
     }
-    function validShuffle(values, count) {
-      return Array.isArray(values) && values.length === count &&
-        new Set(values).size === count && values.every((value) => Number.isInteger(value) && value >= 0 && value < count);
+    function validBonusOrder(values) {
+      return Array.isArray(values) && values.length >= MIN_BONUS_COUNT && values.length <= MAX_BONUS_COUNT &&
+        new Set(values).size === values.length &&
+        values.every((value) => Number.isInteger(value) && value >= 0 && value < bonusBank.questions.length);
     }
-    function validSlots(values) {
-      return Array.isArray(values) && values.length === BONUS_COUNT &&
-        new Set(values).size === BONUS_COUNT && values.every((value) => Number.isInteger(value) && value >= 1 && value < CORE_COUNT);
+    function validSlots(values, count) {
+      return Array.isArray(values) && values.length === count &&
+        new Set(values).size === count && values.every((value) => Number.isInteger(value) && value >= 1 && value < CORE_COUNT);
+    }
+    function validColors(values, count) {
+      return Array.isArray(values) && values.length === count &&
+        new Set(values).size === count && values.every((value) => WILD_COLORS.includes(value));
     }
     function applySequence(attempt) {
       const entries = [];
@@ -870,15 +895,17 @@
       for (let core = 0; core < CORE_COUNT; core++) {
         entries.push({ kind: "core", sourceIndex: core });
         if (attempt.bonusAfter.includes(core + 1)) {
-          entries.push({ kind: "bonus", sourceIndex: attempt.bonusOrder[bonusPointer++] });
+          entries.push({ kind: "bonus", sourceIndex: attempt.bonusOrder[bonusPointer], bonusOrdinal: bonusPointer });
+          bonusPointer++;
         }
       }
+      TOTAL_COUNT = entries.length;
       bank = {
         ...sourceBank,
         id: "to-autumn-surprise-mock-v1",
-        questions: entries.map(({ kind, sourceIndex }) => kind === "core"
+        questions: entries.map(({ kind, sourceIndex, bonusOrdinal }) => kind === "core"
           ? { ...sourceBank.questions[sourceIndex], kind }
-          : bonusBank.questions[sourceIndex]),
+          : { ...bonusBank.questions[sourceIndex], bonusOrdinal }),
         key: entries.map(({ kind, sourceIndex }) => kind === "core" ? sourceBank.key[sourceIndex] : bonusBank.key[sourceIndex]),
         explanations: entries.map(({ kind, sourceIndex }) => kind === "core" ? sourceBank.explanations[sourceIndex] : bonusBank.explanations[sourceIndex])
       };
@@ -886,14 +913,28 @@
         ? sourceDistractors[sourceIndex] : bonusBank.distractors[sourceIndex]);
     }
 
-    function newState() {
+    function newState(previous = null) {
+      const count = MIN_BONUS_COUNT + Math.floor(Math.random() * (MAX_BONUS_COUNT - MIN_BONUS_COUNT + 1));
+      const previousItems = new Set(previous?.bonusOrder || []);
+      const unusedItems = Array.from({ length: bonusBank.questions.length }, (_, index) => index)
+        .filter((index) => !previousItems.has(index));
+      const bonusOrder = shuffled(unusedItems.length >= count ? unusedItems :
+        Array.from({ length: bonusBank.questions.length }, (_, index) => index)).slice(0, count);
+      const eligibleSlots = Array.from({ length: CORE_COUNT - 2 }, (_, index) => index + 2);
+      const bonusAfter = shuffled(eligibleSlots).slice(0, count).sort((a, b) => a - b);
+      if (previous && bonusAfter.join(",") === previous.bonusAfter?.join(",")) {
+        bonusAfter[0] = eligibleSlots.find((slot) => !bonusAfter.includes(slot));
+        bonusAfter.sort((a, b) => a - b);
+      }
+      const total = CORE_COUNT + count;
       return {
-        answers: Array(TOTAL_COUNT).fill(null),
-        eliminated: Array.from({ length: TOTAL_COUNT }, () => Array(5).fill(false)),
-        flags: Array(TOTAL_COUNT).fill(false),
-        confidence: Array(TOTAL_COUNT).fill(null),
-        bonusAfter: shuffled(Array.from({ length: CORE_COUNT - 1 }, (_, index) => index + 1)).slice(0, BONUS_COUNT).sort((a, b) => a - b),
-        bonusOrder: shuffled(Array.from({ length: BONUS_COUNT }, (_, index) => index)),
+        answers: Array(total).fill(null),
+        eliminated: Array.from({ length: total }, () => Array(5).fill(false)),
+        flags: Array(total).fill(false),
+        confidence: Array(total).fill(null),
+        bonusAfter,
+        bonusOrder,
+        bonusColors: shuffled(WILD_COLORS).slice(0, count),
         index: 0,
         maxStepSeen: 0,
         view: "question",
@@ -905,22 +946,25 @@
     function loadState() {
       try {
         const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        if (!saved || !Array.isArray(saved.answers) || saved.answers.length !== TOTAL_COUNT ||
-            !validSlots(saved.bonusAfter) || !validShuffle(saved.bonusOrder, BONUS_COUNT)) return newState();
-        const state = { ...newState(), ...saved };
+        if (!saved || !validBonusOrder(saved.bonusOrder) ||
+            !validSlots(saved.bonusAfter, saved.bonusOrder.length) ||
+            !Array.isArray(saved.answers) || saved.answers.length !== CORE_COUNT + saved.bonusOrder.length) return newState();
+        const count = saved.bonusOrder.length;
+        const total = CORE_COUNT + count;
+        const state = { ...saved };
+        state.bonusColors = validColors(saved.bonusColors, count) ? saved.bonusColors : shuffled(WILD_COLORS).slice(0, count);
         state.answers = state.answers.map((answer) => LETTERS.includes(answer) ? answer : null);
-        state.eliminated = Array.from({ length: TOTAL_COUNT }, (_, i) =>
+        state.eliminated = Array.from({ length: total }, (_, i) =>
           Array.from({ length: 5 }, (_, k) => Boolean(saved.eliminated?.[i]?.[k]))
         );
-        state.flags = Array.from({ length: TOTAL_COUNT }, (_, i) => Boolean(saved.flags?.[i]));
-        state.confidence = Array.from({ length: TOTAL_COUNT }, (_, i) =>
+        state.flags = Array.from({ length: total }, (_, i) => Boolean(saved.flags?.[i]));
+        state.confidence = Array.from({ length: total }, (_, i) =>
           ["Low", "Medium", "High"].includes(saved.confidence?.[i]) ? saved.confidence[i] : null
         );
-        state.maxStepSeen = Number.isInteger(saved.maxStepSeen) && saved.maxStepSeen >= 0 && saved.maxStepSeen < TOTAL_COUNT ? saved.maxStepSeen : 0;
+        state.maxStepSeen = Number.isInteger(saved.maxStepSeen) && saved.maxStepSeen >= 0 && saved.maxStepSeen < total ? saved.maxStepSeen : 0;
         state.index = Number.isInteger(saved.index) && saved.index >= 0 && saved.index <= state.maxStepSeen ? saved.index : 0;
         state.view = ["question", "review", "results"].includes(saved.view) ? saved.view : "question";
         state.submitted = Boolean(saved.submitted);
-        if (!state.submitted && state.maxStepSeen < TOTAL_COUNT - 1 && state.view === "results") state.view = "question";
         if (!state.submitted && state.view === "results") state.view = "question";
         state.notes = typeof saved.notes === "string" ? saved.notes : "";
         return state;
@@ -1071,11 +1115,12 @@
     function renderPassage(question) {
       const bonus = question.kind === "bonus";
       document.body.classList.toggle("wildcard-mode", bonus);
+      if (bonus) document.body.dataset.wildColor = state.bonusColors[question.bonusOrdinal];
+      else delete document.body.dataset.wildColor;
       $("poem-content").hidden = bonus;
       $("wildcard-content").hidden = !bonus;
       $("poem-tab").textContent = bonus ? "Visual" : "Poem";
       if (bonus) {
-        $("wildcard-title").textContent = question.topic;
         $("wildcard-visual").innerHTML = question.visual;
       }
     }
@@ -1156,7 +1201,7 @@
 
       $("panel").innerHTML = `
         <div class="question-head">
-          <h2>${question.kind === "bonus" ? 'Wildcard <small class="bonus-chip">+1 point</small>' : `Question ${question.n} of 15`}</h2>
+          <h2>${question.kind === "bonus" ? "Wildcard" : `Question ${question.n} of 15`}</h2>
           <label class="flag"><input id="flag" type="checkbox" ${state.flags[index] ? "checked" : ""}>Mark for review</label>
         </div>
         ${question.kind === "bonus" ? '<button id="show-visual" class="button visual-open" type="button">View picture or equation</button>' : ""}
@@ -1261,7 +1306,7 @@
       return [
         "To Autumn",
         `Score: ${score()}/15`,
-        `Bonus: +${bonusScore()}/5`,
+        `Bonus: +${bonusScore()}/${state.bonusOrder.length}`,
         `Total: ${score() + bonusScore()}`,
         "",
         ...bank.questions.map((question, index) =>
@@ -1277,7 +1322,7 @@
       $("panel").innerHTML = `
         <h2>Practice complete</h2>
         <div class="score">${score()} / 15 <span>${Math.round(score() / 15 * 100)}%</span></div>
-        <p class="result-info">Bonus: <strong>+${bonusScore()} / 5</strong> · Total: <strong>${score() + bonusScore()} points</strong></p>
+        <p class="result-info">Bonus: <strong>+${bonusScore()} / ${state.bonusOrder.length}</strong> · Total: <strong>${score() + bonusScore()} points</strong></p>
         <div class="actions">
           <button id="explanations" class="button primary" type="button">Review explanations</button>
           <button id="copy-results" class="button" type="button">Copy results</button>
@@ -1324,7 +1369,7 @@
         `;
         $("restart").replaceWith(box);
         $("confirm-restart").addEventListener("click", () => {
-          state = newState();
+          state = newState(state);
           applySequence(state);
           saveState();
           render();
