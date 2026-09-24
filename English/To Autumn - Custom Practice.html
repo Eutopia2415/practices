@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <title>To Autumn · Custom Practice</title>
+  <style>
+    :root {
+      --page-bg: #f8f7f2;
+      --page-text: #24342d;
+      --surface: #ffffff;
+      --soft: #e8ebe7;
+      --hover: #eff1ee;
+      --border: #cbd2cc;
+      --muted: #637168;
+      --accent: #24342d;
+      --accent-text: #f8f7f2;
+      --success: #226447;
+      --error: #9e3636;
+      --wrong-tint: #f9eded;
+      --wrong-choice-bg: #f6dddd;
+      --wrong-border: #a82929;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--page-text);
+      font: 17px/1.45 Georgia, "Times New Roman", serif;
+    }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: default; opacity: .55; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible,
+    summary:focus-visible, a:focus-visible {
+      outline: 3px solid #c88730;
+      outline-offset: 3px;
+    }
+
+    .shell { min-height: 100dvh; display: flex; flex-direction: column; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 13px 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .brand { margin: 0; font-size: 23px; line-height: 1.15; }
+    .subtitle {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font: 13px/1.35 system-ui, sans-serif;
+    }
+    .top-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .button {
+      min-height: 42px;
+      padding: 9px 16px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--surface);
+      color: var(--page-text);
+      font: 600 14px/1.3 system-ui, sans-serif;
+    }
+    .button:hover:not(:disabled) { background: var(--hover); }
+    .button.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+    .button.primary:hover:not(:disabled) { opacity: .84; background: var(--accent); }
+    .button.subtle { border-color: transparent; background: transparent; }
+    .button.subtle:hover { background: var(--hover); }
+
+    .color-panel {
+      position: absolute;
+      z-index: 10;
+      top: 64px;
+      right: 25px;
+      width: min(360px, calc(100vw - 30px));
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: 0 16px 45px #0002;
+      font: 14px/1.45 system-ui, sans-serif;
+    }
+    .color-panel h2 { margin: 0 0 5px; font: 700 18px/1.2 system-ui, sans-serif; }
+    .color-panel p { margin: 0 0 14px; color: var(--muted); }
+    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .preset {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      color: var(--page-text);
+      padding: 6px 10px;
+      font: 13px system-ui, sans-serif;
+    }
+    .preset:hover, .preset[aria-pressed="true"] { background: var(--soft); }
+    .swatch { width: 15px; height: 15px; border: 1px solid #7775; border-radius: 50%; }
+    .color-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .color-controls label { display: grid; gap: 5px; font-weight: 600; }
+    .color-controls input { width: 100%; height: 42px; padding: 3px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); }
+    .contrast { margin-top: 12px; font-size: 13px; }
+    .contrast.warning { color: var(--error); font-weight: 700; }
+    .color-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; }
+
+    .mobile-tabs { display: none; }
+    .layout { display: grid; grid-template-columns: minmax(0, 48%) minmax(0, 52%); flex: 1; min-height: 0; }
+    .passage, .question-pane { min-height: 0; overflow: auto; }
+    .passage { padding: 27px 32px; border-right: 1px solid var(--border); }
+    .question-pane { padding: 29px 36px 36px; }
+    .question-pane.is-wrong { background: var(--wrong-tint); }
+    h2 { margin: 0; font-size: 27px; }
+    .author { margin: 2px 0 20px; font-size: 18px; }
+    .verse { font-size: 17px; line-height: 1.58; }
+    .line { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 11px; }
+    .line.stanza { margin-top: 22px; }
+    .line-number { color: var(--muted); font: 12px/2.25 system-ui, sans-serif; text-align: right; user-select: none; }
+    .line-text { white-space: pre-wrap; }
+    .gloss { margin-top: 25px; padding-top: 15px; border-top: 1px solid var(--border); font-size: 15px; }
+    .gloss summary { cursor: pointer; font-weight: 700; }
+    .gloss p { margin: 9px 0 0; }
+    .source { margin-top: 18px; color: var(--muted); font: 12px/1.5 system-ui, sans-serif; }
+    a { color: var(--page-text); }
+
+    .question-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 22px; }
+    .question-head h2 { font-size: 21px; }
+    .flag { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font: 14px system-ui, sans-serif; }
+    .flag input { width: 19px; height: 19px; accent-color: var(--accent); }
+    .stem { margin: 0 0 23px; font-size: 20px; line-height: 1.52; }
+    .options { display: grid; gap: 10px; }
+    .option-row { display: flex; align-items: stretch; gap: 8px; }
+    .choice {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 13px;
+      min-height: 59px;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--page-text);
+      text-align: left;
+      font-size: 17px;
+      line-height: 1.4;
+    }
+    .choice:hover:not(:disabled), .strike:hover:not(:disabled) { background: var(--hover); }
+    .choice[aria-pressed="true"] { border: 2px solid var(--accent); padding: 10px 13px; background: var(--soft); }
+    .choice.is-eliminated .choice-text { text-decoration: line-through; opacity: .55; }
+    .letter {
+      display: grid;
+      place-items: center;
+      flex: 0 0 30px;
+      height: 30px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      font-size: 16px;
+    }
+    .choice[aria-pressed="true"] .letter { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+    .choice.is-wrong-choice { border: 2px solid var(--wrong-border); padding: 10px 13px; background: var(--wrong-choice-bg); }
+    .choice.is-wrong-choice .letter { background: var(--wrong-border); color: var(--page-bg); border-color: var(--wrong-border); }
+    .strike {
+      flex: 0 0 48px;
+      min-width: 48px;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--page-text);
+      font: 22px/1 system-ui, sans-serif;
+    }
+    .strike[aria-pressed="true"] { background: var(--soft); border-color: var(--accent); }
+    .helper { margin: 8px 0 0; color: var(--muted); font: 13px/1.4 system-ui, sans-serif; }
+    .confidence { margin-top: 24px; }
+    .confidence p { margin: 0 0 8px; font: 600 14px system-ui, sans-serif; }
+    .segments { display: flex; flex-wrap: wrap; gap: 8px; }
+    .segments button[aria-pressed="true"] { border-color: var(--accent); background: var(--soft); }
+    .utility { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; color: var(--muted); font: 13px system-ui, sans-serif; }
+    .text-button { border: 0; background: transparent; color: var(--page-text); text-decoration: underline; padding: 7px 0; cursor: pointer; }
+    .feedback { margin-top: 24px; border-left: 3px solid var(--accent); padding-left: 16px; font-size: 16px; line-height: 1.55; }
+    .feedback.is-wrong { border-left: 5px solid var(--wrong-border); }
+    .feedback strong { display: block; margin-bottom: 6px; }
+    .answer-explanation { margin: 0; }
+    .other-choices { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .other-choices summary { cursor: pointer; font: 700 14px/1.4 system-ui, sans-serif; }
+    .other-choices ul { margin: 10px 0 0; padding-left: 21px; }
+    .other-choices li { margin: 0 0 9px; padding: 4px 6px; }
+    .other-choices li.your-choice { background: var(--wrong-choice-bg); border-radius: 5px; }
+    .other-choices .letter-label { font-weight: 700; }
+    .other-choices .your-choice-note { color: var(--error); font: 700 12px system-ui, sans-serif; }
+    .correct { color: var(--success); }
+    .incorrect { color: var(--error); }
+
+    .footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 11px 28px; border-top: 1px solid var(--border); background: var(--surface); }
+    .footer-middle { display: flex; align-items: center; gap: 12px; }
+    #progress { color: var(--muted); white-space: nowrap; font: 13px system-ui, sans-serif; }
+    .review-intro, .result-info { color: var(--muted); font-size: 16px; line-height: 1.5; }
+    .review-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px; margin: 23px 0; }
+    .review-cell { min-height: 76px; padding: 9px; text-align: left; }
+    .review-cell b { display: block; font-size: 20px; }
+    .review-cell small { display: block; margin-top: 4px; color: var(--muted); font: 12px system-ui, sans-serif; }
+    .review-cell.answered { background: var(--soft); }
+    .review-cell.is-wrong { background: var(--wrong-tint); border-color: var(--wrong-border); box-shadow: inset 0 0 0 1px var(--wrong-border); }
+    .review-cell.is-wrong small { color: var(--wrong-border); font-weight: 700; }
+    .review-cell.flagged { border-top: 4px solid #ae7919; }
+    .review-note { color: var(--muted); font: 13px/1.5 system-ui, sans-serif; }
+    .notes-label { display: block; margin-top: 20px; font-size: 16px; }
+    textarea { width: 100%; min-height: 90px; margin-top: 9px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--page-text); resize: vertical; }
+    .actions { display: flex; flex-wrap: wrap; gap: 9px; margin: 20px 0; }
+    .score { margin: 18px 0 8px; font-size: 46px; }
+    .score span { color: var(--muted); font-size: 19px; }
+    .status { min-height: 18px; color: var(--muted); font: 13px system-ui, sans-serif; }
+    #result-summary { min-height: 250px; font: 12px/1.5 ui-monospace, monospace; }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: minmax(0, 45%) minmax(0, 55%); }
+      .passage { padding: 22px 20px; }
+      .question-pane { padding: 24px 22px; }
+      .choice { font-size: 16px; }
+      .review-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      .topbar { padding: 11px 16px; }
+      .brand { font-size: 20px; }
+      .subtitle { font-size: 12px; }
+      .mobile-tabs { display: flex; border-bottom: 1px solid var(--border); }
+      .mobile-tabs button { flex: 1; border: 0; border-radius: 0; background: var(--surface); color: var(--page-text); padding: 10px; min-height: 44px; }
+      .mobile-tabs button[aria-selected="true"] { border-bottom: 3px solid var(--accent); }
+      .layout { display: block; }
+      .passage, .question-pane { height: calc(100dvh - 189px); }
+      .passage { display: none; border-right: 0; }
+      .show-poem .passage { display: block; }
+      .show-poem .question-pane { display: none; }
+      .question-pane { padding: 22px 18px; }
+      .stem { font-size: 19px; }
+      .choice { min-height: 58px; font-size: 16px; }
+      .footer { padding: 9px 12px; }
+      .footer .button { padding: 8px 10px; }
+      .footer-middle { gap: 4px; }
+      .footer-middle .button { font-size: 12px; }
+      .review-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .color-panel { top: 59px; right: 15px; }
+    }
+    @media (max-width: 390px) {
+      .subtitle { display: none; }
+      #progress { display: none; }
+      .footer-middle .button { max-width: 106px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div>
+        <h1 class="brand">To Autumn · Practice</h1>
+        <p class="subtitle">Original AP-style practice · 15 questions · no timer</p>
+      </div>
+      <div class="top-actions">
+        <button id="color-toggle" class="button" type="button" aria-expanded="false" aria-controls="color-panel">Colors</button>
+      </div>
+    </header>
+
+    <section id="color-panel" class="color-panel" aria-label="Color settings" hidden>
+      <h2>Colors</h2>
+      <p>Choose a preset or pick your own background and text colors.</p>
+      <div id="presets" class="presets"></div>
+      <div class="color-controls">
+        <label>Background <input id="background-color" type="color" value="#f8f7f2"></label>
+        <label>Text <input id="text-color" type="color" value="#24342d"></label>
+      </div>
+      <div id="contrast" class="contrast" role="status"></div>
+      <div class="color-actions">
+        <button id="reset-colors" class="button subtle" type="button">Reset colors</button>
+        <button id="close-colors" class="button" type="button">Done</button>
+      </div>
+    </section>
+
+    <nav class="mobile-tabs" aria-label="Practice view">
+      <button id="poem-tab" type="button" aria-selected="false">Poem</button>
+      <button id="question-tab" type="button" aria-selected="true">Questions</button>
+    </nav>
+
+    <main class="layout">
+      <section class="passage" aria-label="Poem">
+        <h2>To Autumn</h2>
+        <p class="author">John Keats</p>
+        <div id="poem" class="verse"></div>
+        <details class="gloss">
+          <summary>Vocabulary notes</summary>
+          <p><b>thatch-eves:</b> The edges of a roof made from straw or reeds.</p>
+          <p><b>granary:</b> A building used to store grain.</p>
+          <p><b>winnowing:</b> Separating grain from chaff with moving air.</p>
+          <p><b>gleaner:</b> Someone who gathers grain left after reaping.</p>
+          <p><b>sallows:</b> Willow trees.</p>
+          <p><b>bourn:</b> A boundary or limit; here, a boundary of the hills.</p>
+          <p><b>garden-croft:</b> A small enclosed plot or field adjoining a house.</p>
+        </details>
+        <p class="source">Poem in the public domain. <a href="https://poets.org/poem/autumn" target="_blank" rel="noopener">Poem source</a>.<br>Original AP-style practice; not an official College Board test.</p>
+      </section>
+      <section id="panel" class="question-pane" aria-label="Questions"></section>
+    </main>
+
+    <footer class="footer">
+      <button id="back" class="button" type="button">Back</button>
+      <div class="footer-middle">
+        <span id="progress"></span>
+        <button id="review" class="button" type="button">Review answers</button>
+      </div>
+      <button id="next" class="button primary" type="button">Next</button>
+    </footer>
+  </div>
+
+  <script>
+    const bank = {
+  "id": "to-autumn-balanced-15-v3",
+  "title": "To Autumn",
+  "revision": "b699590e1857dc4e399dc70fdf80e06012eb9390616f415d2f6289c634b5de1b",
+  "minutes": 20,
+  "storage_id": "ap-lit-to-autumn-custom-v1-b699590e1857",
+  "lines": [
+    {
+      "text": "Season of mists and mellow fruitfulness,",
+      "stanzaStart": false
+    },
+    {
+      "text": "  Close bosom-friend of the maturing sun;",
+      "stanzaStart": false
+    },
+    {
+      "text": "Conspiring with him how to load and bless",
+      "stanzaStart": false
+    },
+    {
+      "text": "  With fruit the vines that round the thatch-eves run;",
+      "stanzaStart": false
+    },
+    {
+      "text": "To bend with apples the moss’d cottage-trees,",
+      "stanzaStart": false
+    },
+    {
+      "text": "  And fill all fruit with ripeness to the core;",
+      "stanzaStart": false
+    },
+    {
+      "text": "    To swell the gourd, and plump the hazel shells",
+      "stanzaStart": false
+    },
+    {
+      "text": "  With a sweet kernel; to set budding more,",
+      "stanzaStart": false
+    },
+    {
+      "text": "And still more, later flowers for the bees,",
+      "stanzaStart": false
+    },
+    {
+      "text": "Until they think warm days will never cease,",
+      "stanzaStart": false
+    },
+    {
+      "text": "    For summer has o’er-brimm’d their clammy cells.",
+      "stanzaStart": false
+    },
+    {
+      "text": "Who hath not seen thee oft amid thy store?",
+      "stanzaStart": true
+    },
+    {
+      "text": "  Sometimes whoever seeks abroad may find",
+      "stanzaStart": false
+    },
+    {
+      "text": "Thee sitting careless on a granary floor,",
+      "stanzaStart": false
+    },
+    {
+      "text": "  Thy hair soft-lifted by the winnowing wind;",
+      "stanzaStart": false
+    },
+    {
+      "text": "Or on a half-reap’d furrow sound asleep,",
+      "stanzaStart": false
+    },
+    {
+      "text": "  Drowsed with the fume of poppies, while thy hook",
+      "stanzaStart": false
+    },
+    {
+      "text": "    Spares the next swath and all its twined flowers:",
+      "stanzaStart": false
+    },
+    {
+      "text": "And sometimes like a gleaner thou dost keep",
+      "stanzaStart": false
+    },
+    {
+      "text": "  Steady thy laden head across a brook;",
+      "stanzaStart": false
+    },
+    {
+      "text": "  Or by a cider-press, with patient look,",
+      "stanzaStart": false
+    },
+    {
+      "text": "    Thou watchest the last oozings, hours by hours.",
+      "stanzaStart": false
+    },
+    {
+      "text": "Where are the songs of Spring? Ay, where are they?",
+      "stanzaStart": true
+    },
+    {
+      "text": "  Think not of them, thou hast thy music too,—",
+      "stanzaStart": false
+    },
+    {
+      "text": "While barred clouds bloom the soft-dying day,",
+      "stanzaStart": false
+    },
+    {
+      "text": "  And touch the stubble-plains with rosy hue;",
+      "stanzaStart": false
+    },
+    {
+      "text": "Then in a wailful choir the small gnats mourn",
+      "stanzaStart": false
+    },
+    {
+      "text": "  Among the river sallows, borne aloft",
+      "stanzaStart": false
+    },
+    {
+      "text": "    Or sinking as the light wind lives or dies;",
+      "stanzaStart": false
+    },
+    {
+      "text": "And full-grown lambs loud bleat from hilly bourn;",
+      "stanzaStart": false
+    },
+    {
+      "text": "  Hedge-crickets sing; and now with treble soft",
+      "stanzaStart": false
+    },
+    {
+      "text": "  The redbreast whistles from a garden-croft,",
+      "stanzaStart": false
+    },
+    {
+      "text": "    And gathering swallows twitter in the skies.",
+      "stanzaStart": false
+    }
+  ],
+  "questions": [
+    {
+      "n": 1,
+      "stem": "In lines 1–3, the relationship between autumn and the sun is presented primarily as one of",
+      "options": [
+        "competition for control of the landscape",
+        "dependence threatened by approaching separation",
+        "intimate cooperation in bringing growth to fulfillment",
+        "reconciliation after a period of destructive conflict",
+        "shared indifference to the needs of living things"
+      ]
+    },
+    {
+      "n": 2,
+      "stem": "In “Until they think warm days will never cease” (line 10), “they” refers to the",
+      "options": [
+        "bees",
+        "flowers",
+        "cottage-trees",
+        "hazel shells",
+        "vines"
+      ]
+    },
+    {
+      "n": 3,
+      "stem": "The continuation from “to set budding more” (line 8) to “And still more” (line 9) primarily has which effect?",
+      "options": [
+        "It carries the account from the ripening of fruit to the provision of food for bees.",
+        "It establishes a contrast between cultivated fruit and flowers growing beyond human control.",
+        "It makes the production of flowers seem compensatory for the completion of fruit ripening.",
+        "It postpones the identification of the agent responsible for the plants’ fertility.",
+        "It makes the sentence seem to generate a further increment of the abundance it describes."
+      ]
+    },
+    {
+      "n": 4,
+      "stem": "The question “Who hath not seen thee oft amid thy store?” (line 12) primarily serves to",
+      "options": [
+        "challenge the reliability of the speaker’s earlier description",
+        "imply that autumn’s presence is familiar and readily recognizable",
+        "request the identity of an absent agricultural worker",
+        "suggest that the season conceals its riches from human observers",
+        "distinguish the speaker’s privileged vision from ordinary perception"
+      ]
+    },
+    {
+      "n": 5,
+      "stem": "In line 14, “careless” most nearly means",
+      "options": [
+        "inattentive to an urgent danger",
+        "incapable of purposeful activity",
+        "unwilling to preserve the harvest",
+        "free from concern",
+        "unaware of being watched"
+      ]
+    },
+    {
+      "n": 6,
+      "stem": "In lines 16–18, autumn’s sleep has which immediate effect?",
+      "options": [
+        "It leaves the next strip of growth and its flowers uncut.",
+        "It allows a brook to carry the gathered crop away.",
+        "It prevents the granary from filling with grain.",
+        "It causes the poppies to lose their intoxicating scent.",
+        "It prompts the gleaner to abandon a burden."
+      ]
+    },
+    {
+      "n": 7,
+      "stem": "The phrase “Steady thy laden head” (line 20) distinguishes the gleaner image from the adjacent images chiefly by emphasizing",
+      "options": [
+        "the patient attention required to watch a process reach completion",
+        "the ease made possible by a store of agricultural plenty",
+        "the controlled effort involved in carrying a gathered burden",
+        "the suspension of work within a scene of unfinished harvesting",
+        "the receptiveness of the figure to forces moving through the landscape"
+      ]
+    },
+    {
+      "n": 8,
+      "stem": "The movement from “Sometimes” through “Or” and “And sometimes” in stanza 2 chiefly presents autumn as",
+      "options": [
+        "a worker completing a single task with increasing haste",
+        "an observer gradually withdrawing from all human activity",
+        "a power changing from generosity to deliberate cruelty",
+        "a figure uncertain which agricultural occupation to choose",
+        "a presence imagined in several different harvest scenes"
+      ]
+    },
+    {
+      "n": 9,
+      "stem": "In line 22, the juxtaposition of “last” with “hours by hours” has the effect of",
+      "options": [
+        "turning an ordinary wait into evidence of the figure’s growing impatience",
+        "measuring the interval between completion of the harvest and the onset of winter",
+        "making the diminished yield seem a disappointment after the season’s abundance",
+        "extending attention to a process even as its completion approaches",
+        "preserving the appearance of continued production by denying that it will end"
+      ]
+    },
+    {
+      "n": 10,
+      "stem": "The shift from line 23 to line 24 most clearly moves from",
+      "options": [
+        "confidence in renewal to uncertainty about whether spring will return",
+        "a question about absent spring songs to attention to autumn’s own sounds",
+        "criticism of autumn’s silence to praise of human music",
+        "recollection of childhood to recognition of adult responsibility",
+        "celebration of spring’s beauty to rejection of its value"
+      ]
+    },
+    {
+      "n": 11,
+      "stem": "All of the following contribute directly to the portrayal of autumn’s “music” in stanza 3 EXCEPT",
+      "options": [
+        "“rosy hue” (line 26)",
+        "“a wailful choir” (line 27)",
+        "“loud bleat” (line 30)",
+        "“Hedge-crickets sing” (line 31)",
+        "“swallows twitter” (line 33)"
+      ]
+    },
+    {
+      "n": 12,
+      "stem": "The description of clouds that “bloom” the “soft-dying day” (line 25) is most significant because it",
+      "options": [
+        "carries the first stanza’s literal flowering into the evening landscape",
+        "sets the brilliance of the sky against a landscape from which beauty has been removed",
+        "makes the day’s fading the setting for a fresh appearance of color",
+        "converts a gradual loss of light into a promise of renewed growth",
+        "reveals the speaker’s wish to suspend the day before darkness can arrive"
+      ]
+    },
+    {
+      "n": 13,
+      "stem": "All of the following descriptions of the final stanza are supported by its language EXCEPT:",
+      "options": [
+        "Its opening question is followed by a direction to attend to the present season.",
+        "Its sequence moves from the gnats’ lament into a landscape that has become silent.",
+        "Its images give the movement of air a vocabulary associated with living creatures.",
+        "Its sounds arise from several different parts of the surrounding landscape.",
+        "Its description allows harvested ground to share in the evening’s color."
+      ]
+    },
+    {
+      "n": 14,
+      "stem": "Which interpretation of the relation between “wailful” (line 27) and “treble soft” (line 31) is best supported by the final stanza?",
+      "options": [
+        "They trace the speaker’s movement from personal grief toward emotional recovery.",
+        "They contrast the creatures’ awareness of ending with their capacity to ignore it.",
+        "They distinguish sounds that disturb the evening’s peace from sounds that restore it.",
+        "They make the later sound a correction of the emotional interpretation imposed on the earlier one.",
+        "They give different qualities to particular sounds within the season’s larger music."
+      ]
+    },
+    {
+      "n": 15,
+      "stem": "Which account best describes the poem’s overall progression?",
+      "options": [
+        "A failed harvest leads to a search for its cause and then a plea for spring.",
+        "A speaker leaves cultivated fields for a wilderness untouched by human activity.",
+        "Three successive years reveal a gradual loss of fertility and animal life.",
+        "Ripening abundance gives way to harvest figures and then to the sounds of an autumn evening.",
+        "The season’s arrival is narrated through a sequence of human memories and future predictions."
+      ]
+    }
+  ],
+  "key": [
+    "C",
+    "A",
+    "E",
+    "B",
+    "D",
+    "A",
+    "C",
+    "E",
+    "D",
+    "B",
+    "A",
+    "C",
+    "B",
+    "E",
+    "D"
+  ],
+  "explanations": [
+    "“Close bosom-friend” and “Conspiring with him” make autumn and the sun intimate collaborators. Their purpose is to “load and bless” the vines: “conspiring” is productive here, rather than sinister.",
+    "The later flowers provide food “for the bees,” who then seem to believe the warmth will continue. “Their clammy cells” in line 11 sustains that reference.",
+    "The phrase crosses the line ending and then adds “still more,” as though even the first “more” were insufficient. The syntax enacts an increase. The movement toward bees is a true contextual observation, but not the specific effect of this repetition.",
+    "The negative question implies that people have commonly encountered autumn amid its plenty. It introduces recognizable rural scenes rather than demanding a literal list of witnesses.",
+    "Autumn sits at ease amid stored plenty, with hair gently lifted by the wind. “Careless” here suggests being without cares. The scene offers no urgent problem that autumn is neglecting.",
+    "The harvesting hook “Spares the next swath” while autumn sleeps. Picture the cutting tool resting: the next strip of plants, including its flowers, remains standing.",
+    "“Laden” makes the burden tangible, while “Steady” describes the control needed to carry it across water. The neighboring scenes contain rest and patient watching, but this image particularly emphasizes balance during effort.",
+    "The alternatives locate the personified season in a granary, a field, a crossing, and beside a press. They form a series of possible embodiments rather than a continuous account of one worker’s decisions.",
+    "“Last” points toward completion, while “hours by hours” stretches the time spent attending to it. The process is nearly over, but receives lingering attention. That is different from pretending that it has no end.",
+    "The speaker asks where spring’s songs have gone, then redirects attention: “thou hast thy music too.” “Too” grants autumn its own music without needing to dismiss the beauty of spring.",
+    "“Rosy hue” describes color and is visual imagery. The other four choices name or characterize sounds, making them direct components of the stanza’s music.",
+    "The clouds give a “rosy hue” to a day that is fading. “Bloom” brings the associations of flowering to the appearance of sunset color. It does not literally restore flowers, promise future growth, or keep the day from ending.",
+    "The stanza continues from gnats to lambs, crickets, a redbreast, and swallows. It ends in sound, not silence. The wind may weaken, but that local fluctuation does not describe a silencing of the whole landscape.",
+    "“Wailful” characterizes the gnats’ plaintive sound, while “treble soft” gives the redbreast a different pitch and quality. Both contribute to the stanza’s varied music. A sequence of sounds is not by itself evidence of a psychological recovery in the speaker.",
+    "Stanza 1 dwells on ripening and fullness; stanza 2 embodies autumn in harvest scenes; stanza 3 attends to evening color and sound. These are shifts of emphasis, not three separate years or a detailed narrative of travel."
+  ]
+};
+    const distractorExplanations = [
+  {
+    "A": "Nothing suggests rivalry between the season and the sun.",
+    "B": "Their cooperation is explicit; separation is not the focus of these lines.",
+    "D": "No earlier conflict is established.",
+    "E": "Their activity nourishes living things rather than ignoring them."
+  },
+  {
+    "B": "The flowers supply the bees; they do not own the cells in line 11.",
+    "C": "The trees occur earlier and are not the recipients described in lines 9–11.",
+    "D": "The shells contain kernels, not the cells mentioned in line 11.",
+    "E": "The vines belong to the opening image and are not the antecedent here."
+  },
+  {
+    "A": "That is the larger transition in subject matter, but it does not explain the specific effect of the repeated “more” across the line break.",
+    "B": "Both appear, but the syntax adds them together rather than opposing cultivation and freedom.",
+    "C": "Flowers follow fruit in the list, but the poem does not suggest a loss that requires compensation.",
+    "D": "Autumn and the sun have already been identified as agents in lines 1–3."
+  },
+  {
+    "A": "The question extends the earlier description instead of doubting it.",
+    "C": "“Thee” addresses the season; no missing worker is being sought.",
+    "D": "“Who hath not seen” and “whoever seeks” make the presence accessible.",
+    "E": "The inclusive phrasing resists the idea of exclusive access."
+  },
+  {
+    "A": "There is no urgent danger in the granary scene.",
+    "B": "Rest does not establish an inability to act.",
+    "C": "The stored harvest is not presented as endangered.",
+    "E": "The word describes ease, not knowledge of an observer."
+  },
+  {
+    "B": "The brook belongs to the following image, and no crop is washed away.",
+    "C": "No failure to fill the granary is described.",
+    "D": "The poppies cause drowsiness; their scent does not disappear.",
+    "E": "The gleaner is a subsequent comparison, and keeps the load steady."
+  },
+  {
+    "A": "Patient watching describes the cider-press scene; the gleaner is balancing a load while crossing.",
+    "B": "Stored plenty and ease characterize the granary image more directly than the controlled crossing.",
+    "D": "The preceding sleeper suspends work; the gleaner is engaged in an action.",
+    "E": "That is prominent in hair lifted by wind; here the figure actively keeps the load steady."
+  },
+  {
+    "A": "The scenes involve different activities and emphasize ease or patience rather than haste.",
+    "B": "Autumn remains associated with human harvest activities throughout the stanza.",
+    "C": "The spared flowers and patient watching do not mark a turn to cruelty.",
+    "D": "Alternative depictions do not imply indecision within the personified figure."
+  },
+  {
+    "A": "“Patient look” directly resists growing impatience.",
+    "B": "The hours belong to the continuing pressing process, not a specified interval before winter.",
+    "C": "“Last” indicates the end of pressing, but no disappointment in the yield is expressed.",
+    "E": "“Last” acknowledges the ending; the line prolongs attention without denying completion."
+  },
+  {
+    "A": "The passage does not question whether another spring will come.",
+    "C": "The sounds that follow come from insects, animals, and birds.",
+    "D": "No childhood or adulthood is recalled here.",
+    "E": "“Too” adds autumn’s value; it does not require rejecting spring."
+  },
+  {
+    "B": "A “choir” characterizes the gnats’ collective sound.",
+    "C": "“Bleat” names the lambs’ call.",
+    "D": "“Sing” explicitly presents the crickets as making music.",
+    "E": "“Twitter” names the swallows’ sound."
+  },
+  {
+    "A": "The verb recalls flowering, but it is applied figuratively to clouds and light, not to flowers continuing to open.",
+    "B": "The clouds also touch the stubble-plains with a rosy hue, so beauty is not confined to the sky.",
+    "D": "The image joins beauty to fading; a promise of future growth would go beyond what it states.",
+    "E": "The image is attentive to fading, but does not articulate a wish to stop it."
+  },
+  {
+    "A": "“Think not of them” redirects the question about spring toward autumn’s own music.",
+    "C": "The wind “lives or dies,” lending its fluctuations the vocabulary of life.",
+    "D": "River trees, hills, hedges, a garden plot, and the sky locate the various sounds.",
+    "E": "The clouds touch “stubble-plains” with “rosy hue,” explicitly coloring harvested land."
+  },
+  {
+    "A": "The sounds vary, but the stanza does not narrate a personal grief followed by recovery.",
+    "B": "The personified mourning does not establish literal awareness in gnats or ignorance in the bird.",
+    "C": "This imports a disruption-and-restoration sequence; both sounds belong to the music offered for appreciation.",
+    "D": "The later sound adds to the earlier one; the poem does not retract or correct “wailful.”"
+  },
+  {
+    "A": "The harvest is abundant, and the speaker redirects attention away from absent spring songs.",
+    "B": "The last stanza still includes stubble-plains and a garden-croft.",
+    "C": "No sequence of three years is established.",
+    "E": "The speaker does not organize the poem around personal memories or predictions."
+  }
+];
+    const STORAGE_KEY = bank.storage_id;
+    const COLOR_KEY = "ap-lit-to-autumn-colors-v1";
+    const LETTERS = "ABCDE";
+    const $ = (id) => document.getElementById(id);
+    const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[char]);
+
+    const presets = [
+      { name: "Paper", background: "#f8f7f2", text: "#24342d" },
+      { name: "Warm", background: "#fff1e5", text: "#402c24" },
+      { name: "Sage", background: "#eaf2e9", text: "#243a2e" },
+      { name: "Dusk", background: "#222d3a", text: "#f7f3e9" },
+      { name: "Ink", background: "#191e28", text: "#eff0ea" }
+    ];
+    const defaultColors = { background: presets[0].background, text: presets[0].text };
+
+    function newState() {
+      return {
+        answers: Array(15).fill(null),
+        eliminated: Array.from({ length: 15 }, () => Array(5).fill(false)),
+        flags: Array(15).fill(false),
+        confidence: Array(15).fill(null),
+        index: 0,
+        view: "question",
+        submitted: false,
+        notes: ""
+      };
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!saved || !Array.isArray(saved.answers) || saved.answers.length !== 15) return newState();
+        const state = { ...newState(), ...saved };
+        state.answers = state.answers.map((answer) => LETTERS.includes(answer) ? answer : null);
+        state.eliminated = Array.from({ length: 15 }, (_, i) =>
+          Array.from({ length: 5 }, (_, k) => Boolean(saved.eliminated?.[i]?.[k]))
+        );
+        state.flags = Array.from({ length: 15 }, (_, i) => Boolean(saved.flags?.[i]));
+        state.confidence = Array.from({ length: 15 }, (_, i) =>
+          ["Low", "Medium", "High"].includes(saved.confidence?.[i]) ? saved.confidence[i] : null
+        );
+        state.index = Number.isInteger(saved.index) && saved.index >= 0 && saved.index < 15 ? saved.index : 0;
+        state.view = ["question", "review", "results"].includes(saved.view) ? saved.view : "question";
+        state.submitted = Boolean(saved.submitted);
+        if (!state.submitted && state.view === "results") state.view = "question";
+        state.notes = typeof saved.notes === "string" ? saved.notes : "";
+        return state;
+      } catch {
+        return newState();
+      }
+    }
+
+    let state = loadState();
+    let storageAvailable = true;
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      catch { storageAvailable = false; }
+    }
+
+    function hexToRgb(hex) {
+      return [1, 3, 5].map((offset) => parseInt(hex.slice(offset, offset + 2), 16));
+    }
+    function rgbToHex(rgb) {
+      return "#" + rgb.map((value) => Math.round(value).toString(16).padStart(2, "0")).join("");
+    }
+    function blend(first, second, shareOfSecond) {
+      const a = hexToRgb(first), b = hexToRgb(second);
+      return rgbToHex(a.map((value, i) => value * (1 - shareOfSecond) + b[i] * shareOfSecond));
+    }
+    function luminance(hex) {
+      const channels = hexToRgb(hex).map((value) => {
+        const normalized = value / 255;
+        return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+      });
+      return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+    }
+    function contrastRatio(first, second) {
+      const values = [luminance(first), luminance(second)].sort((a, b) => b - a);
+      return (values[0] + 0.05) / (values[1] + 0.05);
+    }
+    function validHex(value) { return /^#[0-9a-f]{6}$/i.test(value); }
+    function loadColors() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(COLOR_KEY));
+        if (validHex(saved?.background) && validHex(saved?.text)) return saved;
+      } catch { /* Storage can be unavailable for local files in some browsers. */ }
+      return { ...defaultColors };
+    }
+
+    let colors = loadColors();
+    function applyColors() {
+      const root = document.documentElement.style;
+      root.setProperty("--page-bg", colors.background);
+      root.setProperty("--page-text", colors.text);
+      root.setProperty("--surface", blend(colors.background, colors.text, 0.025));
+      root.setProperty("--soft", blend(colors.background, colors.text, 0.085));
+      root.setProperty("--hover", blend(colors.background, colors.text, 0.11));
+      root.setProperty("--border", blend(colors.background, colors.text, 0.25));
+      root.setProperty("--muted", blend(colors.background, colors.text, 0.68));
+      root.setProperty("--accent", colors.text);
+      root.setProperty("--accent-text", colors.background);
+      root.setProperty("--success", blend(colors.text, colors.background, 0.12));
+      const darkBackground = luminance(colors.background) < 0.35;
+      const wrongColor = darkBackground ? "#ffb4a8" : "#a82929";
+      root.setProperty("--error", wrongColor);
+      root.setProperty("--wrong-border", wrongColor);
+      root.setProperty("--wrong-tint", blend(colors.background, "#cf4747", darkBackground ? 0.20 : 0.12));
+      root.setProperty("--wrong-choice-bg", blend(colors.background, "#cf4747", darkBackground ? 0.27 : 0.18));
+      $("background-color").value = colors.background;
+      $("text-color").value = colors.text;
+      const ratio = contrastRatio(colors.background, colors.text);
+      $("contrast").textContent = ratio < 4.5
+        ? `Low contrast (${ratio.toFixed(1)}:1). Try colors with a stronger difference for easier reading.`
+        : `Text contrast: ${ratio.toFixed(1)}:1`;
+      $("contrast").classList.toggle("warning", ratio < 4.5);
+      document.querySelectorAll("[data-preset]").forEach((button) => {
+        const preset = presets[Number(button.dataset.preset)];
+        button.setAttribute("aria-pressed", String(preset.background === colors.background && preset.text === colors.text));
+      });
+      try { localStorage.setItem(COLOR_KEY, JSON.stringify(colors)); } catch { /* Still works for this session. */ }
+    }
+
+    $("presets").innerHTML = presets.map((preset, index) => `
+      <button class="preset" type="button" data-preset="${index}" aria-pressed="false">
+        <span class="swatch" style="background:${preset.background}"></span>${preset.name}
+      </button>
+    `).join("");
+    document.querySelectorAll("[data-preset]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const preset = presets[Number(button.dataset.preset)];
+        colors = { background: preset.background, text: preset.text };
+        applyColors();
+      });
+    });
+    $("background-color").addEventListener("input", (event) => {
+      colors.background = event.target.value;
+      applyColors();
+    });
+    $("text-color").addEventListener("input", (event) => {
+      colors.text = event.target.value;
+      applyColors();
+    });
+    $("reset-colors").addEventListener("click", () => {
+      colors = { ...defaultColors };
+      applyColors();
+    });
+    function showColors(visible) {
+      $("color-panel").hidden = !visible;
+      $("color-toggle").setAttribute("aria-expanded", String(visible));
+      if (visible) $("background-color").focus();
+      else $("color-toggle").focus();
+    }
+    $("color-toggle").addEventListener("click", () => showColors($("color-panel").hidden));
+    $("close-colors").addEventListener("click", () => showColors(false));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !$("color-panel").hidden) showColors(false);
+    });
+    applyColors();
+
+    $("poem").innerHTML = bank.lines.map((line, index) => `
+      <div class="line ${line.stanzaStart ? "stanza" : ""}">
+        <span class="line-number">${index + 1}</span><span class="line-text">${escapeHtml(line.text)}</span>
+      </div>
+    `).join("");
+
+    function mobileView(poemVisible) {
+      document.body.classList.toggle("show-poem", poemVisible);
+      $("poem-tab").setAttribute("aria-selected", String(poemVisible));
+      $("question-tab").setAttribute("aria-selected", String(!poemVisible));
+    }
+    $("poem-tab").addEventListener("click", () => mobileView(true));
+    $("question-tab").addEventListener("click", () => mobileView(false));
+
+    function goToQuestion(index) {
+      state.index = index;
+      state.view = "question";
+      saveState();
+      render();
+      $("panel").scrollTop = 0;
+      mobileView(false);
+    }
+    function score() {
+      return state.answers.reduce((count, answer, index) => count + Number(answer === bank.key[index]), 0);
+    }
+    function updateNavigation() {
+      $("progress").textContent = `${state.answers.filter(Boolean).length} of 15 answered`;
+      $("back").disabled = state.view === "question" && state.index === 0;
+      $("back").textContent = state.view === "question" ? "Back" : "Questions";
+      $("next").textContent = state.view === "question"
+        ? (state.index === 14 ? (state.submitted ? "Results" : "Review") : "Next")
+        : (state.submitted ? "Review explanations" : "Return to question");
+      $("review").textContent = state.submitted ? "Results" : "Review answers";
+    }
+
+    function renderQuestion() {
+      const index = state.index;
+      const question = bank.questions[index];
+      const answer = state.answers[index];
+      const options = question.options.map((option, optionIndex) => {
+        const letter = LETTERS[optionIndex];
+        const eliminated = state.eliminated[index][optionIndex];
+        return `
+          <div class="option-row">
+            <button class="choice ${eliminated ? "is-eliminated" : ""} ${state.submitted && answer === letter && answer !== bank.key[index] ? "is-wrong-choice" : ""}" type="button"
+              data-choice="${letter}" aria-pressed="${answer === letter}" ${state.submitted ? "disabled" : ""}>
+              <span class="letter">${letter}</span><span class="choice-text">${escapeHtml(option)}</span>
+            </button>
+            ${state.submitted ? "" : `<button class="strike" type="button" data-eliminate="${letter}"
+              aria-label="${eliminated ? "Restore" : "Cross out"} option ${letter}"
+              title="${eliminated ? "Restore" : "Cross out"} option ${letter}"
+              aria-pressed="${eliminated}">×</button>`}
+          </div>
+        `;
+      }).join("");
+      const confidence = state.submitted ? "" : `
+        <div class="confidence">
+          <p>How confident are you?</p>
+          <div class="segments" role="group" aria-label="Confidence for question ${question.n}">
+            ${["Low", "Medium", "High"].map((level) => `
+              <button class="button" type="button" data-confidence="${level}"
+                aria-pressed="${state.confidence[index] === level}">${level}</button>
+            `).join("")}
+          </div>
+        </div>
+      `;
+      const otherChoices = state.submitted ? `
+        <details class="other-choices" ${answer && answer !== bank.key[index] ? "open" : ""}>
+          <summary>${/\bEXCEPT\b/.test(question.stem)
+            ? "Why the other choices are supported"
+            : "Why the other choices are wrong"}</summary>
+          <ul>
+            ${[...LETTERS].filter((letter) => letter !== bank.key[index]).map((letter) => `
+              <li class="${answer === letter ? "your-choice" : ""}">
+                <span class="letter-label">${letter}.</span>
+                ${escapeHtml(distractorExplanations[index][letter])}
+                ${answer === letter ? '<span class="your-choice-note"> Your choice</span>' : ""}
+              </li>
+            `).join("")}
+          </ul>
+        </details>
+      ` : "";
+      const feedback = state.submitted ? `
+        <div class="feedback ${answer && answer !== bank.key[index] ? "is-wrong" : ""}">
+          <strong class="${answer === bank.key[index] ? "correct" : "incorrect"}">
+            ${answer === bank.key[index] ? "✓ Correct" : answer ? "✗ Incorrect" : "Unanswered"}
+            · ${answer ? `You chose ${answer}` : "No answer selected"}
+            · Correct answer: ${bank.key[index]}
+          </strong>
+          <p class="answer-explanation">${escapeHtml(bank.explanations[index])}</p>
+          ${otherChoices}
+        </div>
+      ` : `
+        <div class="utility">
+          <span>${storageAvailable ? "Progress saved in this browser" : "Browser storage unavailable; keep this page open"}</span>
+          <button id="clear-answer" class="text-button" type="button">Clear answer</button>
+        </div>
+      `;
+
+      $("panel").innerHTML = `
+        <div class="question-head">
+          <h2>Question ${question.n} of 15</h2>
+          <label class="flag"><input id="flag" type="checkbox" ${state.flags[index] ? "checked" : ""}>Mark for review</label>
+        </div>
+        <p class="stem">${escapeHtml(question.stem)}</p>
+        <div class="options">${options}</div>
+        ${state.submitted ? "" : '<p class="helper">Use × to cross out an option. Tap it again to restore it.</p>'}
+        ${confidence}${feedback}
+      `;
+
+      $("flag").addEventListener("change", (event) => {
+        state.flags[index] = event.target.checked;
+        saveState();
+      });
+      $("panel").querySelectorAll("[data-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const letter = button.dataset.choice;
+          state.answers[index] = letter;
+          state.eliminated[index][LETTERS.indexOf(letter)] = false;
+          saveState();
+          render();
+          $("panel").querySelector(`[data-choice="${letter}"]`).focus();
+        });
+      });
+      $("panel").querySelectorAll("[data-eliminate]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const letter = button.dataset.eliminate;
+          const position = LETTERS.indexOf(letter);
+          state.eliminated[index][position] = !state.eliminated[index][position];
+          if (state.eliminated[index][position] && state.answers[index] === letter) state.answers[index] = null;
+          saveState();
+          render();
+          $("panel").querySelector(`[data-eliminate="${letter}"]`).focus();
+        });
+      });
+      $("panel").querySelectorAll("[data-confidence]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const level = button.dataset.confidence;
+          state.confidence[index] = state.confidence[index] === level ? null : level;
+          saveState();
+          render();
+          $("panel").querySelector(`[data-confidence="${level}"]`).focus();
+        });
+      });
+      $("clear-answer")?.addEventListener("click", () => {
+        state.answers[index] = null;
+        saveState();
+        render();
+      });
+    }
+
+    function reviewGrid(showResults) {
+      return `<div class="review-grid">${bank.questions.map((question, index) => {
+        const answer = state.answers[index];
+        const label = showResults
+          ? (answer === bank.key[index] ? "Correct" : answer ? "Incorrect" : "Unanswered")
+          : (answer ? `Answer ${answer}` : "Unanswered");
+        return `
+          <button class="button review-cell ${answer ? "answered" : ""} ${showResults && answer && answer !== bank.key[index] ? "is-wrong" : ""} ${state.flags[index] ? "flagged" : ""}"
+            type="button" data-go="${index}">
+            <b>${question.n}</b><small>${label}${state.flags[index] ? " · Flagged" : ""}</small>
+          </button>
+        `;
+      }).join("")}</div>`;
+    }
+    function bindReviewGrid() {
+      $("panel").querySelectorAll("[data-go]").forEach((button) => {
+        button.addEventListener("click", () => goToQuestion(Number(button.dataset.go)));
+      });
+    }
+
+    function renderReview() {
+      const unanswered = 15 - state.answers.filter(Boolean).length;
+      const flags = state.flags.filter(Boolean).length;
+      $("panel").innerHTML = `
+        <h2>Review your answers</h2>
+        <p class="review-intro">${unanswered} unanswered · ${flags} marked for review. Select a question to return to it.</p>
+        ${reviewGrid(false)}
+        <p class="review-note">You can change answers, crossed-out options, and confidence before submitting.</p>
+        <label class="notes-label" for="notes">Any words you did not know? <small>(optional)</small></label>
+        <textarea id="notes" placeholder="Keep unfamiliar vocabulary separate from interpretation mistakes.">${escapeHtml(state.notes)}</textarea>
+        <div class="actions">
+          <button id="submit" class="button primary" type="button">Submit ${unanswered ? `with ${unanswered} unanswered` : "answers"}</button>
+          <button id="keep-working" class="button" type="button">Keep working</button>
+        </div>
+        <p class="review-note">Submission locks this attempt and reveals the score. Explanations appear when you choose to review them.</p>
+      `;
+      bindReviewGrid();
+      $("notes").addEventListener("input", (event) => { state.notes = event.target.value; saveState(); });
+      $("keep-working").addEventListener("click", () => goToQuestion(state.index));
+      $("submit").addEventListener("click", () => {
+        state.submitted = true;
+        state.view = "results";
+        saveState();
+        render();
+        $("panel").scrollTop = 0;
+      });
+    }
+
+    function summary() {
+      return [
+        "AP Literature Practice — To Autumn",
+        `Set: ${bank.id}`,
+        `Revision: ${bank.revision}`,
+        `Score: ${score()}/15 (${Math.round(score() / 15 * 100)}%)`,
+        "",
+        ...bank.questions.map((question, index) =>
+          `${question.n}: ${state.answers[index] || "Unanswered"} | confidence: ${state.confidence[index] || "not recorded"} | flagged: ${state.flags[index] ? "yes" : "no"}`
+        ),
+        "",
+        `Unfamiliar words: ${state.notes || "none recorded"}`,
+        "",
+        "Please diagnose my answers, separating vocabulary gaps from interpretation errors."
+      ].join("\n");
+    }
+
+    function renderResults() {
+      $("panel").innerHTML = `
+        <h2>Practice complete</h2>
+        <div class="score">${score()} / 15 <span>${Math.round(score() / 15 * 100)}%</span></div>
+        <p class="result-info">This is your score for this practice set, not a predicted AP exam score. Your attempt is saved in this browser.</p>
+        <div class="actions">
+          <button id="explanations" class="button primary" type="button">Review explanations</button>
+          <button id="copy-results" class="button" type="button">Copy results</button>
+          <button id="download-results" class="button" type="button">Download answers</button>
+        </div>
+        <p id="copy-status" class="status" role="status"></p>
+        <details><summary>View answer summary</summary><textarea id="result-summary" readonly>${escapeHtml(summary())}</textarea></details>
+        ${reviewGrid(true)}
+        <button id="restart" class="text-button" type="button">Start a new attempt</button>
+      `;
+      bindReviewGrid();
+      $("explanations").addEventListener("click", () => {
+        const firstMiss = state.answers.findIndex((answer, index) => answer !== bank.key[index]);
+        goToQuestion(firstMiss < 0 ? 0 : firstMiss);
+      });
+      $("copy-results").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(summary());
+          $("copy-status").textContent = "Copied. Paste your results into our conversation.";
+        } catch {
+          const field = $("result-summary");
+          field.parentElement.open = true;
+          field.focus();
+          field.select();
+          $("copy-status").textContent = "Select and copy the answer summary below.";
+        }
+      });
+      $("download-results").addEventListener("click", () => {
+        const blob = new Blob([summary()], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "to-autumn-custom-practice-answers.txt";
+        anchor.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      });
+      $("restart").addEventListener("click", () => {
+        const box = document.createElement("div");
+        box.className = "actions";
+        box.innerHTML = `
+          <p class="review-note">Starting again clears this attempt. Download your answers first if you want to keep them.</p>
+          <button id="confirm-restart" class="button primary" type="button">Clear attempt and start again</button>
+          <button id="cancel-restart" class="button" type="button">Keep this attempt</button>
+        `;
+        $("restart").replaceWith(box);
+        $("confirm-restart").addEventListener("click", () => {
+          state = newState();
+          saveState();
+          render();
+          $("panel").scrollTop = 0;
+        });
+        $("cancel-restart").addEventListener("click", renderResults);
+      });
+    }
+
+    function render() {
+      updateNavigation();
+      $("panel").classList.toggle(
+        "is-wrong",
+        state.view === "question" && state.submitted && Boolean(state.answers[state.index]) &&
+          state.answers[state.index] !== bank.key[state.index]
+      );
+      if (state.view === "review") renderReview();
+      else if (state.view === "results") renderResults();
+      else renderQuestion();
+    }
+
+    $("back").addEventListener("click", () => goToQuestion(Math.max(0, state.index - (state.view === "question" ? 1 : 0))));
+    $("next").addEventListener("click", () => {
+      if (state.view === "question") {
+        if (state.index < 14) goToQuestion(state.index + 1);
+        else {
+          state.view = state.submitted ? "results" : "review";
+          saveState();
+          render();
+          $("panel").scrollTop = 0;
+        }
+      } else if (state.submitted) goToQuestion(0);
+      else goToQuestion(state.index);
+    });
+    $("review").addEventListener("click", () => {
+      state.view = state.submitted ? "results" : "review";
+      saveState();
+      render();
+      $("panel").scrollTop = 0;
+      mobileView(false);
+    });
+    render();
+  </script>
+</body>
+</html>
