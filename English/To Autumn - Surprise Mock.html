@@ -131,8 +131,7 @@
     .visual-stage .flag-art { width: min(100%, 460px); }
     .equation { font-size: clamp(30px, 4vw, 50px); text-align: center; }
     .equation small { display: block; margin-bottom: 20px; color: var(--muted); font: 600 14px system-ui, sans-serif; }
-    .visual-caption { color: var(--muted); font: 14px/1.5 system-ui, sans-serif; }
-    .bonus-note { color: var(--muted); font: 14px/1.5 system-ui, sans-serif; }
+    .bonus-chip { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid #d6b96d; border-radius: 20px; color: #f9e5a4; font: 700 12px/1 system-ui, sans-serif; white-space: nowrap; }
     .visual-open { display: none; margin: -5px 0 18px; }
     a { color: var(--page-text); }
 
@@ -264,6 +263,49 @@
       #progress { display: none; }
       .footer-middle .button { max-width: 106px; }
     }
+
+    .wildcard-mode .topbar { background: #0a4234; color: #f9f2df; border-bottom: 2px solid #b89b5e; }
+    .wildcard-mode .subtitle { color: #d6e3d8; }
+    .wildcard-mode .top-actions .button { background: #f9f2df; color: #123d30; border-color: #d3ba81; }
+    .wildcard-mode .layout { background: radial-gradient(circle at 70% 15%, #1b7054 0, #0c4c3c 45%, #072f29 100%); }
+    .wildcard-mode .passage { color: #fff7e7; border-right-color: #bc9d60; background: radial-gradient(circle at 30% 20%, #1d7054 0, #0d493a 55%, #07342d 100%); }
+    .wildcard-mode .author { color: #e6dbc0; }
+    .wildcard-mode .visual-stage { border: 1px solid #c7a96b; background: #052f29a8; box-shadow: inset 0 0 0 1px #ffffff1a, 0 18px 40px #001c1870; }
+    .wildcard-mode .equation small { color: #ead8ab; }
+    .wildcard-mode .question-pane, .wildcard-mode .question-pane.is-wrong { color: #fff8e9; border: 2px solid #c6a765; background: linear-gradient(155deg, #125540, #0a3e33); box-shadow: 0 18px 45px #001c186b, inset 0 0 0 1px #ffffff1b; }
+    .wildcard-mode .question-head { align-items: center; flex-wrap: wrap; padding-bottom: 17px; border-bottom: 1px solid #d6bc7b66; }
+    .wildcard-mode .question-head h2 { display: flex; align-items: center; gap: 11px; }
+    .wildcard-mode .question-head h2::before { content: "♠"; display: grid; place-items: center; width: 34px; height: 34px; border: 3px dashed #fff0c1; border-radius: 50%; background: #c5a45f; color: #133b30; font: 700 22px/1 Georgia, serif; }
+    .wildcard-mode .flag input { accent-color: #d8ba74; }
+    .wildcard-mode .choice { border-color: #dfd0ad; background: #fff9ec; color: #183a30; box-shadow: 0 2px 0 #072b2455; }
+    .wildcard-mode .choice:hover:not(:disabled), .wildcard-mode .strike:hover:not(:disabled) { background: #fff0cf; }
+    .wildcard-mode .choice[aria-pressed="true"] { border-color: #d7b366; background: #f7e3aa; box-shadow: 0 0 0 2px #e1c27b66; }
+    .wildcard-mode .choice .letter { border-color: #8a3029; background: #ad3c34; color: #fff8ed; font-weight: 700; }
+    .wildcard-mode .choice[aria-pressed="true"] .letter { border-color: #0c4939; background: #0c4939; color: #fff7e8; }
+    .wildcard-mode .choice.is-eliminated .choice-text { color: #6b6e62; }
+    .wildcard-mode .choice.is-wrong-choice { border-color: #af493b; background: #f4d7d0; color: #5e231e; }
+    .wildcard-mode .strike { border-color: #d8c7a4; background: #fff9ec; color: #183a30; }
+    .wildcard-mode .strike[aria-pressed="true"] { background: #e9d5a4; border-color: #c2a15d; }
+    .wildcard-mode .helper, .wildcard-mode .utility, .wildcard-mode .confidence p { color: #dce8de; }
+    .wildcard-mode .segments .button { border-color: #b49e6c; background: #fff8e9; color: #183a30; }
+    .wildcard-mode .segments .button[aria-pressed="true"] { border-color: #e4ca88; background: #e5c875; color: #183a30; }
+    .wildcard-mode .text-button { color: #f8e2a8; }
+    .wildcard-mode .feedback { border-left-color: #d9ba72; }
+    .wildcard-mode .feedback.is-wrong { border-left-color: #f0a69c; }
+    .wildcard-mode .correct { color: #cdeab8; }
+    .wildcard-mode .incorrect, .wildcard-mode .other-choices .your-choice-note { color: #ffc0b8; }
+    .wildcard-mode .other-choices { border-top-color: #d6bc7b66; }
+    .wildcard-mode .other-choices li.your-choice { background: #803f3977; }
+    .wildcard-mode .footer { border-color: #bc9d60; background: #093b30; }
+    .wildcard-mode .footer .button { border-color: #c8ac74; background: #fff8e9; color: #153b30; }
+    .wildcard-mode .footer .button.primary { border-color: #e2c47e; background: #d8b66b; color: #13392e; }
+    .wildcard-mode #progress { color: #e0e9df; }
+    .wildcard-mode .mobile-tabs { border-bottom-color: #bc9d60; background: #0a4234; }
+    .wildcard-mode .mobile-tabs button { background: #0a4234; color: #fff5de; }
+    .wildcard-mode .mobile-tabs button[aria-selected="true"] { border-bottom-color: #dbb86d; }
+    @media (max-width: 680px) {
+      .wildcard-mode .question-pane, .wildcard-mode .question-pane.is-wrong { margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+    }
   </style>
 </head>
 <body>
@@ -318,9 +360,7 @@
         </div>
         <div id="wildcard-content" hidden>
           <h2 id="wildcard-title">Wildcard</h2>
-          <p class="author">A brief interruption</p>
           <div id="wildcard-visual" class="visual-stage"></div>
-          <p id="wildcard-caption" class="visual-caption"></p>
         </div>
       </section>
       <section id="panel" class="question-pane" aria-label="Questions"></section>
@@ -773,11 +813,11 @@
 ];
     const bonusBank = {
       questions: [
-        { kind: "bonus", topic: "Flag & capital", stem: "This flag belongs to a country with which capital city?", options: ["Rio de Janeiro", "Brasília", "São Paulo", "Buenos Aires", "Lisbon"], visual: `<svg class="flag-art" viewBox="0 0 720 504" role="img" aria-label="Green flag with a yellow diamond and blue globe"><rect width="720" height="504" fill="#119447"/><path d="M360 43 682 252 360 461 38 252Z" fill="#f8d447"/><circle cx="360" cy="252" r="118" fill="#253c94"/><path d="M244 236c83-20 167-3 231 43" fill="none" stroke="#fff" stroke-width="18"/><g fill="#fff"><circle cx="352" cy="185" r="4"/><circle cx="399" cy="207" r="3"/><circle cx="321" cy="230" r="3"/><circle cx="391" cy="311" r="4"/><circle cx="308" cy="291" r="3"/></g></svg>`, caption: "One flag. One capital. Five ways to miss your flight." },
-        { kind: "bonus", topic: "Synthetic biology", stem: "A student wants E. coli to produce a fluorescent protein from a synthesized coding sequence. Which plasmid design is most likely to work?", options: ["A bacterial promoter and ribosome-binding site placed before the coding sequence", "An origin of replication, but no promoter before the coding sequence", "The coding sequence inserted backward behind a bacterial promoter", "A transcription terminator placed immediately before the coding sequence", "A promoter recognized only by human cells before the coding sequence"], visual: `<div class="equation"><small>Gene expression</small>DNA → RNA → protein</div>`, caption: "The bacteria would appreciate readable instructions." },
-        { kind: "bonus", topic: "Face merge", stem: "Which two celebrities were combined to generate this portrait?", options: ["Taylor Swift and Dwayne Johnson", "Adele and Jason Momoa", "Billie Eilish and Vin Diesel", "Jennifer Lawrence and Chris Hemsworth", "Lady Gaga and John Cena"], visual: `<img class="portrait" src="assets/celebrity-blend.png" alt="Generated portrait blending two celebrities">`, caption: "An AI-generated blend, rather than a photograph of a real person." },
-        { kind: "bonus", topic: "Math", stem: "A $75 item is discounted by 20%. What is the sale price?", options: ["$55", "$57.50", "$60", "$65", "$70"], visual: `<div class="equation"><small>Percentage change</small>$75 × (1 − 0.20) = ?</div>`, caption: "The discount is real. The item is hypothetical." },
-        { kind: "bonus", topic: "Calculus", stem: "What is the derivative of this function?", options: ["3x − 4", "6x − 4", "6x + 7", "x³ − 2x² + 7x", "6x"], visual: `<div class="equation"><small>Differentiate</small>f(x) = 3x² − 4x + 7</div>`, caption: "Keats did not ask for this, but here we are." }
+        { kind: "bonus", topic: "Flag & capital", stem: "This flag belongs to a country with which capital city?", options: ["Rio de Janeiro", "Brasília", "São Paulo", "Buenos Aires", "Lisbon"], visual: `<svg class="flag-art" viewBox="0 0 720 504" role="img" aria-label="Green flag with a yellow diamond and blue globe"><rect width="720" height="504" fill="#119447"/><path d="M360 43 682 252 360 461 38 252Z" fill="#f8d447"/><circle cx="360" cy="252" r="118" fill="#253c94"/><path d="M244 236c83-20 167-3 231 43" fill="none" stroke="#fff" stroke-width="18"/><g fill="#fff"><circle cx="352" cy="185" r="4"/><circle cx="399" cy="207" r="3"/><circle cx="321" cy="230" r="3"/><circle cx="391" cy="311" r="4"/><circle cx="308" cy="291" r="3"/></g></svg>` },
+        { kind: "bonus", topic: "Synthetic biology", stem: "A student wants E. coli to produce a fluorescent protein from a synthesized coding sequence. Which plasmid design is most likely to work?", options: ["A bacterial promoter and ribosome-binding site placed before the coding sequence", "An origin of replication, but no promoter before the coding sequence", "The coding sequence inserted backward behind a bacterial promoter", "A transcription terminator placed immediately before the coding sequence", "A promoter recognized only by human cells before the coding sequence"], visual: `<div class="equation"><small>Gene expression</small>DNA → RNA → protein</div>` },
+        { kind: "bonus", topic: "Face merge", stem: "Which two celebrities were combined to generate this portrait?", options: ["Taylor Swift and Dwayne Johnson", "Adele and Jason Momoa", "Billie Eilish and Vin Diesel", "Jennifer Lawrence and Chris Hemsworth", "Lady Gaga and John Cena"], visual: `<img class="portrait" src="assets/celebrity-blend.png" alt="Generated portrait blending two celebrities">` },
+        { kind: "bonus", topic: "Math", stem: "A $75 item is discounted by 20%. What is the sale price?", options: ["$55", "$57.50", "$60", "$65", "$70"], visual: `<div class="equation"><small>Percentage change</small>$75 × (1 − 0.20) = ?</div>` },
+        { kind: "bonus", topic: "Calculus", stem: "What is the derivative of this function?", options: ["3x − 4", "6x − 4", "6x + 7", "x³ − 2x² + 7x", "6x"], visual: `<div class="equation"><small>Differentiate</small>f(x) = 3x² − 4x + 7</div>` }
       ],
       key: ["B", "A", "A", "C", "B"],
       explanations: [
@@ -1039,13 +1079,13 @@
     }
     function renderPassage(question) {
       const bonus = question.kind === "bonus";
+      document.body.classList.toggle("wildcard-mode", bonus);
       $("poem-content").hidden = bonus;
       $("wildcard-content").hidden = !bonus;
       $("poem-tab").textContent = bonus ? "Visual" : "Poem";
       if (bonus) {
         $("wildcard-title").textContent = question.topic;
         $("wildcard-visual").innerHTML = question.visual;
-        $("wildcard-caption").textContent = question.caption;
       }
     }
     function updateNavigation() {
@@ -1125,14 +1165,13 @@
 
       $("panel").innerHTML = `
         <div class="question-head">
-          <h2>${question.kind === "bonus" ? "Wildcard question" : `Question ${question.n} of 15`}</h2>
+          <h2>${question.kind === "bonus" ? 'Wildcard <small class="bonus-chip">+1 point</small>' : `Question ${question.n} of 15`}</h2>
           <label class="flag"><input id="flag" type="checkbox" ${state.flags[index] ? "checked" : ""}>Mark for review</label>
         </div>
         ${question.kind === "bonus" ? '<button id="show-visual" class="button visual-open" type="button">View picture or equation</button>' : ""}
         <p class="stem">${escapeHtml(question.stem)}</p>
         <div class="options">${options}</div>
         ${state.submitted ? "" : '<p class="helper">Use × to cross out an option. Tap it again to restore it.</p>'}
-        ${question.kind === "bonus" ? '<p class="bonus-note">Bonus point if correct. A miss cannot lower your To Autumn score.</p>' : ""}
         ${confidence}${feedback}
       `;
 
