@@ -4,7 +4,7 @@ These original practice quizzes run in the browser. Open a link below to start; 
 
 ## English · AP Literature
 
-- [To Autumn · Surprise Mock](https://eutopia2415.github.io/practices/English/To%20Autumn%20-%20Surprise%20Mock.html) ([file](English/To%20Autumn%20-%20Surprise%20Mock.html)) — 15 poem questions with 5 surprise bonus questions
+- [To Autumn](https://eutopia2415.github.io/practices/English/To%20Autumn.html) ([file](English/To%20Autumn.html))
 - [To Autumn · Custom Practice](https://eutopia2415.github.io/practices/English/To%20Autumn%20-%20Custom%20Practice.html) ([file](English/To%20Autumn%20-%20Custom%20Practice.html))
 - [To Autumn · New Medium-Hard Test](https://eutopia2415.github.io/practices/English/To%20Autumn%20-%20New%20Medium-Hard%20Test.html) ([file](English/To%20Autumn%20-%20New%20Medium-Hard%20Test.html))
 - [To Autumn · Clean Practice](https://eutopia2415.github.io/practices/English/To%20Autumn%20-%20Clean%20Practice.html) ([file](English/To%20Autumn%20-%20Clean%20Practice.html))
