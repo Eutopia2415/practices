@@ -13,5 +13,3 @@ The [root practice link](https://eutopia2415.github.io/practices/) opens To Autu
 ## Business · Unit 1
 
 - [AP Business Unit 1 Practice](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Practice.html) ([file](Business/AP%20Business%20Unit%201%20Practice.html))
-
-Because grading happens in the browser, answer keys are visible to anyone who inspects the page source. These practices are not affiliated with or endorsed by the College Board.
