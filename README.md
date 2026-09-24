@@ -15,3 +15,4 @@ The [root practice link](https://eutopia2415.github.io/practices/) opens To Autu
 ## Business · Unit 1
 
 - [AP Business Unit 1 Practice](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Practice.html) ([file](Business/AP%20Business%20Unit%201%20Practice.html))
+- [AP Business Unit 1 Worksheet · September 24](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Worksheet%202026-09-24.html) ([file](Business/AP%20Business%20Unit%201%20Worksheet%202026-09-24.html)) — 18 new questions on Topics 1.1–1.3.
