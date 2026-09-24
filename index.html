@@ -185,6 +185,14 @@
     .feedback { margin-top: 24px; border-left: 3px solid var(--accent); padding-left: 16px; font-size: 16px; line-height: 1.55; }
     .feedback.is-wrong { border-left: 5px solid var(--wrong-border); }
     .feedback strong { display: block; margin-bottom: 6px; }
+    .answer-explanation { margin: 0; }
+    .other-choices { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .other-choices summary { cursor: pointer; font: 700 14px/1.4 system-ui, sans-serif; }
+    .other-choices ul { margin: 10px 0 0; padding-left: 21px; }
+    .other-choices li { margin: 0 0 9px; padding: 4px 6px; }
+    .other-choices li.your-choice { background: var(--wrong-choice-bg); border-radius: 5px; }
+    .other-choices .letter-label { font-weight: 700; }
+    .other-choices .your-choice-note { color: var(--error); font: 700 12px system-ui, sans-serif; }
     .correct { color: var(--success); }
     .incorrect { color: var(--error); }
 
@@ -650,6 +658,98 @@
     "Stanza 1 dwells on ripening and fullness; stanza 2 embodies autumn in harvest scenes; stanza 3 attends to evening color and sound. These are shifts of emphasis, not three separate years or a detailed narrative of travel."
   ]
 };
+    const distractorExplanations = [
+  {
+    "A": "Nothing suggests rivalry between the season and the sun.",
+    "B": "Their cooperation is explicit; separation is not the focus of these lines.",
+    "D": "No earlier conflict is established.",
+    "E": "Their activity nourishes living things rather than ignoring them."
+  },
+  {
+    "B": "The flowers supply the bees; they do not own the cells in line 11.",
+    "C": "The trees occur earlier and are not the recipients described in lines 9–11.",
+    "D": "The shells contain kernels, not the cells mentioned in line 11.",
+    "E": "The vines belong to the opening image and are not the antecedent here."
+  },
+  {
+    "A": "That is the larger transition in subject matter, but it does not explain the specific effect of the repeated “more” across the line break.",
+    "B": "Both appear, but the syntax adds them together rather than opposing cultivation and freedom.",
+    "C": "Flowers follow fruit in the list, but the poem does not suggest a loss that requires compensation.",
+    "D": "Autumn and the sun have already been identified as agents in lines 1–3."
+  },
+  {
+    "A": "The question extends the earlier description instead of doubting it.",
+    "C": "“Thee” addresses the season; no missing worker is being sought.",
+    "D": "“Who hath not seen” and “whoever seeks” make the presence accessible.",
+    "E": "The inclusive phrasing resists the idea of exclusive access."
+  },
+  {
+    "A": "There is no urgent danger in the granary scene.",
+    "B": "Rest does not establish an inability to act.",
+    "C": "The stored harvest is not presented as endangered.",
+    "E": "The word describes ease, not knowledge of an observer."
+  },
+  {
+    "B": "The brook belongs to the following image, and no crop is washed away.",
+    "C": "No failure to fill the granary is described.",
+    "D": "The poppies cause drowsiness; their scent does not disappear.",
+    "E": "The gleaner is a subsequent comparison, and keeps the load steady."
+  },
+  {
+    "A": "Patient watching describes the cider-press scene; the gleaner is balancing a load while crossing.",
+    "B": "Stored plenty and ease characterize the granary image more directly than the controlled crossing.",
+    "D": "The preceding sleeper suspends work; the gleaner is engaged in an action.",
+    "E": "That is prominent in hair lifted by wind; here the figure actively keeps the load steady."
+  },
+  {
+    "A": "The scenes involve different activities and emphasize ease or patience rather than haste.",
+    "B": "Autumn remains associated with human harvest activities throughout the stanza.",
+    "C": "The spared flowers and patient watching do not mark a turn to cruelty.",
+    "D": "Alternative depictions do not imply indecision within the personified figure."
+  },
+  {
+    "A": "“Patient look” directly resists growing impatience.",
+    "B": "The hours belong to the continuing pressing process, not a specified interval before winter.",
+    "C": "“Last” indicates the end of pressing, but no disappointment in the yield is expressed.",
+    "E": "“Last” acknowledges the ending; the line prolongs attention without denying completion."
+  },
+  {
+    "A": "The passage does not question whether another spring will come.",
+    "C": "The sounds that follow come from insects, animals, and birds.",
+    "D": "No childhood or adulthood is recalled here.",
+    "E": "“Too” adds autumn’s value; it does not require rejecting spring."
+  },
+  {
+    "B": "A “choir” characterizes the gnats’ collective sound.",
+    "C": "“Bleat” names the lambs’ call.",
+    "D": "“Sing” explicitly presents the crickets as making music.",
+    "E": "“Twitter” names the swallows’ sound."
+  },
+  {
+    "A": "The verb recalls flowering, but it is applied figuratively to clouds and light, not to flowers continuing to open.",
+    "B": "The clouds also touch the stubble-plains with a rosy hue, so beauty is not confined to the sky.",
+    "D": "The image joins beauty to fading; a promise of future growth would go beyond what it states.",
+    "E": "The image is attentive to fading, but does not articulate a wish to stop it."
+  },
+  {
+    "A": "“Think not of them” redirects the question about spring toward autumn’s own music.",
+    "C": "The wind “lives or dies,” lending its fluctuations the vocabulary of life.",
+    "D": "River trees, hills, hedges, a garden plot, and the sky locate the various sounds.",
+    "E": "The clouds touch “stubble-plains” with “rosy hue,” explicitly coloring harvested land."
+  },
+  {
+    "A": "The sounds vary, but the stanza does not narrate a personal grief followed by recovery.",
+    "B": "The personified mourning does not establish literal awareness in gnats or ignorance in the bird.",
+    "C": "This imports a disruption-and-restoration sequence; both sounds belong to the music offered for appreciation.",
+    "D": "The later sound adds to the earlier one; the poem does not retract or correct “wailful.”"
+  },
+  {
+    "A": "The harvest is abundant, and the speaker redirects attention away from absent spring songs.",
+    "B": "The last stanza still includes stubble-plains and a garden-croft.",
+    "C": "No sequence of three years is established.",
+    "E": "The speaker does not organize the poem around personal memories or predictions."
+  }
+];
     const STORAGE_KEY = bank.storage_id;
     const COLOR_KEY = "ap-lit-to-autumn-colors-v1";
     const LETTERS = "ABCDE";
@@ -877,6 +977,22 @@
           </div>
         </div>
       `;
+      const otherChoices = state.submitted ? `
+        <details class="other-choices" ${answer && answer !== bank.key[index] ? "open" : ""}>
+          <summary>${/\bEXCEPT\b/.test(question.stem)
+            ? "Why the other choices are supported"
+            : "Why the other choices are wrong"}</summary>
+          <ul>
+            ${[...LETTERS].filter((letter) => letter !== bank.key[index]).map((letter) => `
+              <li class="${answer === letter ? "your-choice" : ""}">
+                <span class="letter-label">${letter}.</span>
+                ${escapeHtml(distractorExplanations[index][letter])}
+                ${answer === letter ? '<span class="your-choice-note"> Your choice</span>' : ""}
+              </li>
+            `).join("")}
+          </ul>
+        </details>
+      ` : "";
       const feedback = state.submitted ? `
         <div class="feedback ${answer && answer !== bank.key[index] ? "is-wrong" : ""}">
           <strong class="${answer === bank.key[index] ? "correct" : "incorrect"}">
@@ -884,7 +1000,8 @@
             · ${answer ? `You chose ${answer}` : "No answer selected"}
             · Correct answer: ${bank.key[index]}
           </strong>
-          ${escapeHtml(bank.explanations[index])}
+          <p class="answer-explanation">${escapeHtml(bank.explanations[index])}</p>
+          ${otherChoices}
         </div>
       ` : `
         <div class="utility">
