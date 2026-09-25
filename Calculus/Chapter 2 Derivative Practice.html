@@ -3,55 +3,132 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
   <title>Chapter 2 · Derivative progress check | AP Calculus AB</title>
   <style>
-    :root{color-scheme:light;--ink:#14294b;--muted:#52647e;--line:#d9e3f1;--blue:#1456d8;--blue-soft:#edf4ff;--paper:#fff;--bg:#f3f7fc;--amber:#9a570a;--amber-bg:#fff7e9;--green:#15705b;--red:#b23c39}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Georgia,serif}button,textarea,input{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.46}
-    .shell{max-width:1450px;margin:18px auto 34px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px #24436812;overflow:hidden}
-    header{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 30px;border-bottom:1px solid var(--line)}h1{font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.1;margin:0;font-weight:700;letter-spacing:-.025em}header p{margin:5px 0 0;color:var(--muted);font-size:.93rem}.header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:10px 14px;font:600 .88rem/1.2 system-ui,sans-serif;white-space:nowrap}.btn:hover{border-color:#8fb4f6;background:#f7faff}.btn:focus-visible,.choice:focus-within,.nav-btn:focus-visible{outline:3px solid #8db8ff;outline-offset:2px}.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.btn.primary:hover{background:#0e46b4}.btn.danger{color:var(--red)}
-    .layout{display:grid;grid-template-columns:218px minmax(0,1fr) 250px;min-height:680px}.sidebar{padding:24px 18px;border-right:1px solid var(--line);background:linear-gradient(#fcfdff,#f8fbff)}.sidebar h2,.status h2{font-size:1rem;margin:0 0 16px}.section-label{font:700 .78rem/1.3 system-ui,sans-serif;color:var(--muted);letter-spacing:.025em;margin:20px 0 8px}.question-nav{display:grid;gap:4px}.nav-btn{display:flex;align-items:center;gap:11px;width:100%;border:0;background:transparent;text-align:left;padding:8px 10px;border-radius:7px;color:var(--ink);font:500 .9rem system-ui,sans-serif}.nav-btn:hover,.nav-btn.active{background:#eaf2ff}.dot{display:inline-grid;place-items:center;width:20px;height:20px;flex:none;border:1.5px solid #9bb0cb;border-radius:50%;font:700 .7rem system-ui,sans-serif}.nav-btn.active .dot{border-color:var(--blue);background:var(--blue);color:white}.nav-btn.done:not(.active) .dot{border-color:var(--green);background:#e3f4ed;color:var(--green)}
-    main{padding:24px;min-width:0}.card{border:1px solid var(--line);border-radius:10px;box-shadow:0 5px 20px #3156870a;background:white;overflow:hidden}.card-top{display:flex;align-items:center;justify-content:space-between;padding:17px 22px;border-bottom:1px solid var(--line);gap:8px}.card-top h2{font-size:1.2rem;margin:0}.pager{display:flex;gap:5px}.pager .btn{padding:7px 11px}.card-body{padding:22px}.question{font-size:1.23rem;line-height:1.7;margin:0 0 22px}.question p{margin:.2em 0 .8em}.math{white-space:nowrap}.choices{display:grid;gap:8px}.choice{display:flex;align-items:flex-start;gap:11px;border:1px solid var(--line);border-radius:8px;padding:11px 14px;cursor:pointer;min-height:49px}.choice:hover{background:#f8fbff;border-color:#a9c6f9}.choice.selected{background:var(--blue-soft);border-color:#80b0ff}.choice.correct{border-color:#83bfa8;background:#edf9f3}.choice.incorrect{border-color:#e7aaa7;background:#fff1f0}.choice input{accent-color:var(--blue);margin-top:6px}.choice-letter{font-weight:bold;min-width:22px}.choice-text{line-height:1.5}.feedback{margin-top:17px;padding:12px 15px;border-left:3px solid var(--blue);background:#f5f8fd;color:#344d6b;font-size:.95rem}.meta-line{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px}.note{display:inline-block;color:var(--amber);background:var(--amber-bg);border:1px solid #f0d9b1;padding:6px 9px;border-radius:6px;font:.78rem system-ui,sans-serif}.bottom-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
-    .status{border-left:1px solid var(--line);padding:24px 18px;background:#fcfdff}.status-card{border:1px solid var(--line);border-radius:9px;padding:17px;background:#fff;margin-bottom:14px}.status-card h2{margin-bottom:6px}.metric{font-size:1.65rem;font-weight:bold;line-height:1.1;margin:7px 0}.small{font:.82rem/1.45 system-ui,sans-serif;color:var(--muted)}.bar{height:8px;border-radius:8px;background:#e1e8f1;overflow:hidden;margin:12px 0 4px}.bar span{display:block;height:100%;background:var(--blue);transition:width .2s}.status .btn{width:100%;margin-top:8px}.notice{font:.82rem/1.5 system-ui,sans-serif;color:var(--muted)}
-    .question{overflow-x:auto}math{font-size:1.12em;vertical-align:middle}.choice math{font-size:1.42em}.equation-display{display:block;margin:.45em 0 .6em;font-size:1.12em;overflow-x:auto}.equation-display math{font-size:1.35em}.cases{display:grid;gap:2px;margin:.4em 0 .55em 1em;padding-left:12px;border-left:3px solid #a9bad1;font-size:.98em;line-height:1.5}.graph{display:block;width:min(100%,440px);height:auto;margin:14px 0 4px;border:1px solid var(--line);border-radius:8px;background:white}.data-table{border-collapse:collapse;margin:12px 0;max-width:100%;font:.86em/1.35 system-ui,sans-serif}.data-table th,.data-table td{border:1px solid #b9cbe2;padding:5px 9px;text-align:center;white-space:nowrap}.data-table th{background:#edf4ff}
-    .frq-parts{list-style:none;padding-left:0;font-size:1.12rem;line-height:1.65}.frq-parts li{margin:0 0 16px}.part-label{display:block;margin-bottom:2px;font:700 .78rem/1.3 system-ui,sans-serif;letter-spacing:.02em;color:var(--muted)}.upload{margin-top:20px;padding:20px;border:1.5px dashed #a9bfdf;border-radius:9px;background:#fbfdff;transition:background .15s,border-color .15s}.upload.drag{background:var(--blue-soft);border-color:var(--blue)}.upload-head{font:700 .92rem system-ui,sans-serif}.upload p{margin:5px 0 14px;font:.82rem system-ui,sans-serif;color:var(--muted)}.file-input{display:none}.thumbnails{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.thumb{width:116px;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:white}.thumb img{display:block;width:100%;height:90px;object-fit:cover}.thumb-name{padding:5px 6px;font:.69rem/1.2 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.thumb button{width:100%;border:0;border-top:1px solid var(--line);background:#fff;color:var(--red);padding:4px;font:.7rem system-ui,sans-serif}.written{margin-top:20px}.written label{display:block;font:700 .88rem system-ui,sans-serif;margin-bottom:7px}.written textarea{width:100%;min-height:115px;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:11px;color:var(--ink);background:#fff}.written textarea:focus{outline:3px solid #b7d0ff}.save-state{font:.75rem system-ui,sans-serif;color:var(--green)}.result{margin-top:16px;padding:14px;border-radius:8px;background:#edf9f3;border:1px solid #b0dbc9}.result strong{color:var(--green)}.summary-list{margin:8px 0 0;padding-left:20px;font-size:.93rem}
-    @media(max-width:1120px){.layout{grid-template-columns:170px minmax(0,1fr)}.status{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.status-card{margin:0}.status>.notice{grid-column:1/-1}}
-    @media(max-width:700px){.shell{margin:0;border:0;border-radius:0}header{padding:18px;align-items:flex-start;flex-direction:column}.header-actions{width:100%}.header-actions .btn{flex:1}.layout{display:flex;flex-direction:column}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:12px 16px}.sidebar h2{display:none}.section-label{margin:7px 0 6px}.question-nav{display:flex;overflow:auto;gap:4px}.nav-btn{width:auto;min-width:43px;padding:7px;justify-content:center}.nav-btn .nav-text{display:none}main{padding:16px}.card-top{padding:14px 16px}.card-top h2{font-size:1.06rem}.card-body{padding:16px}.question{font-size:1.1rem}.status{display:block;padding:16px}.status-card{margin-bottom:10px}.bottom-actions .btn{flex:1}.meta-line{align-items:flex-start;flex-direction:column}}
-
-    /* Flat exam frame adapted from the existing AP Literature practice layout. */
-    :root{--ink:#26312d;--muted:#657168;--line:#cbd2cc;--blue:#345549;--blue-soft:#f1f5f2;--paper:#fff;--bg:#f8f7f2;--green:#226447}
-    html,body{height:100%}body{font:17px/1.45 Georgia,"Times New Roman",serif}
-    .shell{height:100dvh;min-height:560px;max-width:none;margin:0;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
-    header{flex:none;min-height:66px;padding:11px 28px;background:#fff}h1{font-size:23px;letter-spacing:0}header p{font:13px/1.4 system-ui,sans-serif}
-    .btn{border-radius:6px;padding:9px 14px}.btn.primary{background:var(--blue);border-color:var(--blue)}.btn.primary:hover{background:#253f35}
-    #mainContent{flex:1;min-height:0;overflow:auto;padding:0;background:var(--bg)}
-    .card{min-height:100%;display:flex;flex-direction:column;border:0;border-radius:0;box-shadow:none;background:transparent}
-    .card-top{order:0;flex:none;padding:13px 28px;background:#fff;border-bottom:1px solid var(--line)}.card-top h2{font-size:20px}
-    .card-body{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,48%) minmax(0,52%);padding:0}
-    .prompt-pane,.answer-pane{min-width:0;padding:28px 32px;overflow:auto}.prompt-pane{background:#fff;border-right:1px solid var(--line)}.answer-pane{background:var(--bg)}
-    .question{font-size:21px;line-height:1.55;overflow-x:auto}.frq-parts{font-size:18px;line-height:1.55;margin:0}.frq-parts li{margin-bottom:17px}.choice{background:#fff;border-radius:6px;min-height:58px;padding:13px 15px;font-size:18px}.choice:hover{background:#f1f5f2}.choice.selected{border:2px solid var(--blue);padding:12px 14px}.choice input{accent-color:var(--blue)}
-    .upload{background:#fff;border:1px solid var(--line);border-radius:6px;padding:15px;margin-top:18px}.written textarea{background:#fff}.note{background:transparent;border:0;padding:0;color:var(--muted)}
-    .bottom-actions{display:none}.exam-footer{flex:none;display:flex;align-items:center;gap:22px;min-height:70px;padding:9px 28px;background:#fff;border-top:1px solid var(--line)}
-    .exam-footer .sidebar{display:flex;align-items:center;gap:7px;min-width:0;padding:0;border:0;background:none}.sidebar .section-label{margin:0 4px 0 8px;font:700 11px system-ui,sans-serif}.question-nav{display:flex;gap:5px}.nav-btn{width:auto;min-width:32px;justify-content:center;padding:6px 8px;border:1px solid var(--line);border-radius:5px;gap:5px}.nav-btn.active{background:var(--blue-soft);border-color:var(--blue)}.nav-btn .dot{display:none}.nav-btn.done:not(.active){background:#eef6f1}.nav-btn.done:not(.active) .nav-text:after{content:' ✓';color:var(--green)}
-    .footer-status{margin-left:auto;display:flex;align-items:center;gap:10px;white-space:nowrap;font:12px system-ui,sans-serif;color:var(--muted)}.footer-status strong{font-size:15px;color:var(--ink)}.footer-status .bar{display:none}
-    .directions{flex:none;padding:8px 28px;background:#fff;border-top:1px solid var(--line);font:12px/1.45 system-ui,sans-serif;color:var(--muted)}.directions summary{cursor:pointer}.directions p{max-width:1100px;margin:8px 0}
-    @media(max-width:1050px){.exam-footer{flex-wrap:wrap;gap:8px;padding:9px 16px}.exam-footer .sidebar{width:100%;overflow-x:auto}.footer-status{margin-left:0}.prompt-pane,.answer-pane{padding:22px}.footer-status span:not(.bar){display:none}}
-    @media(max-width:700px){.shell{min-height:0}header{padding:10px 14px;align-items:center;flex-direction:row;flex-wrap:wrap}h1{font-size:19px}header p{font-size:11px}.header-actions{width:auto;margin-left:auto}.header-actions .btn{flex:none;font-size:11px;padding:7px 9px}.card-top{padding:10px 14px}.card-top h2{font-size:17px}.card-body{display:block}.prompt-pane,.answer-pane{overflow:visible;padding:17px}.prompt-pane{border-right:0;border-bottom:1px solid var(--line)}.question{font-size:18px}.frq-parts{font-size:16px}.choice{font-size:16px;min-height:52px}.exam-footer{padding:8px 12px}.nav-btn{font-size:12px;min-width:28px;padding:5px}.directions{padding:6px 14px}}
+    :root {
+      --page: #f8f7f2; --surface: #fff; --ink: #24342d; --muted: #637168;
+      --border: #cbd2cc; --soft: #e8ebe7; --accent: #24342d;
+      --success: #226447; --error: #9e3636; --focus: #c88730;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { min-height: 100%; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 17px/1.45 Georgia, "Times New Roman", serif; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: default; opacity: .55; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, a:focus-visible {
+      outline: 3px solid var(--focus); outline-offset: 3px;
+    }
+    .shell { height: 100dvh; min-height: 500px; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { display: flex; align-items: center; gap: 18px; flex: none; min-height: 63px; padding: 10px 28px; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .brand { margin: 0; font-size: 23px; line-height: 1.15; }
+    .topbar small { margin-left: auto; color: var(--muted); white-space: nowrap; font: 13px system-ui, sans-serif; }
+    .button { min-height: 42px; padding: 9px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); font: 600 14px/1.3 system-ui, sans-serif; }
+    .button:hover:not(:disabled) { background: #eff1ee; }
+    .button.primary { background: var(--accent); border-color: var(--accent); color: var(--page); }
+    .button.primary:hover:not(:disabled) { opacity: .86; background: var(--accent); }
+    .button.subtle { border-color: transparent; background: transparent; }
+    .button.subtle:hover { background: #eff1ee; }
+    .mobile-tabs { display: none; }
+    .layout { display: grid; grid-template-columns: minmax(0, 48%) minmax(0, 52%); flex: 1; min-height: 0; overflow: hidden; }
+    .prompt-pane, .response-pane { min-width: 0; min-height: 0; overflow: auto; padding: 28px 32px 36px; }
+    .prompt-pane { border-right: 1px solid var(--border); background: var(--surface); }
+    .response-pane { align-self: stretch; background: var(--page); }
+    .pane-title { margin: 0 0 6px; font-size: 26px; line-height: 1.2; }
+    .eyebrow { margin: 0 0 18px; color: var(--muted); font: 700 12px/1.4 system-ui, sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+    .stem { margin: 22px 0; font-size: 21px; line-height: 1.55; }
+    .stem p { margin: .2em 0 .8em; }
+    .question-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+    .question-head h2 { margin: 0; font-size: 21px; }
+    .flag { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; font: 14px system-ui, sans-serif; }
+    .flag input { width: 19px; height: 19px; accent-color: var(--accent); }
+    .response-subtitle { margin: 0 0 17px; color: var(--muted); font: 14px/1.45 system-ui, sans-serif; }
+    .choices { display: grid; gap: 10px; }
+    .choice { display: flex; align-items: center; gap: 13px; min-height: 59px; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); text-align: left; font-size: 17px; line-height: 1.4; }
+    .choice:hover:not(:disabled) { background: #eff1ee; }
+    .choice[aria-checked="true"] { border: 2px solid var(--accent); padding: 10px 13px; background: var(--soft); }
+    .choice-letter { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; font-size: 16px; }
+    .choice[aria-checked="true"] .choice-letter { background: var(--accent); color: var(--page); border-color: var(--accent); }
+    .utility { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; color: var(--muted); font: 13px system-ui, sans-serif; }
+    .text-button { padding: 6px 0; border: 0; background: transparent; color: var(--ink); text-decoration: underline; font: 13px system-ui, sans-serif; }
+    .feedback { margin: 20px 0 0; padding: 14px 16px; border-left: 3px solid var(--success); background: #eaf4ee; font-size: 15px; }
+    .feedback.review { border-color: var(--error); background: #f9eded; }
+    .parts { list-style: none; padding: 0; margin: 0; font-size: 17px; line-height: 1.55; }
+    .parts li { margin: 0 0 18px; }
+    .part-label { display: inline-block; min-width: 33px; font-weight: bold; }
+    .upload { margin-top: 18px; padding: 18px; border: 1px dashed var(--border); border-radius: 8px; background: var(--surface); }
+    .upload.drag { background: var(--soft); border-color: var(--accent); }
+    .upload h3 { margin: 0 0 6px; font-size: 17px; }
+    .upload p { margin: 0 0 12px; color: var(--muted); font: 13px/1.5 system-ui, sans-serif; }
+    .file-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .thumbnails { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .thumb { width: 116px; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; background: var(--surface); }
+    .thumb img { display: block; width: 100%; height: 90px; object-fit: cover; }
+    .thumb-name { padding: 5px 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 11px system-ui, sans-serif; }
+    .thumb button { width: 100%; padding: 5px; border: 0; border-top: 1px solid var(--border); background: var(--surface); color: var(--error); font: 12px system-ui, sans-serif; }
+    .written-label { display: block; margin: 20px 0 6px; font-weight: bold; }
+    textarea { width: 100%; min-height: 150px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); resize: vertical; }
+    .note { margin-top: 18px; color: var(--muted); font: 13px/1.5 system-ui, sans-serif; }
+    .footer { display: flex; align-items: center; gap: 14px; flex: none; min-height: 70px; padding: 9px 28px; border-top: 1px solid var(--border); background: var(--surface); }
+    .footer-progress { margin: 0 auto; color: var(--muted); white-space: nowrap; font: 13px system-ui, sans-serif; }
+    .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 9px; margin: 22px 0; }
+    .review-cell { min-height: 78px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); text-align: left; }
+    .review-cell.answered { background: var(--soft); }
+    .review-cell.flagged { border-top: 4px solid #ae7919; padding-top: 9px; }
+    .review-cell small { display: block; margin-top: 4px; color: var(--muted); font: 12px system-ui, sans-serif; }
+    .review-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .score { margin: 12px 0 0; font-size: 48px; line-height: 1.1; }
+    .score span { font-size: 18px; color: var(--muted); }
+    .result-info { max-width: 650px; color: var(--muted); }
+    .summary { width: 100%; min-height: 145px; margin-top: 8px; font: 13px/1.45 ui-monospace, monospace; }
+    .directions { margin-top: 28px; border-top: 1px solid var(--border); padding-top: 16px; color: var(--muted); font: 13px/1.5 system-ui, sans-serif; }
+    .directions summary { cursor: pointer; color: var(--ink); font-weight: bold; }
+    .math { white-space: nowrap; }
+    math { font-size: 1.12em; vertical-align: middle; }
+    .choice math { font-size: 1.28em; }
+    .equation-display { display: block; margin: .45em 0 .6em; font-size: 1.12em; overflow-x: auto; }
+    .equation-display math { font-size: 1.3em; }
+    .cases { display: grid; gap: 2px; margin: .4em 0 .55em 1em; padding-left: 12px; border-left: 3px solid var(--border); font-size: .98em; }
+    .graph { display: block; width: min(100%, 440px); height: auto; margin: 14px 0 4px; border: 1px solid var(--border); border-radius: 8px; background: white; }
+    .data-table { border-collapse: collapse; margin: 12px 0; max-width: 100%; font: 14px/1.35 system-ui, sans-serif; }
+    .data-table th, .data-table td { border: 1px solid var(--border); padding: 5px 9px; text-align: center; white-space: nowrap; }
+    .data-table th { background: var(--soft); }
+    @media (max-width: 760px) {
+      .topbar { padding: 12px 16px; min-height: 56px; }
+      .brand { font-size: 19px; }
+      .topbar small { display: none; }
+      .mobile-tabs { display: flex; flex: none; border-bottom: 1px solid var(--border); background: var(--surface); }
+      .mobile-tabs button { flex: 1; min-height: 44px; border: 0; background: var(--surface); color: var(--ink); }
+      .mobile-tabs button[aria-selected="true"] { border-bottom: 3px solid var(--accent); }
+      .layout { display: block; overflow: auto; }
+      .prompt-pane, .response-pane { min-height: 100%; padding: 22px 18px 32px; overflow: visible; }
+      .prompt-pane { border: 0; }
+      .response-pane { background: var(--surface); }
+      .layout[data-mobile-view="prompt"] .response-pane, .layout[data-mobile-view="response"] .prompt-pane { display: none; }
+      .stem { font-size: 19px; }
+      .footer { padding: 9px 14px; gap: 8px; }
+      .footer .button { padding: 8px 10px; font-size: 13px; }
+      .footer-progress { font-size: 12px; }
+    }
+    @media (max-width: 420px) { .footer-progress { display: none; } .footer .button:nth-child(3) { margin-left: auto; } }
   </style>
 </head>
 <body>
   <div class="shell">
-    <header>
-      <div><h1>Chapter 2 · Derivative progress check</h1><p>Original AP-style practice · Chapter 2 differentiation · 2 multiple choice + 7 free response</p></div>
-      <div class="header-actions"><button class="btn" id="resetBtn" type="button">Start over</button><button class="btn" id="downloadBtn" type="button">↓ Download attempt</button></div>
-    </header>
-    <main id="mainContent" tabindex="-1"></main>
-    <footer class="exam-footer">
-      <nav class="sidebar" aria-label="Questions"><div class="section-label">MCQ</div><div class="question-nav" id="mcqNav"></div><div class="section-label">FRQ</div><div class="question-nav" id="frqNav"></div></nav>
-      <div class="footer-status" aria-label="Test status"><strong id="progressText">0 of 9</strong><span id="progressDetails"></span><span class="bar" aria-hidden="true"><span id="progressBar" style="width:0%"></span></span></div>
-      <button class="btn primary" type="button" id="finishBtn">Finish and score MCQ</button>
+    <header class="topbar"><h1 class="brand">Chapter 2 · Derivative progress check</h1><small>Original practice · 2 multiple choice · 7 free response</small></header>
+    <nav class="mobile-tabs" aria-label="Practice view"><button id="promptTab" type="button" aria-selected="true">Question</button><button id="responseTab" type="button" aria-selected="false">Response</button></nav>
+    <main class="layout" id="layout" data-mobile-view="prompt">
+      <section class="prompt-pane" id="promptPane" aria-label="Question information"></section>
+      <section class="response-pane" id="responsePane" aria-label="Your response"></section>
+    </main>
+    <footer class="footer">
+      <button class="button" id="backBtn" type="button">Back</button>
+      <span class="footer-progress" id="progress">0 of 9 answered</span>
+      <button class="button" id="reviewBtn" type="button">Review answers</button>
+      <button class="button primary" id="nextBtn" type="button">Next</button>
     </footer>
-    <details class="directions"><summary>Directions and saved work</summary><p><strong>Directions.</strong> No calculator is required. Use radians for trigonometry. Label each FRQ part. Show your setup and supporting work, even when a part does not explicitly ask for it. Give mathematical reasons for conclusions and units for contextual rates. Unless a question specifies otherwise, exact expressions need not be simplified; if you give a decimal approximation, make the final answer accurate to three places after the decimal point.</p><p>Your choices and written answers save in this browser. Photos stay on this device until you download your attempt. Download the attempt when you want feedback on your FRQs. These directions follow the <a href="https://apcentral.collegeboard.org/media/pdf/ap26-frq-calculus-ab.pdf" target="_blank" rel="noopener noreferrer">published AP Calculus AB free-response directions</a>; these are original questions, not an official AP Classroom assignment or AP exam.</p></details>
   </div>
   <script>
   (() => {
@@ -79,30 +156,150 @@
       {title:'Logarithmic and exponential quotient',points:9,intro:`For <span class="math">x&gt;0</span>, let <span class="equation-display">F(x)=${fraction('<msup><mi>e</mi><mi>x</mi></msup><mo>+</mo><mi mathvariant="normal">ln</mi><mi>x</mi>','<mi>x</mi><mo>+</mo><mn>1</mn>')}</span>A student claims that <span class="math">F′(x)=eˣ+1/x</span>.`,parts:['Find <span class="math">F′(x)</span>. Show the work that leads to your answer.','Find <span class="math">F(1)</span> and <span class="math">F′(1)</span>.','Write an equation for the line tangent to the graph of <span class="math">F</span> at <span class="math">x=1</span>.','Explain why the student’s expression does not give <span class="math">F′(x)</span>.']},
       {title:'Graphical rates and differentiability',points:9,intro:`The graph of the function <span class="math">g</span> is shown. The open circle at <span class="math">(2,2)</span> is not included in the graph; the filled point at <span class="math">(2,4)</span> is included.${graphMarkup}`,parts:['Find the average rate of change of <span class="math">g</span> on <span class="math">[1,3]</span>. Show the work that leads to your answer.','Find <span class="math">g′(3)</span>. Does <span class="math">g′(0)</span> exist? Give a reason.','A student says that <span class="math">g′(2)=0</span> because the average rate in part (a) is zero. Is the student correct? Give a reason.']}
     ];
-    const fresh=()=>({choices:Array(mcq.length).fill(null),texts:Array(frq.length).fill(''),submitted:false,startedAt:Date.now(),active:0});
-    let state;try{const saved=JSON.parse(localStorage.getItem(KEY)||'{}');state=fresh();if(Array.isArray(saved.choices)&&saved.choices.length===mcq.length)state.choices=saved.choices;if(Array.isArray(saved.texts))state.texts=saved.texts.slice(0,frq.length).concat(Array(Math.max(0,frq.length-saved.texts.length)).fill(''));if(Number.isFinite(saved.startedAt))state.startedAt=saved.startedAt;if(Number.isInteger(saved.active)&&saved.active>=0&&saved.active<mcq.length+frq.length)state.active=saved.active;state.submitted=saved.submitted===true}catch{state=fresh()}
+    const fresh = () => ({choices:Array(mcq.length).fill(null), texts:Array(frq.length).fill(''), flags:Array(mcq.length+frq.length).fill(false), active:0, view:'question', submitted:false, startedAt:Date.now()});
+    let state = fresh();
+    let storageOK = true;
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if (Array.isArray(saved.choices) && saved.choices.length === mcq.length) state.choices = saved.choices.map(x => Number.isInteger(x) && x >= 0 && x < 5 ? x : null);
+      if (Array.isArray(saved.texts)) state.texts = frq.map((_,i) => typeof saved.texts[i] === 'string' ? saved.texts[i] : '');
+      if (Array.isArray(saved.flags)) state.flags = state.flags.map((_,i) => saved.flags[i] === true);
+      if (Number.isInteger(saved.active) && saved.active >= 0 && saved.active < state.flags.length) state.active = saved.active;
+      if (Number.isFinite(saved.startedAt)) state.startedAt = saved.startedAt;
+      state.submitted = saved.submitted === true;
+      state.view = state.submitted ? (saved.view === 'question' ? 'question' : 'results') : (saved.view === 'review' ? 'review' : 'question');
+    } catch (error) { storageOK = false; }
     let dbPromise;
-    let photoCache=[];
-    function db(){if(!dbPromise)dbPromise=new Promise((resolve,reject)=>{const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>req.result.createObjectStore('photos',{keyPath:'id'});req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});return dbPromise}
-    async function allPhotos(){const database=await db();return new Promise((resolve,reject)=>{const req=database.transaction('photos','readonly').objectStore('photos').getAll();req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
-    async function savePhoto(record){const database=await db();return new Promise((resolve,reject)=>{const req=database.transaction('photos','readwrite').objectStore('photos').put(record);req.onsuccess=()=>resolve();req.onerror=()=>reject(req.error)})}
-    async function deletePhoto(id){const database=await db();return new Promise((resolve,reject)=>{const req=database.transaction('photos','readwrite').objectStore('photos').delete(id);req.onsuccess=()=>resolve();req.onerror=()=>reject(req.error)})}
-    async function clearPhotos(){const database=await db();return new Promise((resolve,reject)=>{const req=database.transaction('photos','readwrite').objectStore('photos').clear();req.onsuccess=()=>resolve();req.onerror=()=>reject(req.error)})}
-    function persist(){localStorage.setItem(KEY,JSON.stringify(state));updateStatus(photoCache)}
-    function photoCount(photos,index){return photos.filter(p=>p.frq===index).length}
-    function renderNav(photos){document.getElementById('mcqNav').innerHTML=mcq.map((_,i)=>`<button type="button" class="nav-btn ${state.active===i?'active':''} ${state.choices[i]!==null?'done':''}" data-go="${i}" aria-label="Question ${i+1}"><span class="dot">${state.choices[i]!==null?'✓':''}</span><span class="nav-text">${i+1}</span></button>`).join('');document.getElementById('frqNav').innerHTML=frq.map((_,i)=>`<button type="button" class="nav-btn ${state.active===i+mcq.length?'active':''} ${(state.texts[i].trim()||photoCount(photos,i))?'done':''}" data-go="${i+mcq.length}" aria-label="Free response ${i+1}"><span class="dot">${(state.texts[i].trim()||photoCount(photos,i))?'✓':''}</span><span class="nav-text">FRQ ${i+1}</span></button>`).join('')}
-    function updateStatus(photos=[]){const answered=state.choices.filter(x=>x!==null).length;const frqDone=state.texts.filter((x,i)=>x.trim()||photoCount(photos,i)).length;const done=answered+frqDone;document.getElementById('progressText').textContent=`${done} of ${mcq.length+frq.length}`;document.getElementById('progressBar').style.width=`${done/(mcq.length+frq.length)*100}%`;const mcqScore=state.choices.reduce((n,x,i)=>n+(x===mcq[i].answer?1:0),0);document.getElementById('progressDetails').textContent=state.submitted?`${mcqScore}/${mcq.length} MCQ correct · ${frqDone}/${frq.length} FRQs with work`:`${answered}/${mcq.length} MCQ answered · ${frqDone}/${frq.length} FRQs with work`;document.getElementById('finishBtn').textContent=state.submitted?'MCQ scored · Download attempt':'Finish and score MCQ'}
-    function splitCard(kind){const body=document.querySelector('.card-body');const children=[...body.children];const prompt=document.createElement('section');prompt.className='prompt-pane';prompt.setAttribute('aria-label','Question information');const answer=document.createElement('section');answer.className='answer-pane';answer.setAttribute('aria-label','Your response');const count=kind==='frq'?2:1;children.forEach((node,i)=>(i<count?prompt:answer).append(node));body.append(prompt,answer)}
-    function showMCQ(index){const item=mcq[index];const selected=state.choices[index];const content=`<article class="card"><div class="card-top"><h2>Multiple-choice · ${index+1} of ${mcq.length}</h2><div class="pager"><button class="btn" data-go="${index-1}" ${index===0?'disabled':''} aria-label="Previous question">‹</button><button class="btn" data-go="${index+1}" aria-label="Next question">›</button></div></div><div class="card-body"><div class="question">${item.q}</div><div class="choices">${item.choices.map((c,j)=>`<label class="choice ${selected===j?'selected':''} ${state.submitted&&j===item.answer?'correct':''} ${state.submitted&&selected===j&&j!==item.answer?'incorrect':''}"><input type="radio" name="choice" value="${j}" ${selected===j?'checked':''} ${state.submitted?'disabled':''}><span class="choice-letter">${letters[j]}.</span><span class="choice-text">${c}</span></label>`).join('')}</div>${state.submitted?`<div class="feedback"><strong>${selected===item.answer?'Correct.':selected===null?'Unanswered.':'Review this one.'}</strong> ${item.why}</div>`:''}<div class="meta-line"><span class="note">No calculator · 1 point</span><span class="save-state">${selected===null?'Choose one answer':'Answer saved'}</span></div></div></article><div class="bottom-actions"><button class="btn primary" type="button" data-go="${index+1}">${index===mcq.length-1?'Go to FRQ 1':'Next question →'}</button></div>`;document.getElementById('mainContent').innerHTML=content;splitCard('mcq')}
-    function showFRQ(index,photos){const item=frq[index];const mine=photos.filter(p=>p.frq===index);const content=`<article class="card"><div class="card-top"><h2>Free response · ${index+1} of ${frq.length}</h2><div class="pager"><button class="btn" data-go="${index+mcq.length-1}" aria-label="Previous question">‹</button><button class="btn" data-go="${index+mcq.length+1}" ${index===frq.length-1?'disabled':''} aria-label="Next question">›</button></div></div><div class="card-body"><div class="small">${item.calculator?'Calculator allowed':'No calculator'}</div><div class="question">${item.intro}</div><ol class="frq-parts">${item.parts.map((p,j)=>`<li><span class="part-label">(${letters[j].toLowerCase()})</span>${p}</li>`).join('')}</ol><div class="upload" id="dropZone"><div class="upload-head">Attach photos of your work</div><p>JPG, PNG, WebP, or a photo from your phone. Multiple pages are fine. Images save in this browser and go into your downloaded attempt.</p><label class="btn" for="photoInput">Choose photos</label><input class="file-input" id="photoInput" type="file" accept="image/*" multiple><div class="thumbnails" id="thumbnails"></div></div><div class="written"><label for="writtenAnswer">Optional typed answer or notes</label><textarea id="writtenAnswer" placeholder="You can write here, attach photos, or both."></textarea></div><div class="meta-line"><span class="note">Show setup and reasoning for credit</span><span class="save-state" id="saveState">Saved locally</span></div></div></article><div class="bottom-actions"><button class="btn primary" type="button" ${index===frq.length-1?'id="finishInline"':`data-go="${index+mcq.length+1}"`}>${index===frq.length-1?'Finish and score MCQ':'Next FRQ →'}</button></div>`;document.getElementById('mainContent').innerHTML=content;splitCard('frq');document.getElementById('writtenAnswer').value=state.texts[index];document.getElementById('thumbnails').replaceChildren(...mine.map(p=>{const box=document.createElement('div');box.className='thumb';const image=document.createElement('img');image.alt=p.name;image.src=URL.createObjectURL(p.blob);image.onload=()=>URL.revokeObjectURL(image.src);const name=document.createElement('div');name.className='thumb-name';name.textContent=p.name;const remove=document.createElement('button');remove.type='button';remove.textContent='Remove';remove.addEventListener('click',async()=>{await deletePhoto(p.id);render()});box.append(image,name,remove);return box}));document.getElementById('writtenAnswer').addEventListener('input',e=>{state.texts[index]=e.target.value;persist();document.getElementById('saveState').textContent='Saved locally';renderNav(photos)});document.getElementById('photoInput').addEventListener('change',e=>addFiles(e.target.files,index));const drop=document.getElementById('dropZone');drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag')});drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');addFiles(e.dataTransfer.files,index)})}
-    async function addFiles(files,index){for(const file of files){if(!file.type.startsWith('image/')){alert(`${file.name} is not an image.`);continue}if(file.size>15*1024*1024){alert(`${file.name} is larger than 15 MB. Please use a smaller photo.`);continue}try{await savePhoto({id:crypto.randomUUID(),frq:index,name:file.name,type:file.type,blob:file,addedAt:new Date().toISOString()})}catch(e){alert('This browser could not save the photo. You can still attach it directly in chat. '+e.message);break}}render()}
-    async function render(){let photos=[];try{photos=await allPhotos()}catch(e){console.warn('Photo storage unavailable',e)}photoCache=photos;renderNav(photos);updateStatus(photos);if(state.active<mcq.length)showMCQ(state.active);else showFRQ(state.active-mcq.length,photos)}
-    function go(index){if(index<0||index>=mcq.length+frq.length)return;state.active=index;persist();render();document.getElementById('mainContent').focus();window.scrollTo({top:0,behavior:'smooth'})}
-    function finish(){const missing=state.choices.filter(x=>x===null).length;if(!state.submitted&&missing&&!confirm(`${missing} multiple-choice question${missing===1?' is':'s are'} unanswered. Score the MCQ section now?`))return;state.submitted=true;persist();const score=state.choices.reduce((n,x,i)=>n+(x===mcq[i].answer?1:0),0);alert(`MCQ score: ${score}/${mcq.length}. Your FRQs need written grading. Download your attempt when you are ready for feedback.`);render()}
-    function fileAsDataURL(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob)})}
-    function readableText(html){const holder=document.createElement('template');holder.innerHTML=html;function visit(node){if(node.nodeType===Node.TEXT_NODE)return node.textContent;const tag=node.localName;if(tag==='svg')return ' '+(node.getAttribute('aria-label')||'graph')+' ';if(tag==='msqrt')return 'sqrt('+Array.from(node.childNodes,visit).join('')+')';if(tag==='mfrac')return '('+visit(node.children[0])+')/('+visit(node.children[1])+')';if(tag==='msup')return visit(node.children[0])+'^('+visit(node.children[1])+')';if(tag==='br')return ' ';if(tag==='tr')return Array.from(node.children,visit).join(' | ')+'; ';if(node.classList?.contains('cases'))return Array.from(node.children,visit).join('; ');if(node.classList?.contains('equation-display'))return ' '+Array.from(node.childNodes,visit).join('')+' ';return Array.from(node.childNodes,visit).join('')}return visit(holder.content).replace(/\s+/g,' ').trim()}
-    async function download(){let photos=[];try{photos=await allPhotos()}catch(e){alert('Saved photos could not be read. Please attach them in chat separately.');return}const encoded=[];for(const p of photos)encoded.push({frq:p.frq+1,name:p.name,type:p.type,addedAt:p.addedAt,dataUrl:await fileAsDataURL(p.blob)});const payload={title:'AP Calculus AB Chapter 2 derivative progress check',version:6,exportedAt:new Date().toISOString(),submitted:state.submitted,mcqAnswers:state.choices.map((x,i)=>({question:i+1,prompt:readableText(mcq[i].q),choice:x===null?null:letters[x],selectedText:x===null?null:readableText(mcq[i].choices[x])})),frqAnswers:state.texts.map((x,i)=>({question:i+1,prompt:readableText(frq[i].intro),parts:frq[i].parts.map(readableText),typedAnswer:x})),photos:encoded};const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='AP_Calc_Ch2_Progress_Check_Attempt.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000)}
-    document.addEventListener('click',e=>{const target=e.target.closest('[data-go]');if(target)go(Number(target.dataset.go))});document.addEventListener('change',e=>{if(e.target.name==='choice'&&!state.submitted){state.choices[state.active]=Number(e.target.value);persist();render()}});document.getElementById('finishBtn').addEventListener('click',()=>state.submitted?download():finish());document.addEventListener('click',e=>{if(e.target.id==='finishInline')finish()});document.getElementById('downloadBtn').addEventListener('click',download);document.getElementById('resetBtn').addEventListener('click',async()=>{if(!confirm('Start over? This will erase all choices, typed answers, and attached photos in this browser.'))return;await clearPhotos();state=fresh();persist();render()});render();
+    let photoCache = [];
+    let mobileView = 'prompt';
+    const $ = id => document.getElementById(id);
+    const total = mcq.length + frq.length;
+    function db() {
+      if (!dbPromise) dbPromise = new Promise((resolve,reject) => {
+        const req = indexedDB.open(DB,1);
+        req.onupgradeneeded = () => req.result.createObjectStore('photos',{keyPath:'id'});
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+      return dbPromise;
+    }
+    async function photosTransaction(mode, method, value) {
+      const database = await db();
+      return new Promise((resolve,reject) => {
+        const req = database.transaction('photos',mode).objectStore('photos')[method](...(value === undefined ? [] : [value]));
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    const allPhotos = () => photosTransaction('readonly','getAll');
+    const savePhoto = record => photosTransaction('readwrite','put',record);
+    const deletePhoto = id => photosTransaction('readwrite','delete',id);
+    const clearPhotos = () => photosTransaction('readwrite','clear');
+    function persist() {
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (error) { storageOK = false; }
+      updateNav();
+    }
+    function isDone(i) { return i < mcq.length ? state.choices[i] !== null : !!(state.texts[i-mcq.length].trim() || photoCache.some(p => p.frq === i-mcq.length)); }
+    function updateNav() {
+      const done = Array.from({length:total},(_,i) => isDone(i)).filter(Boolean).length;
+      $('progress').textContent = `${done} of ${total} answered`;
+      $('backBtn').disabled = state.view === 'question' && state.active === 0;
+      $('backBtn').textContent = state.view === 'question' ? 'Back' : 'Questions';
+      $('reviewBtn').textContent = state.submitted ? 'Results' : 'Review answers';
+      $('nextBtn').textContent = state.view === 'question' ? (state.active === total-1 ? (state.submitted ? 'Results' : 'Review answers') : 'Next') : (state.submitted ? 'Review MCQ' : 'Return to question');
+    }
+    function setMobileView(view) {
+      mobileView = view;
+      $('layout').dataset.mobileView = view;
+      $('promptTab').setAttribute('aria-selected',view === 'prompt');
+      $('responseTab').setAttribute('aria-selected',view === 'response');
+      $('layout').scrollTop = 0;
+    }
+    function directions() { return `<details class="directions"><summary>Directions</summary><p>No calculator is required. Use radians for trigonometry. Label each free-response part. Show setup, supporting work, mathematical reasons, and units for contextual rates. Unless specified otherwise, exact expressions need not be simplified; decimal approximations should be accurate to three places after the decimal point.</p><p>These are original questions, not an official AP Classroom assignment or AP exam. The directions follow the <a href="https://apcentral.collegeboard.org/media/pdf/ap26-frq-calculus-ab.pdf" target="_blank" rel="noopener noreferrer">published AP Calculus AB free-response directions</a>.</p></details>`; }
+    function questionHeader(i) { return `<div class="question-head"><h2>Question ${i+1} of ${total}</h2><label class="flag"><input id="flag" type="checkbox" ${state.flags[i]?'checked':''}>Mark for review</label></div>`; }
+    function renderQuestion() {
+      const i = state.active;
+      if (i < mcq.length) {
+        const q = mcq[i];
+        $('promptPane').innerHTML = `<p class="eyebrow">Multiple choice · No calculator · 1 point</p><h2 class="pane-title">Question ${i+1}</h2><div class="stem">${q.q}</div>${directions()}`;
+        $('responsePane').innerHTML = `${questionHeader(i)}<p class="response-subtitle">Choose one answer.</p><div class="choices" role="radiogroup" aria-label="Answer choices">${q.choices.map((c,j) => `<button class="choice" type="button" role="radio" aria-checked="${state.choices[i]===j}" data-choice="${j}" ${state.submitted?'disabled':''}><span class="choice-letter">${letters[j]}</span><span>${c}</span></button>`).join('')}</div>${state.submitted ? `<div class="feedback ${state.choices[i]===q.answer?'':'review'}"><strong>${state.choices[i]===q.answer?'Correct':state.choices[i]===null?'Unanswered':'Review this one'} · Answer: ${letters[q.answer]}</strong><p>${q.why}</p></div>` : `<div class="utility"><span>${storageOK?'Progress saved in this browser':'Browser storage unavailable; download your attempt'}</span><button class="text-button" id="clearAnswer" type="button">Clear answer</button></div>`}`;
+      } else {
+        const n = i - mcq.length, q = frq[n], mine = photoCache.filter(p => p.frq === n);
+        $('promptPane').innerHTML = `<p class="eyebrow">Free response · No calculator · ${q.points} points</p><h2 class="pane-title">Question ${i+1}</h2><div class="stem">${q.intro}</div>${directions()}`;
+        $('responsePane').innerHTML = `${questionHeader(i)}<ol class="parts">${q.parts.map((p,j) => `<li><span class="part-label">(${letters[j].toLowerCase()})</span>${p}</li>`).join('')}</ol><label class="written-label" for="writtenAnswer">Your written work</label><textarea id="writtenAnswer" placeholder="Type your work here, attach photos, or both." ${state.submitted?'readonly':''}></textarea><div class="upload" id="dropZone"><h3>Attach photos of your work</h3><p>Images stay in this browser and are included in the downloaded attempt. Multiple pages are fine.</p>${state.submitted?'':`<label class="button" for="photoInput">Choose photos</label><input class="file-input" id="photoInput" type="file" accept="image/*" multiple>`}<div class="thumbnails" id="thumbnails"></div></div><p class="note">${state.submitted?'FRQs need written grading. Download your attempt for feedback.':storageOK?'Written work saves as you type.':'Browser storage unavailable; download your attempt.'}</p>`;
+        $('writtenAnswer').value = state.texts[n];
+        $('thumbnails').replaceChildren(...mine.map(p => {
+          const box = document.createElement('div'); box.className = 'thumb';
+          const img = document.createElement('img'); img.alt = p.name; img.src = URL.createObjectURL(p.blob); img.onload = () => URL.revokeObjectURL(img.src);
+          const name = document.createElement('div'); name.className = 'thumb-name'; name.textContent = p.name;
+          box.append(img,name);
+          if (!state.submitted) { const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Remove'; remove.onclick = async () => { await deletePhoto(p.id); await render(); }; box.append(remove); }
+          return box;
+        }));
+        if (!state.submitted) {
+          $('writtenAnswer').oninput = e => { state.texts[n] = e.target.value; persist(); };
+          $('photoInput').onchange = e => addFiles(e.target.files,n);
+          const drop = $('dropZone');
+          drop.ondragover = e => { e.preventDefault(); drop.classList.add('drag'); };
+          drop.ondragleave = () => drop.classList.remove('drag');
+          drop.ondrop = e => { e.preventDefault(); drop.classList.remove('drag'); addFiles(e.dataTransfer.files,n); };
+        }
+      }
+      $('flag').onchange = e => { state.flags[i] = e.target.checked; persist(); };
+    }
+    function reviewGrid(results) { return `<div class="review-grid">${Array.from({length:total},(_,i) => `<button class="review-cell ${isDone(i)?'answered':''} ${state.flags[i]?'flagged':''}" type="button" data-go="${i}"><strong>${i<mcq.length?`MCQ ${i+1}`:`FRQ ${i-mcq.length+1}`}</strong><small>${results&&i<mcq.length?(state.choices[i]===mcq[i].answer?'Correct':state.choices[i]===null?'Unanswered':'Review'):(i<mcq.length ? (state.choices[i]===null?'Unanswered':`Answer ${letters[state.choices[i]]}`) : (isDone(i)?'Work saved':'Unanswered'))}${state.flags[i]?' · Flagged':''}</small></button>`).join('')}</div>`; }
+    function renderReview() {
+      const missing = Array.from({length:total},(_,i) => !isDone(i)).filter(Boolean).length, flagged = state.flags.filter(Boolean).length;
+      $('promptPane').innerHTML = `<p class="eyebrow">Before you submit</p><h2 class="pane-title">Review your work</h2><p>${missing} unanswered · ${flagged} marked for review.</p><p>Select a question to return to it. A gold top border marks questions you flagged.</p>${directions()}`;
+      $('responsePane').innerHTML = `<h2 class="pane-title">All questions</h2>${reviewGrid(false)}<p class="note">Submission locks this attempt and scores the multiple-choice questions. Free responses need written grading.</p><div class="review-actions"><button class="button primary" id="submitBtn" type="button">Submit ${missing?`with ${missing} unanswered`:'attempt'}</button><button class="button" id="keepWorking" type="button">Keep working</button></div>`;
+      $('submitBtn').onclick = () => { state.submitted = true; state.view = 'results'; persist(); render(); setMobileView('response'); };
+      $('keepWorking').onclick = () => { state.view = 'question'; persist(); render(); };
+    }
+    function summaryText() { return `AP Calculus AB Chapter 2 derivative progress check\nMultiple choice: ${state.choices.filter((x,i)=>x===mcq[i].answer).length}/${mcq.length}\nFree responses require written grading.\n\n${Array.from({length:total},(_,i)=>`${i<mcq.length?`MCQ ${i+1}`:`FRQ ${i-mcq.length+1}`}: ${i<mcq.length?(state.choices[i]===null?'Unanswered':letters[state.choices[i]]):(isDone(i)?'Work saved':'Unanswered')} | flagged: ${state.flags[i]?'yes':'no'}`).join('\n')}\n\nDownload the attempt to include typed answers and photos.`; }
+    function renderResults() {
+      const score = state.choices.filter((x,i) => x === mcq[i].answer).length;
+      $('promptPane').innerHTML = `<p class="eyebrow">Attempt submitted</p><h2 class="pane-title">Practice complete</h2><p class="result-info">Your multiple-choice answers have been scored. Free responses need written grading. This score is for this practice set, not a predicted AP exam score.</p>${directions()}`;
+      $('responsePane').innerHTML = `<h2 class="pane-title">Your results</h2><div class="score">${score} / ${mcq.length} <span>multiple choice</span></div><p class="result-info">Your written work and photos remain saved in this browser. Download the attempt when you want feedback.</p><div class="review-actions"><button class="button primary" id="downloadBtn" type="button">Download attempt</button><button class="button" id="copyBtn" type="button">Copy summary</button><button class="button" id="startOverBtn" type="button">Start over</button></div><p id="copyStatus" class="note" role="status"></p><h3>Question review</h3>${reviewGrid(true)}<details><summary>View answer summary</summary><textarea class="summary" readonly>${summaryText()}</textarea></details>`;
+      $('downloadBtn').onclick = download;
+      $('copyBtn').onclick = async () => { try { await navigator.clipboard.writeText(summaryText()); $('copyStatus').textContent = 'Copied. Paste this into our conversation for diagnosis.'; } catch { $('copyStatus').textContent = 'Copy from the answer summary below.'; } };
+      $('startOverBtn').onclick = resetAttempt;
+    }
+    async function render() {
+      try { photoCache = await allPhotos(); } catch (error) { photoCache = []; console.warn('Photo storage unavailable',error); }
+      if (state.view === 'review') renderReview(); else if (state.view === 'results') renderResults(); else renderQuestion();
+      updateNav();
+    }
+    async function addFiles(files,n) {
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) { alert(`${file.name} is not an image.`); continue; }
+        if (file.size > 15*1024*1024) { alert(`${file.name} is larger than 15 MB.`); continue; }
+        try { await savePhoto({id:crypto.randomUUID(),frq:n,name:file.name,type:file.type,blob:file,addedAt:new Date().toISOString()}); }
+        catch (error) { alert('This browser could not save the photo. Attach it in chat separately. '+error.message); break; }
+      }
+      await render();
+    }
+    function go(i) { if (i < 0 || i >= total) return; state.active = i; state.view = 'question'; persist(); render(); setMobileView('prompt'); $('layout').scrollTop = 0; $('promptPane').scrollTop = 0; $('responsePane').scrollTop = 0; }
+    async function resetAttempt() { if (!confirm('Start over? This erases the answers and photos saved in this browser. Download your attempt first if you want to keep it.')) return; try { await clearPhotos(); } catch (error) { alert('Photos could not be cleared: '+error.message); return; } state = fresh(); persist(); await render(); setMobileView('prompt'); }
+    function fileAsDataURL(blob) { return new Promise((resolve,reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => reject(reader.error); reader.readAsDataURL(blob); }); }
+    function readableText(html) { const holder = document.createElement('template'); holder.innerHTML = html; function visit(node) { if (node.nodeType === Node.TEXT_NODE) return node.textContent; const tag = node.localName; if (tag === 'svg') return ' '+(node.getAttribute('aria-label')||'graph')+' '; if (tag === 'msqrt') return 'sqrt('+Array.from(node.childNodes,visit).join('')+')'; if (tag === 'mfrac') return '('+visit(node.children[0])+')/('+visit(node.children[1])+')'; if (tag === 'msup') return visit(node.children[0])+'^('+visit(node.children[1])+')'; if (tag === 'br') return ' '; if (tag === 'tr') return Array.from(node.children,visit).join(' | ')+'; '; if (node.classList?.contains('cases')) return Array.from(node.children,visit).join('; '); if (node.classList?.contains('equation-display')) return ' '+Array.from(node.childNodes,visit).join('')+' '; return Array.from(node.childNodes,visit).join(''); } return visit(holder.content).replace(/\s+/g,' ').trim(); }
+    async function download() {
+      let photos; try { photos = await allPhotos(); } catch (error) { alert('Saved photos could not be read. Attach them in chat separately.'); return; }
+      const encoded = []; for (const p of photos) encoded.push({frq:p.frq+1,name:p.name,type:p.type,addedAt:p.addedAt,dataUrl:await fileAsDataURL(p.blob)});
+      const payload = {title:'AP Calculus AB Chapter 2 derivative progress check',version:7,exportedAt:new Date().toISOString(),submitted:state.submitted,flags:state.flags,mcqAnswers:state.choices.map((x,i)=>({question:i+1,prompt:readableText(mcq[i].q),choice:x===null?null:letters[x],selectedText:x===null?null:readableText(mcq[i].choices[x])})),frqAnswers:state.texts.map((x,i)=>({question:i+1,prompt:readableText(frq[i].intro),parts:frq[i].parts.map(readableText),typedAnswer:x})),photos:encoded};
+      const url = URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'})); const a = document.createElement('a'); a.href = url; a.download = 'AP_Calc_Ch2_Progress_Check_Attempt.json'; document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),30000);
+    }
+    document.addEventListener('click',e => {
+      const choice = e.target.closest('[data-choice]');
+      if (choice && !state.submitted) { state.choices[state.active] = Number(choice.dataset.choice); persist(); render(); return; }
+      if (e.target.closest('#clearAnswer') && !state.submitted) { state.choices[state.active] = null; persist(); render(); return; }
+      const cell = e.target.closest('[data-go]'); if (cell) go(Number(cell.dataset.go));
+    });
+    $('promptTab').onclick = () => setMobileView('prompt');
+    $('responseTab').onclick = () => setMobileView('response');
+    $('backBtn').onclick = () => { if (state.view !== 'question') { state.view = 'question'; persist(); render(); setMobileView('prompt'); } else go(state.active-1); };
+    $('nextBtn').onclick = () => { if (state.view === 'question') { if (state.active < total-1) go(state.active+1); else { state.view = state.submitted ? 'results' : 'review'; persist(); render(); setMobileView('response'); } } else if (state.submitted) go(0); else { state.view = 'question'; persist(); render(); setMobileView('prompt'); } };
+    $('reviewBtn').onclick = () => { state.view = state.submitted ? 'results' : 'review'; persist(); render(); setMobileView('response'); };
+    render();
   })();
   </script>
 </body>

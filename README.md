@@ -4,7 +4,7 @@ These original practice quizzes run in the browser. Open a link below to start; 
 
 ## Calculus · AP Calculus AB
 
-- [Chapter 2 derivative progress check](https://eutopia2415.github.io/practices/Calculus/Chapter%202%20Derivative%20Practice.html) ([file](Calculus/Chapter%202%20Derivative%20Practice.html)) — 2 multiple-choice questions and 7 multipart free-response questions. Original questions draw on Flipped Classroom Chapter 2 topics and released AP free-response structure to test reasoning, student claims, and common errors. Written work and photos stay in your browser until you download an attempt; the answer key is kept separately.
+- [Chapter 2 derivative progress check](https://eutopia2415.github.io/practices/Calculus/Chapter%202%20Derivative%20Practice.html) ([file](Calculus/Chapter%202%20Derivative%20Practice.html)) — 2 multiple-choice questions and 7 multipart free-response questions. The AP Literature-style split view includes review flags, an answer review screen, and a phone-friendly question/response switch. Original questions test reasoning, student claims, and common errors. Written work and photos stay in your browser until you download an attempt; the free-response key is kept separately.
 
 ## English · AP Literature
 
