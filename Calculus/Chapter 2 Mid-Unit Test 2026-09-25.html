@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <title>Mid-Unit Chapter 2 Test (2.1–2.4) | AP Calculus AB</title>
+  <style>
+    :root {
+      --page: #f8f7f2; --surface: #fff; --ink: #24342d; --muted: #637168;
+      --border: #cbd2cc; --soft: #e8ebe7; --accent: #24342d;
+      --success: #226447; --error: #9e3636; --focus: #c88730;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { min-height: 100%; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 17px/1.45 Georgia, "Times New Roman", serif; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: default; opacity: .55; }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, a:focus-visible {
+      outline: 3px solid var(--focus); outline-offset: 3px;
+    }
+    .shell { height: 100dvh; min-height: 500px; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { display: flex; align-items: center; gap: 18px; flex: none; min-height: 63px; padding: 10px 28px; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .brand { margin: 0; font-size: 23px; line-height: 1.15; }
+    .topbar small { margin-left: auto; color: var(--muted); white-space: nowrap; font: 13px system-ui, sans-serif; }
+    .button { min-height: 42px; padding: 9px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); font: 600 14px/1.3 system-ui, sans-serif; }
+    .button:hover:not(:disabled) { background: #eff1ee; }
+    .button.primary { background: var(--accent); border-color: var(--accent); color: var(--page); }
+    .button.primary:hover:not(:disabled) { opacity: .86; background: var(--accent); }
+    .button.subtle { border-color: transparent; background: transparent; }
+    .button.subtle:hover { background: #eff1ee; }
+    .mobile-tabs { display: none; }
+    .layout { display: grid; grid-template-columns: minmax(0, 48%) minmax(0, 52%); flex: 1; min-height: 0; overflow: hidden; }
+    .prompt-pane, .response-pane { min-width: 0; min-height: 0; overflow: auto; padding: 28px 32px 36px; }
+    .prompt-pane { border-right: 1px solid var(--border); background: var(--surface); }
+    .response-pane { align-self: stretch; background: var(--page); }
+    .pane-title { margin: 0 0 6px; font-size: 26px; line-height: 1.2; }
+    .eyebrow { margin: 0 0 18px; color: var(--muted); font: 700 12px/1.4 system-ui, sans-serif; text-transform: uppercase; letter-spacing: .08em; }
+    .stem { margin: 22px 0; font-size: 21px; line-height: 1.55; }
+    .stem p { margin: .2em 0 .8em; }
+    .question-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+    .question-head h2 { margin: 0; font-size: 21px; }
+    .flag { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; font: 14px system-ui, sans-serif; }
+    .flag input { width: 19px; height: 19px; accent-color: var(--accent); }
+    .response-subtitle { margin: 0 0 17px; color: var(--muted); font: 14px/1.45 system-ui, sans-serif; }
+    .choices { display: grid; gap: 10px; }
+    .choice { display: flex; align-items: center; gap: 13px; min-height: 59px; padding: 11px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); text-align: left; font-size: 17px; line-height: 1.4; }
+    .choice:hover:not(:disabled) { background: #eff1ee; }
+    .choice[aria-checked="true"] { border: 2px solid var(--accent); padding: 10px 13px; background: var(--soft); }
+    .choice-letter { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; font-size: 16px; }
+    .choice[aria-checked="true"] .choice-letter { background: var(--accent); color: var(--page); border-color: var(--accent); }
+    .utility { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; color: var(--muted); font: 13px system-ui, sans-serif; }
+    .text-button { padding: 6px 0; border: 0; background: transparent; color: var(--ink); text-decoration: underline; font: 13px system-ui, sans-serif; }
+    .feedback { margin: 20px 0 0; padding: 14px 16px; border-left: 3px solid var(--success); background: #eaf4ee; font-size: 15px; }
+    .feedback.review { border-color: var(--error); background: #f9eded; }
+    .parts { list-style: none; padding: 0; margin: 0; font-size: 17px; line-height: 1.55; }
+    .parts li { margin: 0 0 18px; }
+    .part-label { display: inline-block; min-width: 33px; font-weight: bold; }
+    .upload { margin-top: 18px; padding: 18px; border: 1px dashed var(--border); border-radius: 8px; background: var(--surface); }
+    .upload.drag { background: var(--soft); border-color: var(--accent); }
+    .upload h3 { margin: 0 0 6px; font-size: 17px; }
+    .upload p { margin: 0 0 12px; color: var(--muted); font: 13px/1.5 system-ui, sans-serif; }
+    .file-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .thumbnails { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .thumb { width: 116px; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; background: var(--surface); }
+    .thumb img { display: block; width: 100%; height: 90px; object-fit: cover; }
+    .thumb-name { padding: 5px 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 11px system-ui, sans-serif; }
+    .thumb button { width: 100%; padding: 5px; border: 0; border-top: 1px solid var(--border); background: var(--surface); color: var(--error); font: 12px system-ui, sans-serif; }
+    .written-label { display: block; margin: 20px 0 6px; font-weight: bold; }
+    textarea { width: 100%; min-height: 150px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); resize: vertical; }
+    .note { margin-top: 18px; color: var(--muted); font: 13px/1.5 system-ui, sans-serif; }
+    .footer { display: flex; align-items: center; gap: 14px; flex: none; min-height: 70px; padding: 9px 28px; border-top: 1px solid var(--border); background: var(--surface); }
+    .footer-progress { margin: 0 auto; color: var(--muted); white-space: nowrap; font: 13px system-ui, sans-serif; }
+    .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 9px; margin: 22px 0; }
+    .review-cell { min-height: 78px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); text-align: left; }
+    .review-cell.answered { background: var(--soft); }
+    .review-cell.flagged { border-top: 4px solid #ae7919; padding-top: 9px; }
+    .review-cell small { display: block; margin-top: 4px; color: var(--muted); font: 12px system-ui, sans-serif; }
+    .review-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .score { margin: 12px 0 0; font-size: 48px; line-height: 1.1; }
+    .score span { font-size: 18px; color: var(--muted); }
+    .result-info { max-width: 650px; color: var(--muted); }
+    .summary { width: 100%; min-height: 145px; margin-top: 8px; font: 13px/1.45 ui-monospace, monospace; }
+    .directions { margin-top: 28px; border-top: 1px solid var(--border); padding-top: 16px; color: var(--muted); font: 13px/1.5 system-ui, sans-serif; }
+    .directions summary { cursor: pointer; color: var(--ink); font-weight: bold; }
+    .math { white-space: nowrap; }
+    math { font-size: 1.12em; vertical-align: middle; }
+    .choice math { font-size: 1.28em; }
+    .equation-display { display: block; margin: .45em 0 .6em; font-size: 1.12em; overflow-x: auto; }
+    .equation-display math { font-size: 1.3em; }
+    .cases { display: grid; gap: 2px; margin: .4em 0 .55em 1em; padding-left: 12px; border-left: 3px solid var(--border); font-size: .98em; }
+    .graph { display: block; width: min(100%, 440px); height: auto; margin: 14px 0 4px; border: 1px solid var(--border); border-radius: 8px; background: white; }
+    .data-table { border-collapse: collapse; margin: 12px 0; max-width: 100%; font: 14px/1.35 system-ui, sans-serif; }
+    .data-table th, .data-table td { border: 1px solid var(--border); padding: 5px 9px; text-align: center; white-space: nowrap; }
+    .data-table th { background: var(--soft); }
+    @media (max-width: 760px) {
+      .topbar { padding: 12px 16px; min-height: 56px; }
+      .brand { font-size: 19px; }
+      .topbar small { display: none; }
+      .mobile-tabs { display: flex; flex: none; border-bottom: 1px solid var(--border); background: var(--surface); }
+      .mobile-tabs button { flex: 1; min-height: 44px; border: 0; background: var(--surface); color: var(--ink); }
+      .mobile-tabs button[aria-selected="true"] { border-bottom: 3px solid var(--accent); }
+      .layout { display: block; overflow: auto; }
+      .prompt-pane, .response-pane { min-height: 100%; padding: 22px 18px 32px; overflow: visible; }
+      .prompt-pane { border: 0; }
+      .response-pane { background: var(--surface); }
+      .layout[data-mobile-view="prompt"] .response-pane, .layout[data-mobile-view="response"] .prompt-pane { display: none; }
+      .stem { font-size: 19px; }
+      .footer { padding: 9px 14px; gap: 8px; }
+      .footer .button { padding: 8px 10px; font-size: 13px; }
+      .footer-progress { font-size: 12px; }
+    }
+    @media (max-width: 420px) { .footer-progress { display: none; } .footer .button:nth-child(3) { margin-left: auto; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar"><h1 class="brand">Mid-Unit Chapter 2 Test (2.1–2.4)</h1><small>Original practice · 5 multiple choice · 12 free response</small></header>
+    <nav class="mobile-tabs" aria-label="Practice view"><button id="promptTab" type="button" aria-selected="true">Question</button><button id="responseTab" type="button" aria-selected="false">Response</button></nav>
+    <main class="layout" id="layout" data-mobile-view="prompt">
+      <section class="prompt-pane" id="promptPane" aria-label="Question information"></section>
+      <section class="response-pane" id="responsePane" aria-label="Your response"></section>
+    </main>
+    <footer class="footer">
+      <button class="button" id="backBtn" type="button">Back</button>
+      <span class="footer-progress" id="progress">0 of 17 answered</span>
+      <button class="button" id="reviewBtn" type="button">Review answers</button>
+      <button class="button primary" id="nextBtn" type="button">Next</button>
+    </footer>
+  </div>
+  <script>
+  (() => {
+    'use strict';
+    const KEY='apcalc-ch2-midunit-extensive-v1';
+    const DB='apcalc-ch2-midunit-extensive-photos-v1';
+    const letters=['A','B','C','D','E'];
+    // Original questions informed by the teacher review and Flipped Classroom worksheets.
+    const mcq=[{"skill":"Average rate and units","q":"The position of a cart is measured in meters and time in seconds. If s(1)=4 and s(5)=−8, what is its average velocity on [1,5]?","choices":["−12 meters per second","−3 meters per second","−3 meters per second squared","3 meters per second","12 meters per second"],"answer":1,"why":"Average velocity is [s(5)−s(1)]/(5−1)=−12/4=−3 meters per second."},{"skill":"Differentiability","q":"A function is continuous at x=2. Its left-hand derivative at 2 is −4 and its right-hand derivative at 2 is 4. Which conclusion is valid?","choices":["The derivative at 2 is 0 because the one-sided rates cancel.","The derivative at 2 is 4 because the right-hand limit controls.","The derivative at 2 does not exist because the one-sided derivatives differ.","The function is discontinuous at 2.","The function must have a vertical tangent at 2."],"answer":2,"why":"A finite derivative requires matching one-sided derivatives."},{"skill":"Derivative from table","q":"Let H(x)=f(g(x)). The table gives g(1)=3, g′(1)=−2, f′(1)=7, and f′(3)=5. What is H′(1)?","choices":["−14","−10","5","10","35"],"answer":1,"why":"H′(1)=f′(g(1))g′(1)=f′(3)(−2)=−10."},{"skill":"Quotient rule","q":"For x≠−1 let R(x)=cos(x)/(x+1), with x in radians. What is R′(0)?","choices":["−2","−1","0","1","2"],"answer":1,"why":"R′(x)=[−sin(x)(x+1)−cos(x)]/(x+1)², so R′(0)=−1."},{"skill":"Product and chain","q":"If P(x)=x sin(x²), what is P′(√π)?","choices":["−2π","−2√π","0","2√π","2π"],"answer":0,"why":"P′(x)=sin(x²)+2x²cos(x²); at √π this is −2π."}];
+    const frq=[{"title":"Rates from a graph","points":10,"intro":"The graph of f(x)=x³−3x on the closed interval [−2,2] is shown. Filled dots mark included endpoints. Use the graph and the formula as requested.<svg class=\"graph\" viewBox=\"0 0 520 330\" role=\"img\" aria-label=\"Coordinate graph of f of x equals x cubed minus 3x, from x negative 2 to x 2. The curve passes through negative 2 negative 2, negative 1 positive 2, zero zero, positive 1 negative 2, and positive 2 positive 2.\"><rect width=\"520\" height=\"330\" fill=\"white\"/><g stroke=\"#dce3de\" stroke-width=\"1\"><path d=\"M80 35V285\"/><path d=\"M170 35V285\"/><path d=\"M260 35V285\"/><path d=\"M350 35V285\"/><path d=\"M440 35V285\"/><path d=\"M70 265H450\"/><path d=\"M70 215H450\"/><path d=\"M70 165H450\"/><path d=\"M70 115H450\"/><path d=\"M70 65H450\"/></g><path d=\"M65 165H460 M260 25V295\" stroke=\"#536359\" stroke-width=\"2\"/><g fill=\"#52645a\" font-family=\"system-ui,sans-serif\" font-size=\"13\" text-anchor=\"middle\"><text x=\"80\" y=\"308\">-2</text><text x=\"170\" y=\"308\">-1</text><text x=\"260\" y=\"308\">0</text><text x=\"350\" y=\"308\">1</text><text x=\"440\" y=\"308\">2</text><text x=\"470\" y=\"169\">x</text></g><g fill=\"#52645a\" font-family=\"system-ui,sans-serif\" font-size=\"13\" text-anchor=\"end\"><text x=\"252\" y=\"270\">-4</text><text x=\"252\" y=\"220\">-2</text><text x=\"252\" y=\"120\">2</text><text x=\"252\" y=\"70\">4</text></g><text x=\"266\" y=\"21\" fill=\"#52645a\" font-family=\"system-ui,sans-serif\" font-size=\"13\">y</text><path d=\"M80.0,215.0 L80.9,212.8 L81.8,210.6 L82.7,208.4 L83.6,206.2 L84.5,204.1 L85.4,202.0 L86.3,200.0 L87.2,197.9 L88.1,195.9 L89.0,194.0 L89.9,192.0 L90.8,190.1 L91.7,188.2 L92.6,186.4 L93.5,184.5 L94.4,182.7 L95.3,181.0 L96.2,179.2 L97.1,177.5 L98.0,175.8 L98.9,174.1 L99.8,172.5 L100.7,170.9 L101.6,169.3 L102.5,167.7 L103.4,166.2 L104.3,164.7 L105.2,163.2 L106.1,161.8 L107.0,160.3 L107.9,158.9 L108.8,157.5 L109.7,156.2 L110.6,154.9 L111.5,153.6 L112.4,152.3 L113.3,151.0 L114.2,149.8 L115.1,148.6 L116.0,147.4 L116.9,146.2 L117.8,145.1 L118.7,144.0 L119.6,142.9 L120.5,141.8 L121.4,140.8 L122.3,139.8 L123.2,138.8 L124.1,137.8 L125.0,136.9 L125.9,135.9 L126.8,135.0 L127.7,134.2 L128.6,133.3 L129.5,132.5 L130.4,131.6 L131.3,130.9 L132.2,130.1 L133.1,129.3 L134.0,128.6 L134.9,127.9 L135.8,127.2 L136.7,126.5 L137.6,125.9 L138.5,125.3 L139.4,124.7 L140.3,124.1 L141.2,123.5 L142.1,123.0 L143.0,122.4 L143.9,121.9 L144.8,121.4 L145.7,121.0 L146.6,120.5 L147.5,120.1 L148.4,119.7 L149.3,119.3 L150.2,118.9 L151.1,118.5 L152.0,118.2 L152.9,117.9 L153.8,117.6 L154.7,117.3 L155.6,117.0 L156.5,116.8 L157.4,116.5 L158.3,116.3 L159.2,116.1 L160.1,115.9 L161.0,115.8 L161.9,115.6 L162.8,115.5 L163.7,115.4 L164.6,115.3 L165.5,115.2 L166.4,115.1 L167.3,115.1 L168.2,115.0 L169.1,115.0 L170.0,115.0 L170.9,115.0 L171.8,115.0 L172.7,115.1 L173.6,115.1 L174.5,115.2 L175.4,115.3 L176.3,115.4 L177.2,115.5 L178.1,115.6 L179.0,115.7 L179.9,115.9 L180.8,116.0 L181.7,116.2 L182.6,116.4 L183.5,116.6 L184.4,116.8 L185.3,117.0 L186.2,117.3 L187.1,117.5 L188.0,117.8 L188.9,118.1 L189.8,118.4 L190.7,118.7 L191.6,119.0 L192.5,119.3 L193.4,119.6 L194.3,120.0 L195.2,120.3 L196.1,120.7 L197.0,121.1 L197.9,121.5 L198.8,121.9 L199.7,122.3 L200.6,122.7 L201.5,123.1 L202.4,123.6 L203.3,124.0 L204.2,124.5 L205.1,124.9 L206.0,125.4 L206.9,125.9 L207.8,126.4 L208.7,126.9 L209.6,127.4 L210.5,127.9 L211.4,128.4 L212.3,129.0 L213.2,129.5 L214.1,130.1 L215.0,130.6 L215.9,131.2 L216.8,131.8 L217.7,132.3 L218.6,132.9 L219.5,133.5 L220.4,134.1 L221.3,134.7 L222.2,135.4 L223.1,136.0 L224.0,136.6 L224.9,137.2 L225.8,137.9 L226.7,138.5 L227.6,139.2 L228.5,139.8 L229.4,140.5 L230.3,141.1 L231.2,141.8 L232.1,142.5 L233.0,143.2 L233.9,143.9 L234.8,144.5 L235.7,145.2 L236.6,145.9 L237.5,146.6 L238.4,147.3 L239.3,148.1 L240.2,148.8 L241.1,149.5 L242.0,150.2 L242.9,150.9 L243.8,151.6 L244.7,152.4 L245.6,153.1 L246.5,153.8 L247.4,154.6 L248.3,155.3 L249.2,156.0 L250.1,156.8 L251.0,157.5 L251.9,158.3 L252.8,159.0 L253.7,159.8 L254.6,160.5 L255.5,161.3 L256.4,162.0 L257.3,162.8 L258.2,163.5 L259.1,164.3 L260.0,165.0 L260.9,165.7 L261.8,166.5 L262.7,167.2 L263.6,168.0 L264.5,168.7 L265.4,169.5 L266.3,170.2 L267.2,171.0 L268.1,171.7 L269.0,172.5 L269.9,173.2 L270.8,174.0 L271.7,174.7 L272.6,175.4 L273.5,176.2 L274.4,176.9 L275.3,177.6 L276.2,178.4 L277.1,179.1 L278.0,179.8 L278.9,180.5 L279.8,181.2 L280.7,181.9 L281.6,182.7 L282.5,183.4 L283.4,184.1 L284.3,184.8 L285.2,185.5 L286.1,186.1 L287.0,186.8 L287.9,187.5 L288.8,188.2 L289.7,188.9 L290.6,189.5 L291.5,190.2 L292.4,190.8 L293.3,191.5 L294.2,192.1 L295.1,192.8 L296.0,193.4 L296.9,194.0 L297.8,194.6 L298.7,195.3 L299.6,195.9 L300.5,196.5 L301.4,197.1 L302.3,197.7 L303.2,198.2 L304.1,198.8 L305.0,199.4 L305.9,199.9 L306.8,200.5 L307.7,201.0 L308.6,201.6 L309.5,202.1 L310.4,202.6 L311.3,203.1 L312.2,203.6 L313.1,204.1 L314.0,204.6 L314.9,205.1 L315.8,205.5 L316.7,206.0 L317.6,206.4 L318.5,206.9 L319.4,207.3 L320.3,207.7 L321.2,208.1 L322.1,208.5 L323.0,208.9 L323.9,209.3 L324.8,209.7 L325.7,210.0 L326.6,210.4 L327.5,210.7 L328.4,211.0 L329.3,211.3 L330.2,211.6 L331.1,211.9 L332.0,212.2 L332.9,212.5 L333.8,212.7 L334.7,213.0 L335.6,213.2 L336.5,213.4 L337.4,213.6 L338.3,213.8 L339.2,214.0 L340.1,214.1 L341.0,214.3 L341.9,214.4 L342.8,214.5 L343.7,214.6 L344.6,214.7 L345.5,214.8 L346.4,214.9 L347.3,214.9 L348.2,215.0 L349.1,215.0 L350.0,215.0 L350.9,215.0 L351.8,215.0 L352.7,214.9 L353.6,214.9 L354.5,214.8 L355.4,214.7 L356.3,214.6 L357.2,214.5 L358.1,214.4 L359.0,214.2 L359.9,214.1 L360.8,213.9 L361.7,213.7 L362.6,213.5 L363.5,213.2 L364.4,213.0 L365.3,212.7 L366.2,212.4 L367.1,212.1 L368.0,211.8 L368.9,211.5 L369.8,211.1 L370.7,210.7 L371.6,210.3 L372.5,209.9 L373.4,209.5 L374.3,209.0 L375.2,208.6 L376.1,208.1 L377.0,207.6 L377.9,207.0 L378.8,206.5 L379.7,205.9 L380.6,205.3 L381.5,204.7 L382.4,204.1 L383.3,203.5 L384.2,202.8 L385.1,202.1 L386.0,201.4 L386.9,200.7 L387.8,199.9 L388.7,199.1 L389.6,198.4 L390.5,197.5 L391.4,196.7 L392.3,195.8 L393.2,195.0 L394.1,194.1 L395.0,193.1 L395.9,192.2 L396.8,191.2 L397.7,190.2 L398.6,189.2 L399.5,188.2 L400.4,187.1 L401.3,186.0 L402.2,184.9 L403.1,183.8 L404.0,182.6 L404.9,181.4 L405.8,180.2 L406.7,179.0 L407.6,177.7 L408.5,176.4 L409.4,175.1 L410.3,173.8 L411.2,172.5 L412.1,171.1 L413.0,169.7 L413.9,168.2 L414.8,166.8 L415.7,165.3 L416.6,163.8 L417.5,162.3 L418.4,160.7 L419.3,159.1 L420.2,157.5 L421.1,155.9 L422.0,154.2 L422.9,152.5 L423.8,150.8 L424.7,149.0 L425.6,147.3 L426.5,145.5 L427.4,143.6 L428.3,141.8 L429.2,139.9 L430.1,138.0 L431.0,136.0 L431.9,134.1 L432.8,132.1 L433.7,130.0 L434.6,128.0 L435.5,125.9 L436.4,123.8 L437.3,121.6 L438.2,119.4 L439.1,117.2 L440.0,115.0\" fill=\"none\" stroke=\"#245b84\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"80\" cy=\"215\" r=\"5\" fill=\"#245b84\"/><circle cx=\"440\" cy=\"115\" r=\"5\" fill=\"#245b84\"/></svg>","parts":["Find the average rate of change of f on [−2,2]. Interpret its geometric meaning on the graph.","Find every b in [−2,2], b≠0, for which the average rate of change from b to 0 is −2. Show an equation supporting your answer.","Find f′(0) exactly. Explain why the answer to part (a) does not determine f′(0).","Find the coordinates of each point at which the graph has a horizontal tangent."]},{"title":"A derivative from its definition","points":10,"intro":"Let F(x)=√(x+9). A student substitutes h=0 immediately into [F(7+h)−F(7)]/h and reports a derivative of 0.","parts":["Write the difference quotient for F′(7), then use algebra to evaluate the limit.","Write an equation of the tangent line and an equation of the normal line to the graph of F at x=7.","Explain precisely why the student’s calculation is invalid.","Determine whether F has a finite two-sided derivative at x=−9. Justify using the domain and a one-sided quotient."]},{"title":"Numerical derivative and a jump","points":10,"intro":"The table gives selected values of a function f. For x<6, f(x)=√x. At x=6, f(6)=5. For x>6, f(x)=11−x. <table class=\"data-table\"><tr><th>x</th><td>4</td><td>5</td><td>5.5</td><td>6</td><td>6.5</td><td>7</td></tr><tr><th>f(x)</th><td>2</td><td>√5</td><td>√5.5</td><td>5</td><td>4.5</td><td>4</td></tr></table>","parts":["Use the table to calculate the average rate of change of f on [6,7], State whether units can be assigned from the information given.","Use two x-values less than 6 in the table to estimate the slope of the curve as x approaches 6 from the left. State which values you used.","Is f continuous at x=6? Is it differentiable there? Justify each answer separately.","A student says f′(6)=−1 because the right-hand piece is a line of slope −1. Explain the flaw."]},{"title":"A differentiable piecewise model","points":10,"intro":"For constants a and b, define p(x)=x²+a for x≤1 and p(x)=bx+3 for x>1.","parts":["Find a condition relating a and b that makes p continuous at x=1.","Find the values of a and b that make p differentiable at x=1. Justify by comparing one-sided derivatives.","For those values, write the tangent line to p at x=1.","Explain why matching the slopes of the two formulas alone is not sufficient for differentiability."]},{"title":"Position and velocity","points":10,"intro":"A particle moves on a horizontal line. Its position is s(t)=t³−6t²+9t meters for 0≤t≤4 seconds.","parts":["Find velocity v(t) in meters per second and acceleration a(t) in meters per second squared.","Find each time the particle is at rest, and determine the direction of motion on each interval between those times.","Find the displacement and total distance traveled on [0,4], in meters. Show the position values used.","At t=2.5, is the particle speeding up or slowing down? Justify using the signs of velocity and acceleration."]},{"title":"Power and trigonometric rules","points":10,"intro":"Let f(x)=3x<sup>−2</sup>+2√x−4 sin(x)+cos(x) for x>0, with angles in radians.","parts":["Find f′(x), expressing negative and fractional powers clearly.","Find f′(π/2) exactly.","Find f″(x).","A student differentiates 2√x as 1/√x and −4 sin(x) as 4 cos(x). Identify which claim is correct and which has a sign error."]},{"title":"Product rule from a table","points":10,"intro":"Let G(x)=x²f(x), where f is twice differentiable. The table gives f(2)=3, f′(2)=−4, and f″(2)=5.","parts":["Find G(2) and G′(2). Show the product-rule expression.","Write an equation of the tangent line to G at x=2.","Find G″(2), showing how each derivative term arises.","A student gives y−3=−4(x−2) as the tangent line to G. Assess the student’s proposed line. Identify any correct part and explain each error."]},{"title":"A quotient and its domain","points":10,"intro":"Let Q(x)=(x²+1)/(x−2) for x≠2.","parts":["Find Q′(x) by the quotient rule and simplify its numerator.","Find every point on the graph where the tangent is horizontal. Give coordinates and justify that each input is in the domain.","Find the equation of the tangent line at x=0.","A student cancels x from x²+1 and x−2 before differentiating. Explain why that cancellation is invalid."]},{"title":"Nested trigonometric chain","points":10,"intro":"Let H(x)=sin(3x²−1), with angles in radians.","parts":["Find H′(x) and H″(x). Show the inner derivative at each stage.","Evaluate H′(0) and H″(0) exactly.","A student writes H′(x)=cos(3x²−1). Explain the missing factor.","For x>0, write an equation whose solutions give horizontal tangents to H. You do not need to solve it."]},{"title":"A mixed-rule composition","points":10,"intro":"Let J(x)=x² cos(x)/(1+x²) for all real x, with angles in radians.","parts":["Find J′(x). Show a valid sequence of product, quotient, or simplification steps.","Find J(0), J′(0), and the tangent line at x=0.","A student argues J′(0) is undefined because the quotient rule produces a denominator of zero. Explain the flaw using the actual denominator.","Find the coefficient of x² in the local expansion of J near x=0 by calculating J″(0) or by a valid derivative argument."]},{"title":"Chain and product from tabulated values","points":10,"intro":"Let K(x)=x f(g(x)). Both f and g are differentiable. The table gives g(2)=3, g′(2)=−2, f(3)=4, f′(3)=5, f(2)=7, and f′(2)=11.","parts":["Find K(2) and K′(2). State each rule used.","Write an equation of the tangent line to K at x=2.","A student uses f′(2)=11 in the chain rule. Explain why that table entry is not the one needed.","If g′(2) were changed to 0 while all other listed values stayed the same, what would K′(2) be? Explain."]},{"title":"Interpretation and argument","points":10,"intro":"The temperature of a liquid is T(t)=20+8 cos(πt/6) degrees Celsius for 0≤t≤12 minutes, with the angle in radians.","parts":["Find T′(t), including units, and interpret T′(3) in context.","Find the average rate of change of temperature on [0,6], with units.","Find all times in (0,12) when the instantaneous rate is zero, and state whether each is a local maximum or minimum temperature.","A student says T′(3)=0 because the temperature is halfway between its initial and minimum values. Explain why this reasoning fails."]}];
+    const fresh = () => ({choices:Array(mcq.length).fill(null), texts:Array(frq.length).fill(''), flags:Array(mcq.length+frq.length).fill(false), active:0, view:'question', submitted:false, startedAt:Date.now()});
+    let state = fresh();
+    let storageOK = true;
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if (Array.isArray(saved.choices) && saved.choices.length === mcq.length) state.choices = saved.choices.map(x => Number.isInteger(x) && x >= 0 && x < 5 ? x : null);
+      if (Array.isArray(saved.texts)) state.texts = frq.map((_,i) => typeof saved.texts[i] === 'string' ? saved.texts[i] : '');
+      if (Array.isArray(saved.flags)) state.flags = state.flags.map((_,i) => saved.flags[i] === true);
+      if (Number.isInteger(saved.active) && saved.active >= 0 && saved.active < state.flags.length) state.active = saved.active;
+      if (Number.isFinite(saved.startedAt)) state.startedAt = saved.startedAt;
+      state.submitted = saved.submitted === true;
+      state.view = state.submitted ? (saved.view === 'question' ? 'question' : 'results') : (saved.view === 'review' ? 'review' : 'question');
+    } catch (error) { storageOK = false; }
+    let dbPromise;
+    let photoCache = [];
+    let mobileView = 'prompt';
+    const $ = id => document.getElementById(id);
+    const total = mcq.length + frq.length;
+    function db() {
+      if (!dbPromise) dbPromise = new Promise((resolve,reject) => {
+        const req = indexedDB.open(DB,1);
+        req.onupgradeneeded = () => req.result.createObjectStore('photos',{keyPath:'id'});
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+      return dbPromise;
+    }
+    async function photosTransaction(mode, method, value) {
+      const database = await db();
+      return new Promise((resolve,reject) => {
+        const req = database.transaction('photos',mode).objectStore('photos')[method](...(value === undefined ? [] : [value]));
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    const allPhotos = () => photosTransaction('readonly','getAll');
+    const savePhoto = record => photosTransaction('readwrite','put',record);
+    const deletePhoto = id => photosTransaction('readwrite','delete',id);
+    const clearPhotos = () => photosTransaction('readwrite','clear');
+    function persist() {
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (error) { storageOK = false; }
+      updateNav();
+    }
+    function isDone(i) { return i < mcq.length ? state.choices[i] !== null : !!(state.texts[i-mcq.length].trim() || photoCache.some(p => p.frq === i-mcq.length)); }
+    function updateNav() {
+      const done = Array.from({length:total},(_,i) => isDone(i)).filter(Boolean).length;
+      $('progress').textContent = `${done} of ${total} answered`;
+      $('backBtn').disabled = state.view === 'question' && state.active === 0;
+      $('backBtn').textContent = state.view === 'question' ? 'Back' : 'Questions';
+      $('reviewBtn').textContent = state.submitted ? 'Results' : 'Review answers';
+      $('nextBtn').textContent = state.view === 'question' ? (state.active === total-1 ? (state.submitted ? 'Results' : 'Review answers') : 'Next') : (state.submitted ? 'Review MCQ' : 'Return to question');
+    }
+    function setMobileView(view) {
+      mobileView = view;
+      $('layout').dataset.mobileView = view;
+      $('promptTab').setAttribute('aria-selected',view === 'prompt');
+      $('responseTab').setAttribute('aria-selected',view === 'response');
+      $('layout').scrollTop = 0;
+    }
+    function directions() { return `<details class="directions"><summary>Directions</summary><p>No calculator is required. Use radians for trigonometry. Label each free-response part. Show setup, supporting work, mathematical reasons, and units for contextual rates. Unless specified otherwise, exact expressions need not be simplified; decimal approximations should be accurate to three places after the decimal point.</p><p>These are original questions, not an official AP Classroom assignment or AP exam. The directions follow the <a href="https://apcentral.collegeboard.org/media/pdf/ap26-frq-calculus-ab.pdf" target="_blank" rel="noopener noreferrer">published AP Calculus AB free-response directions</a>.</p></details>`; }
+    function questionHeader(i) { return `<div class="question-head"><h2>Question ${i+1} of ${total}</h2><label class="flag"><input id="flag" type="checkbox" ${state.flags[i]?'checked':''}>Mark for review</label></div>`; }
+    function renderQuestion() {
+      const i = state.active;
+      if (i < mcq.length) {
+        const q = mcq[i];
+        $('promptPane').innerHTML = `<p class="eyebrow">Multiple choice · No calculator · 1 point</p><h2 class="pane-title">Question ${i+1}</h2><div class="stem">${q.q}</div>${directions()}`;
+        $('responsePane').innerHTML = `${questionHeader(i)}<p class="response-subtitle">Choose one answer.</p><div class="choices" role="radiogroup" aria-label="Answer choices">${q.choices.map((c,j) => `<button class="choice" type="button" role="radio" aria-checked="${state.choices[i]===j}" data-choice="${j}" ${state.submitted?'disabled':''}><span class="choice-letter">${letters[j]}</span><span>${c}</span></button>`).join('')}</div>${state.submitted ? `<div class="feedback ${state.choices[i]===q.answer?'':'review'}"><strong>${state.choices[i]===q.answer?'Correct':state.choices[i]===null?'Unanswered':'Review this one'} · Answer: ${letters[q.answer]}</strong><p>${q.why}</p></div>` : `<div class="utility"><span>${storageOK?'Progress saved in this browser':'Browser storage unavailable; download your attempt'}</span><button class="text-button" id="clearAnswer" type="button">Clear answer</button></div>`}`;
+      } else {
+        const n = i - mcq.length, q = frq[n], mine = photoCache.filter(p => p.frq === n);
+        $('promptPane').innerHTML = `<p class="eyebrow">Free response · No calculator · ${q.points} points</p><h2 class="pane-title">Question ${i+1}</h2><div class="stem">${q.intro}</div>${directions()}`;
+        $('responsePane').innerHTML = `${questionHeader(i)}<ol class="parts">${q.parts.map((p,j) => `<li><span class="part-label">(${letters[j].toLowerCase()})</span>${p}</li>`).join('')}</ol><label class="written-label" for="writtenAnswer">Your written work</label><textarea id="writtenAnswer" placeholder="Type your work here, attach photos, or both." ${state.submitted?'readonly':''}></textarea><div class="upload" id="dropZone"><h3>Attach photos of your work</h3><p>Images stay in this browser and are included in the downloaded attempt. Multiple pages are fine.</p>${state.submitted?'':`<label class="button" for="photoInput">Choose photos</label><input class="file-input" id="photoInput" type="file" accept="image/*" multiple>`}<div class="thumbnails" id="thumbnails"></div></div><p class="note">${state.submitted?'FRQs need written grading. Download your attempt for feedback.':storageOK?'Written work saves as you type.':'Browser storage unavailable; download your attempt.'}</p>`;
+        $('writtenAnswer').value = state.texts[n];
+        $('thumbnails').replaceChildren(...mine.map(p => {
+          const box = document.createElement('div'); box.className = 'thumb';
+          const img = document.createElement('img'); img.alt = p.name; img.src = URL.createObjectURL(p.blob); img.onload = () => URL.revokeObjectURL(img.src);
+          const name = document.createElement('div'); name.className = 'thumb-name'; name.textContent = p.name;
+          box.append(img,name);
+          if (!state.submitted) { const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Remove'; remove.onclick = async () => { await deletePhoto(p.id); await render(); }; box.append(remove); }
+          return box;
+        }));
+        if (!state.submitted) {
+          $('writtenAnswer').oninput = e => { state.texts[n] = e.target.value; persist(); };
+          $('photoInput').onchange = e => addFiles(e.target.files,n);
+          const drop = $('dropZone');
+          drop.ondragover = e => { e.preventDefault(); drop.classList.add('drag'); };
+          drop.ondragleave = () => drop.classList.remove('drag');
+          drop.ondrop = e => { e.preventDefault(); drop.classList.remove('drag'); addFiles(e.dataTransfer.files,n); };
+        }
+      }
+      $('flag').onchange = e => { state.flags[i] = e.target.checked; persist(); };
+    }
+    function reviewGrid(results) { return `<div class="review-grid">${Array.from({length:total},(_,i) => `<button class="review-cell ${isDone(i)?'answered':''} ${state.flags[i]?'flagged':''}" type="button" data-go="${i}"><strong>${i<mcq.length?`MCQ ${i+1}`:`FRQ ${i-mcq.length+1}`}</strong><small>${results&&i<mcq.length?(state.choices[i]===mcq[i].answer?'Correct':state.choices[i]===null?'Unanswered':'Review'):(i<mcq.length ? (state.choices[i]===null?'Unanswered':`Answer ${letters[state.choices[i]]}`) : (isDone(i)?'Work saved':'Unanswered'))}${state.flags[i]?' · Flagged':''}</small></button>`).join('')}</div>`; }
+    function renderReview() {
+      const missing = Array.from({length:total},(_,i) => !isDone(i)).filter(Boolean).length, flagged = state.flags.filter(Boolean).length;
+      $('promptPane').innerHTML = `<p class="eyebrow">Before you submit</p><h2 class="pane-title">Review your work</h2><p>${missing} unanswered · ${flagged} marked for review.</p><p>Select a question to return to it. A gold top border marks questions you flagged.</p>${directions()}`;
+      $('responsePane').innerHTML = `<h2 class="pane-title">All questions</h2>${reviewGrid(false)}<p class="note">Submission locks this attempt and scores the multiple-choice questions. Free responses need written grading.</p><div class="review-actions"><button class="button primary" id="submitBtn" type="button">Submit ${missing?`with ${missing} unanswered`:'attempt'}</button><button class="button" id="keepWorking" type="button">Keep working</button></div>`;
+      $('submitBtn').onclick = () => { state.submitted = true; state.view = 'results'; persist(); render(); setMobileView('response'); };
+      $('keepWorking').onclick = () => { state.view = 'question'; persist(); render(); };
+    }
+    function summaryText() { return `AP Calculus AB Mid-Unit Chapter 2 Test (2.1–2.4)\nMultiple choice: ${state.choices.filter((x,i)=>x===mcq[i].answer).length}/${mcq.length}\nFree responses require written grading.\n\n${Array.from({length:total},(_,i)=>`${i<mcq.length?`MCQ ${i+1}`:`FRQ ${i-mcq.length+1}`}: ${i<mcq.length?(state.choices[i]===null?'Unanswered':letters[state.choices[i]]):(isDone(i)?'Work saved':'Unanswered')} | flagged: ${state.flags[i]?'yes':'no'}`).join('\n')}\n\nDownload the attempt to include typed answers and photos.`; }
+    function renderResults() {
+      const score = state.choices.filter((x,i) => x === mcq[i].answer).length;
+      $('promptPane').innerHTML = `<p class="eyebrow">Attempt submitted</p><h2 class="pane-title">Practice complete</h2><p class="result-info">Your multiple-choice answers have been scored. Free responses need written grading. This score is for this practice set, not a predicted AP exam score.</p>${directions()}`;
+      $('responsePane').innerHTML = `<h2 class="pane-title">Your results</h2><div class="score">${score} / ${mcq.length} <span>multiple choice</span></div><p class="result-info">Your written work and photos remain saved in this browser. Download the attempt when you want feedback.</p><div class="review-actions"><button class="button primary" id="downloadBtn" type="button">Download attempt</button><button class="button" id="copyBtn" type="button">Copy summary</button><button class="button" id="startOverBtn" type="button">Start over</button></div><p id="copyStatus" class="note" role="status"></p><h3>Question review</h3>${reviewGrid(true)}<details><summary>View answer summary</summary><textarea class="summary" readonly>${summaryText()}</textarea></details>`;
+      $('downloadBtn').onclick = download;
+      $('copyBtn').onclick = async () => { try { await navigator.clipboard.writeText(summaryText()); $('copyStatus').textContent = 'Copied. Paste this into our conversation for diagnosis.'; } catch { $('copyStatus').textContent = 'Copy from the answer summary below.'; } };
+      $('startOverBtn').onclick = resetAttempt;
+    }
+    async function render() {
+      try { photoCache = await allPhotos(); } catch (error) { photoCache = []; console.warn('Photo storage unavailable',error); }
+      if (state.view === 'review') renderReview(); else if (state.view === 'results') renderResults(); else renderQuestion();
+      updateNav();
+    }
+    async function addFiles(files,n) {
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) { alert(`${file.name} is not an image.`); continue; }
+        if (file.size > 15*1024*1024) { alert(`${file.name} is larger than 15 MB.`); continue; }
+        try { await savePhoto({id:crypto.randomUUID(),frq:n,name:file.name,type:file.type,blob:file,addedAt:new Date().toISOString()}); }
+        catch (error) { alert('This browser could not save the photo. Attach it in chat separately. '+error.message); break; }
+      }
+      await render();
+    }
+    function go(i) { if (i < 0 || i >= total) return; state.active = i; state.view = 'question'; persist(); render(); setMobileView('prompt'); $('layout').scrollTop = 0; $('promptPane').scrollTop = 0; $('responsePane').scrollTop = 0; }
+    async function resetAttempt() { if (!confirm('Start over? This erases the answers and photos saved in this browser. Download your attempt first if you want to keep it.')) return; try { await clearPhotos(); } catch (error) { alert('Photos could not be cleared: '+error.message); return; } state = fresh(); persist(); await render(); setMobileView('prompt'); }
+    function fileAsDataURL(blob) { return new Promise((resolve,reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => reject(reader.error); reader.readAsDataURL(blob); }); }
+    function readableText(html) { const holder = document.createElement('template'); holder.innerHTML = html; function visit(node) { if (node.nodeType === Node.TEXT_NODE) return node.textContent; const tag = node.localName; if (tag === 'svg') return ' '+(node.getAttribute('aria-label')||'graph')+' '; if (tag === 'msqrt') return 'sqrt('+Array.from(node.childNodes,visit).join('')+')'; if (tag === 'mfrac') return '('+visit(node.children[0])+')/('+visit(node.children[1])+')'; if (tag === 'msup') return visit(node.children[0])+'^('+visit(node.children[1])+')'; if (tag === 'br') return ' '; if (tag === 'tr') return Array.from(node.children,visit).join(' | ')+'; '; if (node.classList?.contains('cases')) return Array.from(node.children,visit).join('; '); if (node.classList?.contains('equation-display')) return ' '+Array.from(node.childNodes,visit).join('')+' '; return Array.from(node.childNodes,visit).join(''); } return visit(holder.content).replace(/\s+/g,' ').trim(); }
+    async function download() {
+      let photos; try { photos = await allPhotos(); } catch (error) { alert('Saved photos could not be read. Attach them in chat separately.'); return; }
+      const encoded = []; for (const p of photos) encoded.push({frq:p.frq+1,name:p.name,type:p.type,addedAt:p.addedAt,dataUrl:await fileAsDataURL(p.blob)});
+      const payload = {title:'AP Calculus AB Mid-Unit Chapter 2 Test (2.1–2.4)',version:1,exportedAt:new Date().toISOString(),submitted:state.submitted,flags:state.flags,mcqAnswers:state.choices.map((x,i)=>({question:i+1,prompt:readableText(mcq[i].q),choice:x===null?null:letters[x],selectedText:x===null?null:readableText(mcq[i].choices[x])})),frqAnswers:state.texts.map((x,i)=>({question:i+1,prompt:readableText(frq[i].intro),parts:frq[i].parts.map(readableText),typedAnswer:x})),photos:encoded};
+      const url = URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'})); const a = document.createElement('a'); a.href = url; a.download = 'AP_Calc_Ch2_Midunit_Attempt.json'; document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),30000);
+    }
+    document.addEventListener('click',e => {
+      const choice = e.target.closest('[data-choice]');
+      if (choice && !state.submitted) { state.choices[state.active] = Number(choice.dataset.choice); persist(); render(); return; }
+      if (e.target.closest('#clearAnswer') && !state.submitted) { state.choices[state.active] = null; persist(); render(); return; }
+      const cell = e.target.closest('[data-go]'); if (cell) go(Number(cell.dataset.go));
+    });
+    $('promptTab').onclick = () => setMobileView('prompt');
+    $('responseTab').onclick = () => setMobileView('response');
+    $('backBtn').onclick = () => { if (state.view !== 'question') { state.view = 'question'; persist(); render(); setMobileView('prompt'); } else go(state.active-1); };
+    $('nextBtn').onclick = () => { if (state.view === 'question') { if (state.active < total-1) go(state.active+1); else { state.view = state.submitted ? 'results' : 'review'; persist(); render(); setMobileView('response'); } } else if (state.submitted) go(0); else { state.view = 'question'; persist(); render(); setMobileView('prompt'); } };
+    $('reviewBtn').onclick = () => { state.view = state.submitted ? 'results' : 'review'; persist(); render(); setMobileView('response'); };
+    render();
+  })();
+  </script>
+</body>
+</html>

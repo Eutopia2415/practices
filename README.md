@@ -4,6 +4,7 @@ These original practice quizzes run in the browser. Open a link below to start; 
 
 ## Calculus · AP Calculus AB
 
+- [Mid-Unit Chapter 2 Test (2.1–2.4)](https://eutopia2415.github.io/practices/Calculus/Chapter%202%20Mid-Unit%20Test%202026-09-25.html) ([file](Calculus/Chapter%202%20Mid-Unit%20Test%202026-09-25.html)) — 5 multiple-choice and 12 multipart free-response questions. Original graph, table, limit, motion, rule, and justification problems; typed work and photo uploads stay in your browser until you export an attempt.
 - [Chapter 2 Test Prep progress check](https://eutopia2415.github.io/practices/Calculus/Chapter%202%20Derivative%20Practice.html) ([file](Calculus/Chapter%202%20Derivative%20Practice.html)) — 2 multiple-choice questions and 7 multipart free-response questions. The AP Literature-style split view includes review flags, an answer review screen, and a phone-friendly question/response switch. Original questions test reasoning, student claims, and common errors. Written work and photos stay in your browser until you download an attempt; the free-response key is kept separately.
 
 ## English · AP Literature
