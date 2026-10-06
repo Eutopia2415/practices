@@ -1,0 +1,19 @@
+/* Shared classroom navigation and loading placeholders. */
+.quiz-dashboard-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;min-height:40px;padding:8px 12px;border:1px solid #cbd5cc;border-radius:6px;background:#f7f9f4;color:#274e40!important;font:600 12px/1.3 "Avenir Next",Avenir,"Segoe UI",sans-serif;text-decoration:none;white-space:nowrap}
+.quiz-dashboard-link:hover{background:#e8eee2;border-color:#82977e}
+.quiz-dashboard-link:focus-visible{outline:3px solid #b76a20;outline-offset:3px}
+.skeleton{position:relative;overflow:hidden;background:#e6ebe3;border-radius:5px}
+.skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 15%,#ffffff75 48%,transparent 80%);transform:translateX(-100%);animation:skeleton-sweep 1.6s ease-in-out infinite}
+.skeleton-row{display:flex;align-items:center;gap:16px;padding:20px 2px;border-bottom:1px solid #e1e5df}
+.skeleton-icon{width:41px;height:46px;flex-shrink:0}
+.skeleton-copy{flex:1;display:grid;gap:10px}
+.skeleton-line{height:12px;width:65%}
+.skeleton-line.short{width:32%;height:9px}
+.skeleton-line.long{width:85%}
+.skeleton-action{width:68px;height:34px}
+.quiz-skeleton{display:grid;gap:20px;padding-top:8px}
+.quiz-skeleton .skeleton-line{height:18px}
+.skeleton-choice{height:60px;width:100%;border-radius:8px}
+@keyframes skeleton-sweep{to{transform:translateX(100%)}}
+@media(max-width:680px){body header:has(.quiz-dashboard-link){flex-wrap:wrap;gap:10px}.quiz-dashboard-link{min-height:44px}.quiz-dashboard-link+div{min-width:0}.skeleton-action{width:48px}}
+@media(prefers-reduced-motion:reduce){.skeleton::after{animation:none;display:none}}

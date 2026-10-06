@@ -35,6 +35,7 @@ function renderList() {
   const query = $('search').value.trim().toLowerCase();
   const results = activities.filter(a => (route==='lit'||route==='business'? a.subject===route:route==='saved'?saved.includes(a.id):true) && (type==='all'||a.type===type) && `${a.title} ${a.detail} ${subjectNames[a.subject]} ${a.type}`.toLowerCase().includes(query));
   $('activity-list').innerHTML = results.map(row).join('');
+  $('activity-list').setAttribute('aria-busy','false');
   $('result-count').textContent = `${results.length} ${results.length===1?'activity':'activities'}`;
   $('empty').hidden = results.length > 0;
   const noSaved = route==='saved' && saved.length===0;

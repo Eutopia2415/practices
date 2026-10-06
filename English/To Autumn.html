@@ -303,10 +303,11 @@
       .wildcard-mode .question-pane, .wildcard-mode .question-pane.is-wrong { margin: 0; border: 0; border-radius: 0; box-shadow: none; }
     }
   </style>
+<link rel="stylesheet" href="../practice-ui.css">
 </head>
 <body>
   <div class="shell">
-    <header class="topbar">
+    <header class="topbar"><a class="quiz-dashboard-link" href="../index.html#home"><span aria-hidden="true">←</span> Back to dashboard</a>
       <div>
         <h1 class="brand">To Autumn</h1>
       </div>
@@ -357,7 +358,7 @@
           <div id="wildcard-visual" class="visual-stage"></div>
         </div>
       </section>
-      <section id="panel" class="question-pane" aria-label="Questions"></section>
+      <section id="panel" class="question-pane" aria-label="Questions"><div class="quiz-skeleton" aria-hidden="true"><div class="skeleton skeleton-line short"></div><div class="skeleton skeleton-line long"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-choice"></div><div class="skeleton skeleton-choice"></div><div class="skeleton skeleton-choice"></div><div class="skeleton skeleton-choice"></div></div></section>
     </main>
 
     <footer class="footer">
