@@ -2,7 +2,8 @@ import {query,mutation} from './_generated/server';
 import {paginationOptsValidator} from 'convex/server';
 import {v} from 'convex/values';
 import {digest,owner,viewer} from './access';
-import {attemptDocument} from './schema';
+import {attemptDocument,subjectValue} from './schema';
+import {countSubject} from './metrics';
 import catalog from './catalog.json';
 const quizzes:Record<string,any>=catalog;
 const result=v.object({id:v.id('attempts'),score:v.optional(v.number()),maximum:v.optional(v.number()),bonus:v.optional(v.number()),totalPoints:v.optional(v.number())});
@@ -40,23 +41,25 @@ export const submit=mutation({args:{deviceToken:v.string(),attemptKey:v.string()
   const totalPoints=eliminated?0:score+bonus;
   const elapsed=Date.now()-attempt.startedAt;
   const activeMs=Math.min(Math.round(args.activeMs),Math.max(0,elapsed));
-  await ctx.db.patch(attempt._id,{submittedAt:Date.now(),activeMs,partialTiming:args.partialTiming||args.activeMs>elapsed+5000,score,maximum:core.length,bonus,bonusMaximum:bonusIds.length,totalPoints,answers:marked});
+  await ctx.db.patch(attempt._id,{subjectCounted:true,submittedAt:Date.now(),activeMs,partialTiming:args.partialTiming||args.activeMs>elapsed+5000,score,maximum:core.length,bonus,bonusMaximum:bonusIds.length,totalPoints,answers:marked});
   const device=await ctx.db.query('devices').withIndex('by_actor',q=>q.eq('actor',actor)).unique();
   if(!device)await ctx.db.insert('devices',{actor,submitted:true});
   const totals=await ctx.db.query('totals').withIndex('by_key',q=>q.eq('key','all')).unique();
   const add={submissions:1,devices:device?0:1,score,maximum:core.length,activeMs};
   if(totals)await ctx.db.patch(totals._id,{submissions:totals.submissions+1,devices:totals.devices+add.devices,score:totals.score+score,maximum:totals.maximum+core.length,activeMs:totals.activeMs+activeMs});
   else await ctx.db.insert('totals',{key:'all',...add});
+  await countSubject(ctx,{...attempt,score,maximum:core.length,activeMs});
   return {id:attempt._id,score,maximum:core.length,bonus,totalPoints};
 }});
 
-export const list=query({args:{token:v.string(),paginationOpts:paginationOptsValidator},returns:pageResult,handler:async(ctx,args)=>{
+export const list=query({args:{token:v.string(),subject:v.optional(subjectValue),paginationOpts:paginationOptsValidator},returns:pageResult,handler:async(ctx,args)=>{
   await viewer(ctx,args.token);
-  return ctx.db.query('attempts').withIndex('by_submitted',q=>q.gt('submittedAt',0)).order('desc').paginate({...args.paginationOpts,numItems:Math.max(1,Math.min(args.paginationOpts.numItems,50))});
+  const rows=args.subject?ctx.db.query('attempts').withIndex('by_subject_submitted',q=>q.eq('subject',args.subject!).gt('submittedAt',0)):ctx.db.query('attempts').withIndex('by_submitted',q=>q.gt('submittedAt',0));
+  return rows.order('desc').paginate({...args.paginationOpts,numItems:Math.max(1,Math.min(args.paginationOpts.numItems,50))});
 }});
-export const stats=query({args:{token:v.string()},returns:v.object({submissions:v.number(),devices:v.number(),score:v.number(),maximum:v.number(),activeMs:v.number()}),handler:async(ctx,args)=>{
+export const stats=query({args:{token:v.string(),subject:v.optional(subjectValue)},returns:v.object({submissions:v.number(),devices:v.number(),score:v.number(),maximum:v.number(),activeMs:v.number()}),handler:async(ctx,args)=>{
   await viewer(ctx,args.token);
-  const row=await ctx.db.query('totals').withIndex('by_key',q=>q.eq('key','all')).unique();
+  const row=await ctx.db.query('totals').withIndex('by_key',q=>q.eq('key',args.subject||'all')).unique();
   return row?{submissions:row.submissions,devices:row.devices,score:row.score,maximum:row.maximum,activeMs:row.activeMs}:{submissions:0,devices:0,score:0,maximum:0,activeMs:0};
 }});
 export const detail=query({args:{token:v.string(),id:v.id('attempts')},returns:attemptDocument,handler:async(ctx,args)=>{

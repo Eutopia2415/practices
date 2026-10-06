@@ -1,7 +1,17 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>Statistics · Practice Room</title><link rel="stylesheet" href="lobby.css"><link rel="stylesheet" href="gradebook.css"><script src="cloud-config.js"></script><script src="practice-cloud.js" defer></script><script src="gradebook.js" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>Statistics · Practice Room</title><link rel="stylesheet" href="lobby.css"><link rel="stylesheet" href="gradebook.css?v=subjects1"><script src="cloud-config.js"></script><script src="practice-cloud.js" defer></script><script src="gradebook.js?v=subjects1" defer></script></head>
 <body class="gradebook-page"><header class="gradebook-header"><a href="index.html">← Dashboard</a><span>Practice Room</span><button id="lock" hidden>Lock</button></header><main><h1>Statistics</h1>
 <section id="locked"><p id="connection-status" role="status">Open your private statistics link to view results.</p></section>
-<section id="results" hidden><div class="stats-grid" id="stats"></div><div class="results-toolbar"><h2>Submitted attempts</h2><button id="refresh-results">Refresh</button></div><p id="results-status" role="status"></p><div class="table-scroll"><table><thead><tr><th>Device</th><th>Practice</th><th>Score</th><th>Time spent</th><th>Submitted</th></tr></thead><tbody id="results-body"></tbody></table></div><button id="load-more" hidden>Load more</button>
+<section id="results" hidden><div class="statistics-actions"><button id="refresh-results">Refresh</button></div>
+<section class="subject-statistics lit" id="lit-section" aria-labelledby="lit-heading">
+<div class="subject-heading"><span class="subject-icon" aria-hidden="true">Aa</span><h2 id="lit-heading">AP Literature</h2></div>
+<div class="stats-grid" id="lit-stats"></div><h3>Submitted attempts</h3><p id="lit-status" role="status"></p>
+<div class="table-scroll"><table><caption class="sr-only">AP Literature submitted attempts</caption><thead><tr><th>Device</th><th>Practice</th><th>Score</th><th>Time spent</th><th>Submitted</th></tr></thead><tbody id="lit-results-body"></tbody></table></div><button id="lit-load-more" hidden>Load more</button>
+</section>
+<section class="subject-statistics business" id="business-section" aria-labelledby="business-heading">
+<div class="subject-heading"><span class="subject-icon" aria-hidden="true">↗</span><h2 id="business-heading">AP Business</h2></div>
+<div class="stats-grid" id="business-stats"></div><h3>Submitted attempts</h3><p id="business-status" role="status"></p>
+<div class="table-scroll"><table><caption class="sr-only">AP Business submitted attempts</caption><thead><tr><th>Device</th><th>Practice</th><th>Score</th><th>Time spent</th><th>Submitted</th></tr></thead><tbody id="business-results-body"></tbody></table></div><button id="business-load-more" hidden>Load more</button>
+</section>
 <section id="sharing" hidden><h2>Share statistics</h2><p>Create a separate read-only link for each person. Anyone with that link can view results until you revoke it.</p><form id="invite-form"><label for="viewer-label">Label</label><input id="viewer-label" required maxlength="80" placeholder="e.g. Teacher"><button type="submit">Create share link</button></form><p id="sharing-status" role="status"></p><div id="new-link" hidden><input id="share-url" readonly aria-label="New private share link"><button id="copy-link">Copy link</button></div><ul id="viewer-list"></ul></section>
 </section><dialog id="attempt-detail"><button id="close-detail">Close</button><h2>Attempt details</h2><div id="detail-content"></div></dialog></main></body></html>
