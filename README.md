@@ -28,4 +28,4 @@ The [Practice Room lobby](https://eutopia2415.github.io/practices/) opens the su
 
 Each Literature and Business quiz includes a direct Back to dashboard link, beside Colors where that control is available. `practice-ui.css` shares the return-button styling and loading skeletons. Initial dashboard rows and quiz question placeholders are replaced by the existing renderers as soon as content is ready; practice pages show a brief 850 ms entrance skeleton, and animation respects reduced-motion preferences.
 
-Overview shows subject cards and recently opened activities. The full searchable catalog lives in the separate Activity library tab (`#all`); subject and saved views retain their own filtered lists. Decorative captions and activity subtitles are omitted from the interface.
+Overview shows subject cards and recently opened activities. The full searchable catalog lives in the separate Activity library tab (`#all`); subject and saved views retain their own filtered lists. Decorative captions are omitted. Activity subtitles briefly identify the unit or poetry focus and covered topics.

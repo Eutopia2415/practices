@@ -1,14 +1,14 @@
 'use strict';
 // Public student-facing activities only. Keep author banks and worked keys outside this catalog.
 const activities = [
-  {id:'wind',subject:'lit',title:'Ode to the West Wind',detail:'Percy Bysshe Shelley · Poetry & interpretation',type:'Practice',file:'English/Ode to the West Wind.html'},
-  {id:'autumn-custom',subject:'lit',title:'To Autumn · Custom practice',detail:'John Keats · 15 questions · Untimed',type:'Practice',file:'English/To Autumn - Custom Practice.html'},
-  {id:'autumn-hard',subject:'lit',title:'To Autumn · Medium-hard test',detail:'John Keats · 15 questions · Close reading',type:'Assessment',file:'English/To Autumn - New Medium-Hard Test.html'},
-  {id:'autumn-clean',subject:'lit',title:'To Autumn · Clean practice',detail:'John Keats · 15 questions · Close reading',type:'Practice',file:'English/To Autumn - Clean Practice.html'},
-  {id:'autumn-wild',subject:'lit',title:'To Autumn · Wildcard practice',detail:'John Keats · Poetry with bonus challenges',type:'Practice',file:'English/To Autumn.html'},
-  {id:'autumn-surprise',subject:'lit',title:'To Autumn · Surprise mock',detail:'John Keats · Poetry assessment',type:'Assessment',file:'English/To Autumn - Surprise Mock.html'},
-  {id:'business-unit1',subject:'business',title:'Unit 1 · Case-study practice',detail:'Businesses, competition & new ideas · 24 questions',type:'Practice',file:'Business/AP Business Unit 1 Practice.html'},
-  {id:'business-worksheet',subject:'business',title:'Unit 1 · Application worksheet',detail:'Topics 1.1–1.3 · 18 questions · Untimed',type:'Practice',file:'Business/AP Business Unit 1 Worksheet 2026-09-24.html'}
+  {id:'wind',subject:'lit',title:'Ode to the West Wind',detail:'Poetry · Imagery, rhyme, speaker & themes',type:'Practice',file:'English/Ode to the West Wind.html'},
+  {id:'autumn-custom',subject:'lit',title:'To Autumn · Custom practice',detail:'Poetry · Personification, tone & stanza shifts',type:'Practice',file:'English/To Autumn - Custom Practice.html'},
+  {id:'autumn-hard',subject:'lit',title:'To Autumn · Medium-hard test',detail:'Poetry · Diction, syntax, structure & themes',type:'Assessment',file:'English/To Autumn - New Medium-Hard Test.html'},
+  {id:'autumn-clean',subject:'lit',title:'To Autumn · Clean practice',detail:'Poetry · Figurative language, tone & structure',type:'Practice',file:'English/To Autumn - Clean Practice.html'},
+  {id:'autumn-wild',subject:'lit',title:'To Autumn · Wildcard practice',detail:'Poetry · Imagery, tone & structure; bonus questions',type:'Practice',file:'English/To Autumn.html'},
+  {id:'autumn-surprise',subject:'lit',title:'To Autumn · Surprise mock',detail:'Poetry · Imagery, tone & structure; bonus questions',type:'Assessment',file:'English/To Autumn - Surprise Mock.html'},
+  {id:'business-unit1',subject:'business',title:'Unit 1 · Case-study practice',detail:'Unit 1 · Competition, PESTEL, innovation, ethics & operations',type:'Practice',file:'Business/AP Business Unit 1 Practice.html'},
+  {id:'business-worksheet',subject:'business',title:'Unit 1 · Application worksheet',detail:'Unit 1 (1.1–1.3) · Value, markets, competition & PESTEL',type:'Practice',file:'Business/AP Business Unit 1 Worksheet 2026-09-24.html'}
 ];
 const $ = id => document.getElementById(id);
 const subjectNames = {lit:'AP Literature',business:'AP Business'};
@@ -29,7 +29,7 @@ function persist() {
 function link(a) { return encodeURI(a.file); }
 function row(a) {
   const isSaved = saved.includes(a.id);
-  return `<article class="activity ${a.subject==='business'?'business-activity':''}"><span class="activity-icon" aria-hidden="true">${a.subject==='lit'?'Aa':'↗'}</span><div class="activity-copy"><h3><a href="${link(a)}" data-open="${a.id}">${a.title}</a></h3></div><span class="type-pill ${a.type.toLowerCase()}">${a.type}</span><button class="save" data-save="${a.id}" aria-label="${isSaved?'Unsave':'Save'} ${a.title}" aria-pressed="${isSaved}">${isSaved?'★':'☆'}</button><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Open ${a.title}">Open <span aria-hidden="true">↗</span></a></article>`;
+  return `<article class="activity ${a.subject==='business'?'business-activity':''}"><span class="activity-icon" aria-hidden="true">${a.subject==='lit'?'Aa':'↗'}</span><div class="activity-copy"><h3><a href="${link(a)}" data-open="${a.id}">${a.title}</a></h3><p class="activity-meta">${a.detail}</p></div><span class="type-pill ${a.type.toLowerCase()}">${a.type}</span><button class="save" data-save="${a.id}" aria-label="${isSaved?'Unsave':'Save'} ${a.title}" aria-pressed="${isSaved}">${isSaved?'★':'☆'}</button><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Open ${a.title}">Open <span aria-hidden="true">↗</span></a></article>`;
 }
 function renderList() {
   const query = $('search').value.trim().toLowerCase();
