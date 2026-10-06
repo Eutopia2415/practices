@@ -10,6 +10,7 @@
 
 import type * as access from "../access.js";
 import type * as grades from "../grades.js";
+import type * as maintenance from "../maintenance.js";
 
 import type {
   ApiFromModules,
@@ -20,6 +21,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   access: typeof access;
   grades: typeof grades;
+  maintenance: typeof maintenance;
 }>;
 
 /**
