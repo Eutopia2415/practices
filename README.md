@@ -19,6 +19,8 @@ The [Practice Room lobby](https://eutopia2415.github.io/practices/) opens the su
 
 ## Business · Unit 1
 
+- [Unit 1 · Full practice test · October 6](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Full%20Test%202026-10-06.html) — 40 original questions across eight cases, five per topic (1.1–1.8). Untimed, saved progress, review flags, explanations after submission, and topic scores. Aligned to the assigned BFW Unit 1 textbook and the [Fall 2026 College Board CED](https://apcentral.collegeboard.org/media/pdf/ap-business-personal-finance-course-and-exam-description.pdf); not an official exam.
+
 - [AP Business Unit 1 Practice](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Practice.html) ([file](Business/AP%20Business%20Unit%201%20Practice.html))
 - [AP Business Unit 1 Worksheet · September 24](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Worksheet%202026-09-24.html) ([file](Business/AP%20Business%20Unit%201%20Worksheet%202026-09-24.html)) — 18 untimed questions on Topics 1.1–1.3.
 
