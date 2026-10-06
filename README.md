@@ -1,11 +1,10 @@
-# AP Practices
+# Practice Room · AP Practices
+
+[Open the classroom lobby](https://eutopia2415.github.io/practices/) to choose **AP Literature** or **AP Business**, filter practice and assessments, search, and save activities. Calculus is hidden from the lobby for now; existing files and direct links are retained.
+
+The lobby tracks saved and recently opened activities in this browser; it does not infer completion or synchronize scores.
 
 These original practice quizzes run in the browser. Open a link below to start; progress is stored locally in that browser and does not sync across devices.
-
-## Calculus · AP Calculus AB
-
-- [Mid-Unit Chapter 2 Test (2.1–2.4)](https://eutopia2415.github.io/practices/Calculus/Chapter%202%20Mid-Unit%20Test%202026-09-25.html) ([file](Calculus/Chapter%202%20Mid-Unit%20Test%202026-09-25.html)) — 5 multiple-choice and 12 multipart free-response questions. Original graph, table, limit, motion, rule, and justification problems; typed work and photo uploads stay in your browser until you export an attempt.
-- [Chapter 2 Test Prep progress check](https://eutopia2415.github.io/practices/Calculus/Chapter%202%20Derivative%20Practice.html) ([file](Calculus/Chapter%202%20Derivative%20Practice.html)) — 2 multiple-choice questions and 7 multipart free-response questions. The AP Literature-style split view includes review flags, an answer review screen, and a phone-friendly question/response switch. Original questions test reasoning, student claims, and common errors. Written work and photos stay in your browser until you download an attempt; the free-response key is kept separately.
 
 ## English · AP Literature
 
@@ -13,11 +12,16 @@ These original practice quizzes run in the browser. Open a link below to start; 
 - [To Autumn](https://eutopia2415.github.io/practices/English/To%20Autumn.html) ([file](English/To%20Autumn.html))
 - [To Autumn · Custom Practice](https://eutopia2415.github.io/practices/English/To%20Autumn%20-%20Custom%20Practice.html) ([file](English/To%20Autumn%20-%20Custom%20Practice.html))
 - [To Autumn · New Medium-Hard Test](https://eutopia2415.github.io/practices/English/To%20Autumn%20-%20New%20Medium-Hard%20Test.html) ([file](English/To%20Autumn%20-%20New%20Medium-Hard%20Test.html))
+- [To Autumn · Surprise Mock](https://eutopia2415.github.io/practices/English/To%20Autumn%20-%20Surprise%20Mock.html)
 - [To Autumn · Clean Practice](https://eutopia2415.github.io/practices/English/To%20Autumn%20-%20Clean%20Practice.html) ([file](English/To%20Autumn%20-%20Clean%20Practice.html))
 
-The [root practice link](https://eutopia2415.github.io/practices/) opens To Autumn · Custom Practice. [Poem source](https://poets.org/poem/autumn).
+The [Practice Room lobby](https://eutopia2415.github.io/practices/) opens the subject dashboard. [Poem source](https://poets.org/poem/autumn).
 
 ## Business · Unit 1
 
 - [AP Business Unit 1 Practice](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Practice.html) ([file](Business/AP%20Business%20Unit%201%20Practice.html))
 - [AP Business Unit 1 Worksheet · September 24](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Worksheet%202026-09-24.html) ([file](Business/AP%20Business%20Unit%201%20Worksheet%202026-09-24.html)) — 18 untimed questions on Topics 1.1–1.3.
+
+## Maintaining the lobby
+
+`index.html`, `lobby.css`, and `lobby.js` provide the static GitHub Pages dashboard. Add student-facing activities to the `activities` catalog in `lobby.js`; keep answer keys and author banks out of this catalog. Update the subject counts in `index.html` when adding activities. Subject views support direct links with `#lit` and `#business`.
