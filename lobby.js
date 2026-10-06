@@ -48,7 +48,7 @@ function renderRecent() {
   $('recent').hidden = route!=='home'||recent.length===0;
   $('recent-list').innerHTML = recent.map(id => {
     const a=activities.find(a=>a.id===id);
-    return `<div class="recent-item"><div><strong>${a.title}</strong></div><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Reopen ${a.title}">Reopen <span aria-hidden="true">↗</span></a></div>`;
+    return `<div class="recent-item"><div><strong>${a.title}</strong><p class="activity-meta">${a.detail}</p></div><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Reopen ${a.title}">Reopen <span aria-hidden="true">↗</span></a></div>`;
   }).join('');
 }
 function renderRoute() {
