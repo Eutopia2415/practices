@@ -29,7 +29,7 @@ function persist() {
 function link(a) { return encodeURI(a.file); }
 function row(a) {
   const isSaved = saved.includes(a.id);
-  return `<article class="activity ${a.subject==='business'?'business-activity':''}"><span class="activity-icon" aria-hidden="true">${a.subject==='lit'?'Aa':'↗'}</span><div class="activity-copy"><p class="activity-subject">${subjectNames[a.subject]}</p><h3><a href="${link(a)}" data-open="${a.id}">${a.title}</a></h3><p class="activity-meta">${a.detail}</p></div><span class="type-pill ${a.type.toLowerCase()}">${a.type}</span><button class="save" data-save="${a.id}" aria-label="${isSaved?'Unsave':'Save'} ${a.title}" aria-pressed="${isSaved}">${isSaved?'★':'☆'}</button><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Open ${a.title}">Open <span aria-hidden="true">↗</span></a></article>`;
+  return `<article class="activity ${a.subject==='business'?'business-activity':''}"><span class="activity-icon" aria-hidden="true">${a.subject==='lit'?'Aa':'↗'}</span><div class="activity-copy"><h3><a href="${link(a)}" data-open="${a.id}">${a.title}</a></h3></div><span class="type-pill ${a.type.toLowerCase()}">${a.type}</span><button class="save" data-save="${a.id}" aria-label="${isSaved?'Unsave':'Save'} ${a.title}" aria-pressed="${isSaved}">${isSaved?'★':'☆'}</button><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Open ${a.title}">Open <span aria-hidden="true">↗</span></a></article>`;
 }
 function renderList() {
   const query = $('search').value.trim().toLowerCase();
@@ -48,18 +48,17 @@ function renderRecent() {
   $('recent').hidden = route!=='home'||recent.length===0;
   $('recent-list').innerHTML = recent.map(id => {
     const a=activities.find(a=>a.id===id);
-    return `<div class="recent-item"><div><strong>${a.title}</strong><p>${subjectNames[a.subject]} · Recently opened in this browser</p></div><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Reopen ${a.title}">Reopen <span aria-hidden="true">↗</span></a></div>`;
+    return `<div class="recent-item"><div><strong>${a.title}</strong></div><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Reopen ${a.title}">Reopen <span aria-hidden="true">↗</span></a></div>`;
   }).join('');
 }
 function renderRoute() {
   const requested = location.hash.slice(1);
   route = ['home','all','saved','lit','business'].includes(requested)?requested:'home';
   type='all'; $('search').value='';
-  const titles={home:'Activity library',all:'All activities',saved:'Saved activities',...subjectNames};
-  const descriptions={home:'',all:'All your practice and assessments, in one place.',saved:'Your personal shortlist, saved in this browser.',lit:'Read closely. Explore language. Build your interpretation.',business:'Explore cases. Apply concepts. Make your argument.'};
+  const titles={home:'Activity library',all:'Activity library',saved:'Saved activities',...subjectNames};
   $('breadcrumb').textContent=route==='home'?'Overview':titles[route];
-  $('library-title').textContent=titles[route]; $('library-description').textContent=descriptions[route]; $('library-description').hidden=!descriptions[route];
-  $('library-eyebrow').textContent=route==='lit'?'YOUR LITERATURE CLASSROOM':route==='business'?'YOUR BUSINESS CLASSROOM':'YOUR ACTIVITY LIBRARY';
+  $('library-title').textContent=titles[route];
+  $('library').hidden=route==='home';
   $('welcome').hidden=route!=='home'; $('subjects').hidden=route!=='home';
   document.body.classList.toggle('subject-view',route!=='home');
   document.querySelectorAll('[data-route]').forEach(a=>a.dataset.route===route?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));

@@ -27,3 +27,5 @@ The [Practice Room lobby](https://eutopia2415.github.io/practices/) opens the su
 `index.html`, `lobby.css`, and `lobby.js` provide the static GitHub Pages dashboard. Add student-facing activities to the `activities` catalog in `lobby.js`; keep answer keys and author banks out of this catalog. Update the subject counts in `index.html` when adding activities. Subject views support direct links with `#lit` and `#business`.
 
 Each Literature and Business quiz includes a direct Back to dashboard link, beside Colors where that control is available. `practice-ui.css` shares the return-button styling and loading skeletons. Initial dashboard rows and quiz question placeholders are replaced by the existing renderers as soon as content is ready; practice pages show a brief 850 ms entrance skeleton, and animation respects reduced-motion preferences.
+
+Overview shows subject cards and recently opened activities. The full searchable catalog lives in the separate Activity library tab (`#all`); subject and saved views retain their own filtered lists. Decorative captions and activity subtitles are omitted from the interface.
