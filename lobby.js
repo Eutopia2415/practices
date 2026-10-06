@@ -51,6 +51,38 @@ function renderRecent() {
     return `<div class="recent-item"><div><strong>${a.title}</strong><p class="activity-meta">${a.detail}</p></div><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Reopen ${a.title}">Reopen <span aria-hidden="true">↗</span></a></div>`;
   }).join('');
 }
+// sessionStorage survives refresh/navigation and resets when the tab is closed.
+const loadedViews = new Set();
+let entranceTimer;
+function finishEntrance() {
+  clearTimeout(entranceTimer);
+  $('main').classList.remove('entrance-loading');
+  $('main').removeAttribute('aria-busy');
+  $('main').inert = false;
+  $('dashboard-loading-overlay')?.remove();
+}
+function showEntrance() {
+  finishEntrance();
+  const key = 'practice-room-loaded:dashboard:' + route;
+  let seen = loadedViews.has(key);
+  try { seen = seen || Boolean(sessionStorage.getItem(key)); } catch {}
+  if (seen) return;
+  loadedViews.add(key);
+  try { sessionStorage.setItem(key, '1'); } catch {}
+  const overlay = document.createElement('div');
+  overlay.id = 'dashboard-loading-overlay';
+  overlay.setAttribute('aria-hidden', 'true');
+  const row = '<div class="skeleton-row"><div class="skeleton skeleton-icon"></div><div class="skeleton-copy"><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line short"></div></div></div>';
+  overlay.innerHTML = route === 'home'
+    ? '<div class="skeleton entrance-hero"></div><div class="entrance-cards"><div class="skeleton"></div><div class="skeleton"></div></div>'
+    : '<div class="skeleton entrance-heading"></div>' + row.repeat(4);
+  $('main').append(overlay);
+  $('main').classList.add('entrance-loading');
+  $('main').setAttribute('aria-busy','true');
+  $('main').inert = true;
+  entranceTimer = setTimeout(finishEntrance,850);
+}
+window.addEventListener('pageshow',event=>{if(event.persisted)finishEntrance();});
 function renderRoute() {
   const requested = location.hash.slice(1);
   route = ['home','all','saved','lit','business'].includes(requested)?requested:'home';
@@ -63,7 +95,7 @@ function renderRoute() {
   document.body.classList.toggle('subject-view',route!=='home');
   document.querySelectorAll('[data-route]').forEach(a=>a.dataset.route===route?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
   document.title=`${route==='home'?'Your AP classroom':titles[route]} · Practice Room`;
-  renderList(); renderRecent();
+  renderList(); renderRecent(); showEntrance();
 }
 document.querySelector('.skip').addEventListener('click',e=>{e.preventDefault();$('main').focus();});
 $('search').addEventListener('input',renderList);

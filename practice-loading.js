@@ -1,5 +1,10 @@
 // Brief entrance state requested for practice pages; quiz state is left untouched.
 (() => {
+  const sessionKey = 'practice-room-loaded:' + location.pathname;
+  try {
+    if (sessionStorage.getItem(sessionKey)) return;
+    sessionStorage.setItem(sessionKey, '1');
+  } catch { /* Storage restrictions must not prevent the practice from opening. */ }
   document.documentElement.classList.add('practice-loading');
   const release = () => {
     document.documentElement.classList.remove('practice-loading');

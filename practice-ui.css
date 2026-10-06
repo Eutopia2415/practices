@@ -24,3 +24,14 @@ body .top-actions .quiz-dashboard-link{font-size:12px;min-height:42px}
 .practice-loading #panel>:not(#practice-loading-overlay){visibility:hidden}
 #practice-loading-overlay{position:absolute;inset:24px 20px;pointer-events:none}
 @media(max-width:680px){body .topbar:has(.top-actions .quiz-dashboard-link){flex-wrap:wrap}body .top-actions:has(.quiz-dashboard-link){margin-left:auto}body .top-actions .quiz-dashboard-link{min-height:44px}}
+
+/* Session entrance skeletons for all dashboard views. */
+main.entrance-loading{position:relative;min-height:620px}
+main.entrance-loading>:not(#dashboard-loading-overlay){visibility:hidden}
+#dashboard-loading-overlay{position:absolute;inset:34px 44px;pointer-events:none}
+.entrance-hero{height:300px;border-radius:12px}
+.entrance-cards{display:grid;grid-template-columns:1fr 1fr;gap:19px;margin-top:32px}
+.entrance-cards>.skeleton{height:176px;border-radius:9px}
+.entrance-heading{width:210px;height:34px;margin:16px 0 32px}
+@media(max-width:800px){#dashboard-loading-overlay{inset:22px}}
+@media(max-width:540px){.entrance-hero{height:255px}.entrance-cards{grid-template-columns:1fr}.entrance-cards>.skeleton{height:160px}}
