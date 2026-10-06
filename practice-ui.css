@@ -35,3 +35,8 @@ main.entrance-loading>:not(#dashboard-loading-overlay){visibility:hidden}
 .entrance-heading{width:210px;height:34px;margin:16px 0 32px}
 @media(max-width:800px){#dashboard-loading-overlay{inset:22px}}
 @media(max-width:540px){.entrance-hero{height:255px}.entrance-cards{grid-template-columns:1fr}.entrance-cards>.skeleton{height:160px}}
+
+/* Keep iPad edge gestures inside the page instead of exposing the browser canvas. */
+html{min-height:100%;background-color:var(--page-bg,var(--paper,#fff));overscroll-behavior-y:none}
+body{overscroll-behavior-y:none}
+.passage,.question-pane{overscroll-behavior-y:none}
