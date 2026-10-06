@@ -254,6 +254,7 @@
   </style>
 <link rel="stylesheet" href="../practice-ui.css?v=20261006-edge">
 <script src="../practice-loading.js?v=20261006h"></script>
+<link rel="stylesheet" href="../gradebook.css"><script src="../cloud-config.js"></script><script src="../practice-cloud.js?v=1"></script><script src="../practice-attempts.js?v=1"></script>
 </head>
 <body>
   <div class="shell">
@@ -1104,7 +1105,7 @@
       $("notes").addEventListener("input", (event) => { state.notes = event.target.value; saveState(); });
       $("keep-working").addEventListener("click", () => goToQuestion(state.index));
       $("submit").addEventListener("click", () => {
-        state.submitted = true;
+        PracticeAttempts.finish(state);state.submitted=true;
         state.view = "results";
         saveState();
         render();
@@ -1190,6 +1191,7 @@
     }
 
     function render() {
+PracticeAttempts.sync();
       updateNavigation();
       $("panel").classList.toggle(
         "is-wrong",
@@ -1222,6 +1224,18 @@
       mobileView(false);
     });
     render();
-  </script>
+
+PracticeAttempts.attach({
+  getState:()=>state, save:saveState,
+  snapshot:()=>({
+    quizPath:decodeURIComponent(location.pathname).split("/").slice(-2).join("/"),
+    quizId:bank.id || STORAGE_KEY, title:bank.title || document.title,
+    subject:"AP Literature",
+    tracking:state.tracking, score:score(), maximum:bank.questions.length,
+    bonus:0, bonusMaximum:0,
+    answers:state.answers.map((answer,i)=>({id:bank.questions[i].kind==="bonus" ? "bonus:"+state.bonusOrder[bank.questions[i].bonusOrdinal] : "core:"+bank.questions[i].n,number:i+1,answer,topic:bank.questions[i].topic || null,correct:answer===bank.key[i]}))
+  })
+});
+</script>
 </body>
 </html>

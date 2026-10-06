@@ -16,7 +16,8 @@ footer{height:78px;border-top:1px solid var(--border);padding:15px 38px;display:
 
 header{display:flex;justify-content:space-between;align-items:center;gap:16px}header h1{font-size:clamp(18px,2.4vw,27px)}.dashboard-link{font:600 12px/1.3 system-ui,sans-serif;padding:10px 12px;border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--ink);white-space:nowrap}.topic-scores{width:100%;border-collapse:collapse;font:14px/1.5 system-ui,sans-serif;margin:22px 0}.topic-scores th,.topic-scores td{text-align:left;padding:9px 7px;border-bottom:1px solid var(--border)}.topic-scores td:last-child{text-align:right;white-space:nowrap}.source-info{font:12px/1.5 system-ui,sans-serif;color:var(--muted);margin:25px 0}.source-info a{color:inherit}.qa-label{color:#9c4d00;font:12px system-ui,sans-serif}
 @media(max-width:600px){header{gap:8px;padding:8px 12px}header h1{font-size:17px}.dashboard-link{font-size:11px;padding:8px}.topic-scores{font-size:12px}}
-</style><link rel="stylesheet" href="../practice-ui.css?v=20261006-edge"><script src="../practice-loading.js?v=20261006g" defer></script></head><body>
+</style><link rel="stylesheet" href="../practice-ui.css?v=20261006-edge"><script src="../practice-loading.js?v=20261006g" defer></script><link rel="stylesheet" href="../gradebook.css"><script src="../cloud-config.js"></script><script src="../practice-cloud.js?v=1"></script><script src="../practice-attempts.js?v=1"></script>
+</head><body>
 <header><h1>Unit 1 · Full practice test</h1><a class="dashboard-link" href="https://eutopia2415.github.io/practices/#business">Back to dashboard</a></header>
 <nav class="mobile-tabs" aria-label="Practice view"><button id="case-tab" aria-selected="false">Case study</button><button id="question-tab" aria-selected="true">Questions</button></nav>
 <main><section class="passage" aria-label="Case study"><h2><span id="case-title"></span></h2><div class="verse" id="case-body"></div><details class="source-info"><summary>About this test</summary><p>40 original questions · Topics 1.1–1.8 · Untimed. These fictional cases are course-aligned practice, not an official exam.</p><p>Based on your assigned BFW Unit 1 textbook and <a href="https://apcentral.collegeboard.org/media/pdf/ap-business-personal-finance-course-and-exam-description.pdf" target="_blank" rel="noopener">College Board’s course framework</a>.</p></details></section>
@@ -31,7 +32,7 @@ const STORE=bank.storage_id+(qaMode?'-qa':'');
 if(qaMode){const badge=document.createElement('span');badge.className='qa-label';badge.textContent='QA attempt';document.querySelector('header').append(badge);}
 const fresh=()=>({answers:Array(total).fill(null),flags:Array(total).fill(false),confidence:Array(total).fill(null),index:0,view:'question',submitted:false,notes:''});
 let state=fresh(),storageOK=true;
-try{const saved=JSON.parse(localStorage.getItem(STORE));if(saved&&Array.isArray(saved.answers)&&saved.answers.length===total&&saved.answers.every(a=>a===null||'ABCD'.includes(a))&&Array.isArray(saved.flags)&&saved.flags.length===total&&Array.isArray(saved.confidence)&&saved.confidence.length===total&&Number.isInteger(saved.index)&&saved.index>=0&&saved.index<total&&['question','review','results'].includes(saved.view))state={...fresh(),answers:saved.answers,flags:saved.flags,confidence:saved.confidence,index:saved.index,view:saved.view,submitted:!!saved.submitted,notes:typeof saved.notes==='string'?saved.notes:''}}catch(e){storageOK=false}
+try{const saved=JSON.parse(localStorage.getItem(STORE));if(saved&&Array.isArray(saved.answers)&&saved.answers.length===total&&saved.answers.every(a=>a===null||'ABCD'.includes(a))&&Array.isArray(saved.flags)&&saved.flags.length===total&&Array.isArray(saved.confidence)&&saved.confidence.length===total&&Number.isInteger(saved.index)&&saved.index>=0&&saved.index<total&&['question','review','results'].includes(saved.view))state={...fresh(),answers:saved.answers,flags:saved.flags,confidence:saved.confidence,index:saved.index,view:saved.view,submitted:!!saved.submitted,tracking:saved.tracking,notes:typeof saved.notes==='string'?saved.notes:''}}catch(e){storageOK=false}
 const el=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){storageOK=false}}
 let displayedCase=-1;
@@ -43,6 +44,7 @@ function go(n){state.index=n;state.view='question';save();render();el('panel').s
 function score(){return state.answers.reduce((total,a,i)=>total+(a===answerKey[i]?1:0),0)}
 function nav(){el('progress').textContent=state.answers.filter(Boolean).length+' of '+total+' answered';el('back').disabled=state.view==='question'&&state.index===0;el('back').textContent=state.view==='question'?'Back':'Questions';el('next').textContent=state.view==='question'?(state.index===total-1?(state.submitted?'Results':'Review answers'):'Next'):(state.submitted?'Review explanations':'Return to question');el('review').textContent=state.submitted?'Results':'Review answers';}
 function render(){
+PracticeAttempts.sync();
 nav();showCase(questions[state.index].case_index);const panel=el('panel');
 if(state.view==='review'){renderReview();return}if(state.view==='results'){renderResults();return}
 const q=questions[state.index],a=state.answers[state.index],i=state.index;
@@ -59,7 +61,7 @@ function renderReview(){
 const unanswered=total-state.answers.filter(Boolean).length,flags=state.flags.filter(Boolean).length;
 el('panel').innerHTML='<h2>Review your answers</h2><p class="review-intro">'+unanswered+' unanswered · '+flags+' marked for review. Select a question to return to it.</p>'+grid(false)+'<p class="review-note">A gold top border marks questions you flagged. You can change any answer before submitting.</p><label class="notes-label" for="notes">Any words you did not know? <span class="review-note">(optional)</span></label><textarea id="notes" placeholder="Note unfamiliar business terms or parts of the case that were unclear.">'+esc(state.notes)+'</textarea><div class="review-actions"><button id="submit" class="primary">Submit '+(unanswered?'with '+unanswered+' unanswered':'answers')+'</button><button id="return">Keep working</button></div><p class="review-note">Submission locks this attempt and shows your score. Explanations stay closed until you choose to review them.</p>';
 bindGrid();el('notes').oninput=e=>{state.notes=e.target.value;save()};el('return').onclick=()=>go(state.index);
-el('submit').onclick=()=>{state.submitted=true;state.view='results';save();render();el('panel').scrollTop=0};
+el('submit').onclick=()=>{PracticeAttempts.finish(state);state.submitted=true;state.view='results';save();render();el('panel').scrollTop=0};
 }
 function summary(){return 'AP Business Practice — '+bank.title+'\nSet: '+bank.id+'\nRevision: '+bank.revision+'\nScore: '+score()+'/'+total+' ('+Math.round(score()/total*100)+'%)\n\n'+questions.map((q,i)=>q.n+': '+(state.answers[i]||'Unanswered')+' | confidence: '+(state.confidence[i]||'not recorded')+' | flagged: '+(state.flags[i]?'yes':'no')).join('\n')+'\n\nTopics:\n'+topicScores().map(t=>t.name+': '+t.correct+'/'+t.total).join('\n')+'\n\nUnfamiliar words: '+(state.notes||'none recorded')+'\n\nPlease diagnose my answers, separating terminology gaps from errors applying business concepts.'}
 const topicNames=["1.1 \u00b7 Business and value", "1.2 \u00b7 Markets and advantage", "1.3 \u00b7 PESTEL", "1.4 \u00b7 Business ideas", "1.5 \u00b7 Vision", "1.6 \u00b7 Ethics", "1.7 \u00b7 Organization and roles", "1.8 \u00b7 Supply chains"];
@@ -76,4 +78,16 @@ el('back').onclick=()=>go(state.view==='question'?Math.max(0,state.index-1):stat
 el('next').onclick=()=>{if(state.view==='question'){if(state.index<total-1)go(state.index+1);else{state.view=state.submitted?'results':'review';save();render();el('panel').scrollTop=0}}else if(state.submitted){go(0)}else go(state.index)};
 el('review').onclick=()=>{state.view=state.submitted?'results':'review';save();render();el('panel').scrollTop=0;mobileView(false)};
 render();
+
+PracticeAttempts.attach({
+  getState:()=>state, save:save,
+  snapshot:()=>({
+    quizPath:decodeURIComponent(location.pathname).split("/").slice(-2).join("/"),
+    quizId:bank.id || STORE, title:bank.title || document.title,
+    subject:"AP Business",
+    tracking:state.tracking, score:score(), maximum:bank.questions.length,
+    bonus:0, bonusMaximum:0,
+    answers:state.answers.map((answer,i)=>({id:bank.questions[i].kind==="bonus" ? "bonus:"+state.bonusOrder[bank.questions[i].bonusOrdinal] : "core:"+bank.questions[i].n,number:i+1,answer,topic:bank.questions[i].topic || null,correct:answer===bank.key[i]}))
+  })
+});
 </script></body></html>

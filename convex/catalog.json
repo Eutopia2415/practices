@@ -1,0 +1,816 @@
+{
+  "English/To Autumn - Clean Practice.html": {
+    "title": "To Autumn",
+    "subject": "AP Literature",
+    "questions": {
+      "core:1": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:2": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:3": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:4": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:5": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:6": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:7": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:8": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:9": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:10": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:11": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:12": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:13": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:14": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:15": {
+        "key": "D",
+        "topic": ""
+      }
+    }
+  },
+  "English/To Autumn - New Medium-Hard Test.html": {
+    "title": "To Autumn",
+    "subject": "AP Literature",
+    "questions": {
+      "core:1": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:2": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:3": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:4": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:5": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:6": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:7": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:8": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:9": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:10": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:11": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:12": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:13": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:14": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:15": {
+        "key": "B",
+        "topic": ""
+      }
+    }
+  },
+  "English/To Autumn - Custom Practice.html": {
+    "title": "To Autumn",
+    "subject": "AP Literature",
+    "questions": {
+      "core:1": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:2": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:3": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:4": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:5": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:6": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:7": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:8": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:9": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:10": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:11": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:12": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:13": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:14": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:15": {
+        "key": "D",
+        "topic": ""
+      }
+    }
+  },
+  "English/To Autumn.html": {
+    "title": "To Autumn",
+    "subject": "AP Literature",
+    "questions": {
+      "core:1": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:2": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:3": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:4": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:5": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:6": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:7": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:8": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:9": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:10": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:11": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:12": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:13": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:14": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:15": {
+        "key": "D",
+        "topic": ""
+      },
+      "bonus:0": {
+        "key": "B",
+        "topic": "Flag & capital"
+      },
+      "bonus:1": {
+        "key": "A",
+        "topic": "Synthetic biology"
+      },
+      "bonus:2": {
+        "key": "A",
+        "topic": "Face merge"
+      },
+      "bonus:3": {
+        "key": "C",
+        "topic": "Math"
+      },
+      "bonus:4": {
+        "key": "B",
+        "topic": "Calculus"
+      },
+      "bonus:5": {
+        "key": "C",
+        "topic": "Flag & capital"
+      },
+      "bonus:6": {
+        "key": "B",
+        "topic": "Synthetic biology"
+      },
+      "bonus:7": {
+        "key": "C",
+        "topic": "Flag & capital"
+      },
+      "bonus:8": {
+        "key": "C",
+        "topic": "Math"
+      },
+      "bonus:9": {
+        "key": "C",
+        "topic": "Calculus"
+      }
+    },
+    "minBonus": 2,
+    "maxBonus": 5,
+    "bonusPenalty": false
+  },
+  "English/Ode to the West Wind.html": {
+    "title": "Ode to the West Wind",
+    "subject": "AP Literature",
+    "questions": {
+      "core:1": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:2": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:3": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:4": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:5": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:6": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:7": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:8": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:9": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:10": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:11": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:12": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:13": {
+        "key": "E",
+        "topic": ""
+      },
+      "core:14": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:15": {
+        "key": "C",
+        "topic": ""
+      },
+      "bonus:0": {
+        "key": "B",
+        "topic": "Bonus"
+      },
+      "bonus:1": {
+        "key": "D",
+        "topic": "Bonus"
+      },
+      "bonus:2": {
+        "key": "C",
+        "topic": "Bonus"
+      },
+      "bonus:3": {
+        "key": "A",
+        "topic": "Bonus"
+      },
+      "bonus:4": {
+        "key": "D",
+        "topic": "Bonus"
+      },
+      "bonus:5": {
+        "key": "A",
+        "topic": "Bonus"
+      },
+      "bonus:6": {
+        "key": "B",
+        "topic": "Bonus"
+      },
+      "bonus:7": {
+        "key": "C",
+        "topic": "Bonus"
+      },
+      "bonus:8": {
+        "key": "C",
+        "topic": "Bonus"
+      },
+      "bonus:9": {
+        "key": "C",
+        "topic": "Bonus"
+      },
+      "bonus:10": {
+        "key": "B",
+        "topic": "Bonus"
+      },
+      "bonus:11": {
+        "key": "D",
+        "topic": "Bonus"
+      },
+      "bonus:12": {
+        "key": "B",
+        "topic": "Bonus"
+      },
+      "bonus:13": {
+        "key": "D",
+        "topic": "Bonus"
+      },
+      "bonus:14": {
+        "key": "A",
+        "topic": "Bonus"
+      },
+      "bonus:15": {
+        "key": "B",
+        "topic": "Bonus"
+      },
+      "bonus:16": {
+        "key": "C",
+        "topic": "Bonus"
+      },
+      "bonus:17": {
+        "key": "D",
+        "topic": "Bonus"
+      },
+      "bonus:18": {
+        "key": "B",
+        "topic": "Bonus"
+      },
+      "bonus:19": {
+        "key": "C",
+        "topic": "Bonus"
+      },
+      "bonus:20": {
+        "key": "A",
+        "topic": "Bonus"
+      },
+      "bonus:21": {
+        "key": "D",
+        "topic": "Bonus"
+      },
+      "bonus:22": {
+        "key": "C",
+        "topic": "Bonus"
+      }
+    },
+    "minBonus": 3,
+    "maxBonus": 5,
+    "bonusPenalty": true
+  },
+  "Business/AP Business Unit 1 Full Test 2026-10-06.html": {
+    "title": "Unit 1 · Full practice test",
+    "subject": "AP Business",
+    "questions": {
+      "core:1": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:2": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:3": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:4": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:5": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:6": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:7": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:8": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:9": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:10": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:11": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:12": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:13": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:14": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:15": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:16": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:17": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:18": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:19": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:20": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:21": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:22": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:23": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:24": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:25": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:26": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:27": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:28": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:29": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:30": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:31": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:32": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:33": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:34": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:35": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:36": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:37": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:38": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:39": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:40": {
+        "key": "B",
+        "topic": ""
+      }
+    }
+  },
+  "Business/AP Business Unit 1 Worksheet 2026-09-24.html": {
+    "title": "AP Business Unit 1 Worksheet",
+    "subject": "AP Business",
+    "questions": {
+      "core:1": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:2": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:3": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:4": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:5": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:6": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:7": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:8": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:9": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:10": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:11": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:12": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:13": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:14": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:15": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:16": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:17": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:18": {
+        "key": "B",
+        "topic": ""
+      }
+    }
+  },
+  "Business/AP Business Unit 1 Practice.html": {
+    "title": "Unit 1 · Businesses, Competition, and New Ideas",
+    "subject": "AP Business",
+    "questions": {
+      "core:1": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:2": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:3": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:4": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:5": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:6": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:7": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:8": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:9": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:10": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:11": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:12": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:13": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:14": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:15": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:16": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:17": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:18": {
+        "key": "A",
+        "topic": ""
+      },
+      "core:19": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:20": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:21": {
+        "key": "D",
+        "topic": ""
+      },
+      "core:22": {
+        "key": "B",
+        "topic": ""
+      },
+      "core:23": {
+        "key": "C",
+        "topic": ""
+      },
+      "core:24": {
+        "key": "D",
+        "topic": ""
+      }
+    }
+  }
+}

@@ -15,6 +15,7 @@ footer{height:78px;border-top:1px solid var(--border);padding:15px 38px;display:
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 </style><link rel="stylesheet" href="../practice-ui.css?v=20261006-edge">
 <script src="../practice-loading.js?v=20261006h"></script>
+<link rel="stylesheet" href="../gradebook.css"><script src="../cloud-config.js"></script><script src="../practice-cloud.js?v=1"></script><script src="../practice-attempts.js?v=1"></script>
 </head><body>
 <header><a class="quiz-dashboard-link" href="../index.html#home"><span aria-hidden="true">←</span> Back to dashboard</a><h1>AP Business Practice</h1><div class="meta">Original practice · 24 questions</div></header>
 <nav class="mobile-tabs" aria-label="Practice view"><button id="poem-tab" aria-selected="false">Case study</button><button id="question-tab" aria-selected="true">Questions</button></nav>
@@ -42,6 +43,7 @@ function go(n){state.index=n;state.view='question';save();render();el('panel').s
 function score(){return state.answers.reduce((total,a,i)=>total+(a===answerKey[i]?1:0),0)}
 function nav(){el('progress').textContent=state.answers.filter(Boolean).length+' of '+total+' answered';el('back').disabled=state.view==='question'&&state.index===0;el('back').textContent=state.view==='question'?'Back':'Questions';el('next').textContent=state.view==='question'?(state.index===total-1?(state.submitted?'Results':'Review answers'):'Next'):(state.submitted?'Review explanations':'Return to question');el('review').textContent=state.submitted?'Results':'Review answers';}
 function render(){
+PracticeAttempts.sync();
 nav();timerUpdate();showCase(questions[state.index].case_index);const panel=el('panel');
 if(state.view==='review'){renderReview();return}if(state.view==='results'){renderResults();return}
 const q=questions[state.index],a=state.answers[state.index],i=state.index;
@@ -58,7 +60,7 @@ function renderReview(){
 const unanswered=total-state.answers.filter(Boolean).length,flags=state.flags.filter(Boolean).length;
 el('panel').innerHTML='<h2>Review your answers</h2><p class="review-intro">'+unanswered+' unanswered · '+flags+' marked for review. Select a question to return to it.</p>'+grid(false)+'<p class="review-note">A gold top border marks questions you flagged. You can change any answer before submitting.</p><label class="notes-label" for="notes">Any words you did not know? <span class="review-note">(optional)</span></label><textarea id="notes" placeholder="Note unfamiliar business terms or parts of the case that were unclear.">'+esc(state.notes)+'</textarea><div class="review-actions"><button id="submit" class="primary">Submit '+(unanswered?'with '+unanswered+' unanswered':'answers')+'</button><button id="return">Keep working</button></div><p class="review-note">Submission locks this attempt and shows your score. Explanations stay closed until you choose to review them.</p>';
 bindGrid();el('notes').oninput=e=>{state.notes=e.target.value;save()};el('return').onclick=()=>go(state.index);
-el('submit').onclick=()=>{timerUpdate();state.deadline=null;state.submitted=true;state.elapsed=limit-state.seconds;state.view='results';save();render();el('panel').scrollTop=0};
+el('submit').onclick=()=>{timerUpdate();state.deadline=null;PracticeAttempts.finish(state);state.submitted=true;state.elapsed=limit-state.seconds;state.view='results';save();render();el('panel').scrollTop=0};
 }
 function summary(){return 'AP Business Practice — '+bank.title+'\nSet: '+bank.id+'\nRevision: '+bank.revision+'\nScore: '+score()+'/'+total+' ('+Math.round(score()/total*100)+'%)\nTimed minutes used: '+(state.elapsed/60).toFixed(1)+' (timer optional)\n\n'+questions.map((q,i)=>q.n+': '+(state.answers[i]||'Unanswered')+' | confidence: '+(state.confidence[i]||'not recorded')+' | flagged: '+(state.flags[i]?'yes':'no')).join('\n')+'\n\nUnfamiliar words: '+(state.notes||'none recorded')+'\n\nPlease diagnose my answers, separating terminology gaps from errors applying business concepts.'}
 function renderResults(){
@@ -72,4 +74,16 @@ el('back').onclick=()=>go(state.view==='question'?Math.max(0,state.index-1):stat
 el('next').onclick=()=>{if(state.view==='question'){if(state.index<total-1)go(state.index+1);else{state.view=state.submitted?'results':'review';save();render();el('panel').scrollTop=0}}else if(state.submitted){go(0)}else go(state.index)};
 el('review').onclick=()=>{state.view=state.submitted?'results':'review';save();render();el('panel').scrollTop=0;mobileView(false)};
 render();
+
+PracticeAttempts.attach({
+  getState:()=>state, save:save,
+  snapshot:()=>({
+    quizPath:decodeURIComponent(location.pathname).split("/").slice(-2).join("/"),
+    quizId:bank.id || STORE, title:bank.title || document.title,
+    subject:"AP Business",
+    tracking:state.tracking, score:score(), maximum:bank.questions.length,
+    bonus:0, bonusMaximum:0,
+    answers:state.answers.map((answer,i)=>({id:bank.questions[i].kind==="bonus" ? "bonus:"+state.bonusOrder[bank.questions[i].bonusOrdinal] : "core:"+bank.questions[i].n,number:i+1,answer,topic:bank.questions[i].topic || null,correct:answer===bank.key[i]}))
+  })
+});
 </script></body></html>
