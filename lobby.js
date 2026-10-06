@@ -53,6 +53,7 @@ function renderRecent() {
 }
 // sessionStorage survives refresh/navigation and resets when the tab is closed.
 const loadedViews = new Set();
+let refreshEntrancePending = performance.getEntriesByType('navigation')[0]?.type === 'reload';
 let entranceTimer;
 function finishEntrance() {
   clearTimeout(entranceTimer);
@@ -66,7 +67,9 @@ function showEntrance() {
   const key = 'practice-room-loaded:dashboard:' + route;
   let seen = loadedViews.has(key);
   try { seen = seen || Boolean(sessionStorage.getItem(key)); } catch {}
-  if (seen) return;
+  const forceEntrance = refreshEntrancePending;
+  refreshEntrancePending = false;
+  if (seen && !forceEntrance) return;
   loadedViews.add(key);
   try { sessionStorage.setItem(key, '1'); } catch {}
   const overlay = document.createElement('div');

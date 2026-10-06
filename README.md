@@ -30,4 +30,4 @@ Each Literature and Business quiz includes a direct Back to dashboard link, besi
 
 Overview shows subject cards and recently opened activities. The full searchable catalog lives in the separate Activity library tab (`#all`); subject and saved views retain their own filtered lists. Decorative captions are omitted. Activity subtitles briefly identify the unit or poetry focus and covered topics.
 
-Dashboard views and quizzes show an 850 ms skeleton once per page per tab session. Refreshing or revisiting skips the entrance; closing the tab and opening a fresh one resets it through sessionStorage. Quiz answers and bookmarks remain in their existing storage.
+Dashboard views and quizzes show an 850 ms skeleton once per page per tab session. Refreshing replays the entrance. Revisiting within the same tab skips it; closing the tab and opening a fresh one resets it through sessionStorage. Quiz answers and bookmarks remain in their existing storage.
