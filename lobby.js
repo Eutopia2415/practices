@@ -56,9 +56,9 @@ function renderRoute() {
   route = ['home','all','saved','lit','business'].includes(requested)?requested:'home';
   type='all'; $('search').value='';
   const titles={home:'Activity library',all:'All activities',saved:'Saved activities',...subjectNames};
-  const descriptions={home:'A place for every practice session.',all:'All your practice and assessments, in one place.',saved:'Your personal shortlist, saved in this browser.',lit:'Read closely. Explore language. Build your interpretation.',business:'Explore cases. Apply concepts. Make your argument.'};
+  const descriptions={home:'',all:'All your practice and assessments, in one place.',saved:'Your personal shortlist, saved in this browser.',lit:'Read closely. Explore language. Build your interpretation.',business:'Explore cases. Apply concepts. Make your argument.'};
   $('breadcrumb').textContent=route==='home'?'Overview':titles[route];
-  $('library-title').textContent=titles[route]; $('library-description').textContent=descriptions[route];
+  $('library-title').textContent=titles[route]; $('library-description').textContent=descriptions[route]; $('library-description').hidden=!descriptions[route];
   $('library-eyebrow').textContent=route==='lit'?'YOUR LITERATURE CLASSROOM':route==='business'?'YOUR BUSINESS CLASSROOM':'YOUR ACTIVITY LIBRARY';
   $('welcome').hidden=route!=='home'; $('subjects').hidden=route!=='home';
   document.body.classList.toggle('subject-view',route!=='home');

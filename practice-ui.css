@@ -17,3 +17,10 @@
 @keyframes skeleton-sweep{to{transform:translateX(100%)}}
 @media(max-width:680px){body header:has(.quiz-dashboard-link){flex-wrap:wrap;gap:10px}.quiz-dashboard-link{min-height:44px}.quiz-dashboard-link+div{min-width:0}.skeleton-action{width:48px}}
 @media(prefers-reduced-motion:reduce){.skeleton::after{animation:none;display:none}}
+/* Keep the return action alongside Colors, including on narrow screens. */
+body .top-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+body .top-actions .quiz-dashboard-link{font-size:12px;min-height:42px}
+.practice-loading #panel{position:relative;min-height:460px}
+.practice-loading #panel>:not(#practice-loading-overlay){visibility:hidden}
+#practice-loading-overlay{position:absolute;inset:24px 20px;pointer-events:none}
+@media(max-width:680px){body .topbar:has(.top-actions .quiz-dashboard-link){flex-wrap:wrap}body .top-actions:has(.quiz-dashboard-link){margin-left:auto}body .top-actions .quiz-dashboard-link{min-height:44px}}
