@@ -2,3 +2,5 @@
 
 /* Compact dashboard without descriptive captions. */
 main{padding-bottom:36px}.hero .primary-link{margin-top:20px}.subject-card h3{margin-bottom:22px}.activity{min-height:84px}
+
+.activity-posted,.recent-item .activity-posted{font-size:11px;line-height:1.5;color:var(--muted);margin:5px 0 0}

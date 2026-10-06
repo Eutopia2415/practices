@@ -31,3 +31,5 @@ Each Literature and Business quiz includes a direct Back to dashboard link, besi
 Overview shows subject cards and recently opened activities. The full searchable catalog lives in the separate Activity library tab (`#all`); subject and saved views retain their own filtered lists. Decorative captions are omitted. Activity subtitles briefly identify the unit or poetry focus and covered topics.
 
 Dashboard views and quizzes show an 850 ms skeleton once per page per tab session. Refreshing replays the entrance. Revisiting within the same tab skips it; closing the tab and opening a fresh one resets it through sessionStorage. Quiz answers and bookmarks remain in their existing storage.
+
+Activity `postedAt` timestamps use the first commit adding that public file to this repository (a historical publication proxy, not an exact Pages deployment timestamp). Dates and times display in Asia/Bangkok (ICT), consistently in the library and Recently opened. Preserve these timestamps on edits.

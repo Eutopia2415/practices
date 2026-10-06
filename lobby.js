@@ -1,14 +1,14 @@
 'use strict';
 // Public student-facing activities only. Keep author banks and worked keys outside this catalog.
 const activities = [
-  {id:'wind',subject:'lit',title:'Ode to the West Wind',detail:'Poetry · Imagery, rhyme, speaker & themes',type:'Practice',file:'English/Ode to the West Wind.html'},
-  {id:'autumn-custom',subject:'lit',title:'To Autumn · Custom practice',detail:'Poetry · Personification, tone & stanza shifts',type:'Practice',file:'English/To Autumn - Custom Practice.html'},
-  {id:'autumn-hard',subject:'lit',title:'To Autumn · Medium-hard test',detail:'Poetry · Diction, syntax, structure & themes',type:'Assessment',file:'English/To Autumn - New Medium-Hard Test.html'},
-  {id:'autumn-clean',subject:'lit',title:'To Autumn · Clean practice',detail:'Poetry · Figurative language, tone & structure',type:'Practice',file:'English/To Autumn - Clean Practice.html'},
-  {id:'autumn-wild',subject:'lit',title:'To Autumn · Wildcard practice',detail:'Poetry · Imagery, tone & structure; bonus questions',type:'Practice',file:'English/To Autumn.html'},
-  {id:'autumn-surprise',subject:'lit',title:'To Autumn · Surprise mock',detail:'Poetry · Imagery, tone & structure; bonus questions',type:'Assessment',file:'English/To Autumn - Surprise Mock.html'},
-  {id:'business-unit1',subject:'business',title:'Unit 1 · Case-study practice',detail:'Unit 1 · Competition, PESTEL, innovation, ethics & operations',type:'Practice',file:'Business/AP Business Unit 1 Practice.html'},
-  {id:'business-worksheet',subject:'business',title:'Unit 1 · Application worksheet',detail:'Unit 1 (1.1–1.3) · Value, markets, competition & PESTEL',type:'Practice',file:'Business/AP Business Unit 1 Worksheet 2026-09-24.html'}
+  {id:'wind',subject:'lit',title:'Ode to the West Wind',detail:'Poetry · Imagery, rhyme, speaker & themes',type:'Practice',postedAt:'2026-09-24T20:29:34+07:00',file:'English/Ode to the West Wind.html'},
+  {id:'autumn-custom',subject:'lit',title:'To Autumn · Custom practice',detail:'Poetry · Personification, tone & stanza shifts',type:'Practice',postedAt:'2026-09-24T16:36:18+07:00',file:'English/To Autumn - Custom Practice.html'},
+  {id:'autumn-hard',subject:'lit',title:'To Autumn · Medium-hard test',detail:'Poetry · Diction, syntax, structure & themes',type:'Assessment',postedAt:'2026-09-24T16:36:18+07:00',file:'English/To Autumn - New Medium-Hard Test.html'},
+  {id:'autumn-clean',subject:'lit',title:'To Autumn · Clean practice',detail:'Poetry · Figurative language, tone & structure',type:'Practice',postedAt:'2026-09-24T16:36:18+07:00',file:'English/To Autumn - Clean Practice.html'},
+  {id:'autumn-wild',subject:'lit',title:'To Autumn · Wildcard practice',detail:'Poetry · Imagery, tone & structure; bonus questions',type:'Practice',postedAt:'2026-09-24T19:43:09+07:00',file:'English/To Autumn.html'},
+  {id:'autumn-surprise',subject:'lit',title:'To Autumn · Surprise mock',detail:'Poetry · Imagery, tone & structure; bonus questions',type:'Assessment',postedAt:'2026-09-24T19:24:37+07:00',file:'English/To Autumn - Surprise Mock.html'},
+  {id:'business-unit1',subject:'business',title:'Unit 1 · Case-study practice',detail:'Unit 1 · Competition, PESTEL, innovation, ethics & operations',type:'Practice',postedAt:'2026-09-24T16:36:18+07:00',file:'Business/AP Business Unit 1 Practice.html'},
+  {id:'business-worksheet',subject:'business',title:'Unit 1 · Application worksheet',detail:'Unit 1 (1.1–1.3) · Value, markets, competition & PESTEL',type:'Practice',postedAt:'2026-09-24T21:00:23+07:00',file:'Business/AP Business Unit 1 Worksheet 2026-09-24.html'}
 ];
 const $ = id => document.getElementById(id);
 const subjectNames = {lit:'AP Literature',business:'AP Business'};
@@ -27,9 +27,15 @@ function persist() {
   catch { $('announcement').textContent = 'Browser storage is unavailable. Changes will last for this page visit only.'; }
 }
 function link(a) { return encodeURI(a.file); }
+function postedLabel(a) {
+  const date = new Date(a.postedAt);
+  const day = new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'Asia/Bangkok'}).format(date);
+  const time = new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Bangkok'}).format(date);
+  return `<p class="activity-posted">Posted <time datetime="${a.postedAt}">${day} · ${time} ICT</time></p>`;
+}
 function row(a) {
   const isSaved = saved.includes(a.id);
-  return `<article class="activity ${a.subject==='business'?'business-activity':''}"><span class="activity-icon" aria-hidden="true">${a.subject==='lit'?'Aa':'↗'}</span><div class="activity-copy"><h3><a href="${link(a)}" data-open="${a.id}">${a.title}</a></h3><p class="activity-meta">${a.detail}</p></div><span class="type-pill ${a.type.toLowerCase()}">${a.type}</span><button class="save" data-save="${a.id}" aria-label="${isSaved?'Unsave':'Save'} ${a.title}" aria-pressed="${isSaved}">${isSaved?'★':'☆'}</button><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Open ${a.title}">Open <span aria-hidden="true">↗</span></a></article>`;
+  return `<article class="activity ${a.subject==='business'?'business-activity':''}"><span class="activity-icon" aria-hidden="true">${a.subject==='lit'?'Aa':'↗'}</span><div class="activity-copy"><h3><a href="${link(a)}" data-open="${a.id}">${a.title}</a></h3><p class="activity-meta">${a.detail}</p>${postedLabel(a)}</div><span class="type-pill ${a.type.toLowerCase()}">${a.type}</span><button class="save" data-save="${a.id}" aria-label="${isSaved?'Unsave':'Save'} ${a.title}" aria-pressed="${isSaved}">${isSaved?'★':'☆'}</button><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Open ${a.title}">Open <span aria-hidden="true">↗</span></a></article>`;
 }
 function renderList() {
   const query = $('search').value.trim().toLowerCase();
@@ -48,7 +54,7 @@ function renderRecent() {
   $('recent').hidden = route!=='home'||recent.length===0;
   $('recent-list').innerHTML = recent.map(id => {
     const a=activities.find(a=>a.id===id);
-    return `<div class="recent-item"><div><strong>${a.title}</strong><p class="activity-meta">${a.detail}</p></div><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Reopen ${a.title}">Reopen <span aria-hidden="true">↗</span></a></div>`;
+    return `<div class="recent-item"><div><strong>${a.title}</strong><p class="activity-meta">${a.detail}</p>${postedLabel(a)}</div><a class="open-link" href="${link(a)}" data-open="${a.id}" aria-label="Reopen ${a.title}">Reopen <span aria-hidden="true">↗</span></a></div>`;
   }).join('');
 }
 // sessionStorage survives refresh/navigation and resets when the tab is closed.
