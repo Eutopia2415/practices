@@ -8,7 +8,7 @@ import catalog from './catalog.json';
 const quizzes:Record<string,any>=catalog;
 const result=v.object({id:v.id('attempts'),score:v.optional(v.number()),maximum:v.optional(v.number()),bonus:v.optional(v.number()),totalPoints:v.optional(v.number())});
 const pageResult=v.object({page:v.array(attemptDocument),isDone:v.boolean(),continueCursor:v.string(),splitCursor:v.optional(v.union(v.string(),v.null())),pageStatus:v.optional(v.union(v.literal('SplitRecommended'),v.literal('SplitRequired'),v.null()))});
-export const me=query({args:{token:v.string()},returns:v.object({owner:v.boolean()}),handler:(ctx,args)=>viewer(ctx,args.token)});
+export const me=query({args:{token:v.string()},returns:v.object({owner:v.boolean(),subjects:v.array(subjectValue)}),handler:(ctx,args)=>viewer(ctx,args.token,undefined,true)});
 export const begin=mutation({args:{deviceToken:v.string(),attemptKey:v.string(),quizPath:v.string()},returns:v.id('attempts'),handler:async(ctx,args)=>{
   const actor=digest(args.deviceToken),quiz=quizzes[args.quizPath];
   if(!quiz||!/^[-a-zA-Z0-9]{16,80}$/.test(args.attemptKey))throw new Error('Invalid attempt.');
@@ -53,26 +53,28 @@ export const submit=mutation({args:{deviceToken:v.string(),attemptKey:v.string()
 }});
 
 export const list=query({args:{token:v.string(),subject:v.optional(subjectValue),paginationOpts:paginationOptsValidator},returns:pageResult,handler:async(ctx,args)=>{
-  await viewer(ctx,args.token);
+  await viewer(ctx,args.token,args.subject);
   const rows=args.subject?ctx.db.query('attempts').withIndex('by_subject_submitted',q=>q.eq('subject',args.subject!).gt('submittedAt',0)):ctx.db.query('attempts').withIndex('by_submitted',q=>q.gt('submittedAt',0));
   return rows.order('desc').paginate({...args.paginationOpts,numItems:Math.max(1,Math.min(args.paginationOpts.numItems,50))});
 }});
 export const stats=query({args:{token:v.string(),subject:v.optional(subjectValue)},returns:v.object({submissions:v.number(),devices:v.number(),score:v.number(),maximum:v.number(),activeMs:v.number()}),handler:async(ctx,args)=>{
-  await viewer(ctx,args.token);
+  await viewer(ctx,args.token,args.subject);
   const row=await ctx.db.query('totals').withIndex('by_key',q=>q.eq('key',args.subject||'all')).unique();
   return row?{submissions:row.submissions,devices:row.devices,score:row.score,maximum:row.maximum,activeMs:row.activeMs}:{submissions:0,devices:0,score:0,maximum:0,activeMs:0};
 }});
 export const detail=query({args:{token:v.string(),id:v.id('attempts')},returns:attemptDocument,handler:async(ctx,args)=>{
-  await viewer(ctx,args.token);const attempt=await ctx.db.get(args.id);if(!attempt)throw new Error('Attempt not found.');return attempt;
+  const access=await viewer(ctx,args.token,undefined,true);const attempt=await ctx.db.get(args.id);if(!attempt||!access.subjects.includes(attempt.subject as 'AP Literature'|'AP Business'))throw new Error('Attempt unavailable for this link.');return attempt;
 }});
-export const viewers=query({args:{token:v.string()},returns:v.array(v.object({id:v.id('viewers'),label:v.string(),grantedAt:v.number()})),handler:async(ctx,args)=>{
-  owner(args.token);return (await ctx.db.query('viewers').take(100)).map(row=>({id:row._id,label:row.label,grantedAt:row.grantedAt}));
+export const viewers=query({args:{token:v.string()},returns:v.array(v.object({id:v.id('viewers'),label:v.string(),grantedAt:v.number(),subjects:v.array(subjectValue)})),handler:async(ctx,args)=>{
+  owner(args.token);return (await ctx.db.query('viewers').take(100)).map(row=>({id:row._id,label:row.label,grantedAt:row.grantedAt,subjects:row.subjects||['AP Literature','AP Business']}));
 }});
-export const grant=mutation({args:{token:v.string(),viewerToken:v.string(),label:v.string()},returns:v.id('viewers'),handler:async(ctx,args)=>{
+export const grant=mutation({args:{token:v.string(),viewerToken:v.string(),label:v.string(),subjects:v.optional(v.array(subjectValue))},returns:v.id('viewers'),handler:async(ctx,args)=>{
   owner(args.token);const hash=digest(args.viewerToken),label=args.label.trim();
+  const subjects=args.subjects||['AP Literature','AP Business'];
+  if(!subjects.length||subjects.length>2||new Set(subjects).size!==subjects.length)throw new Error('Choose one or both subjects.');
   if(!label||label.length>80||hash===process.env.OWNER_TOKEN_HASH)throw new Error('Invalid share label or token.');
-  const existing=await ctx.db.query('viewers').withIndex('by_hash',q=>q.eq('hash',hash)).unique();if(existing)return existing._id;
+  const existing=await ctx.db.query('viewers').withIndex('by_hash',q=>q.eq('hash',hash)).unique();if(existing){const prior=existing.subjects||['AP Literature','AP Business'];if(subjects.some(subject=>!prior.includes(subject))||prior.length!==subjects.length)throw new Error('Create a new link to change subjects.');return existing._id;}
   if((await ctx.db.query('viewers').take(100)).length>=100)throw new Error('Share limit reached.');
-  return ctx.db.insert('viewers',{hash,label,grantedAt:Date.now()});
+  return ctx.db.insert('viewers',{hash,label,subjects,grantedAt:Date.now()});
 }});
 export const revoke=mutation({args:{token:v.string(),id:v.id('viewers')},returns:v.null(),handler:async(ctx,args)=>{owner(args.token);await ctx.db.delete(args.id);return null;}});

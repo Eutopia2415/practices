@@ -10,7 +10,7 @@ export const attemptFields={
 };
 export const attemptDocument=v.object({_id:v.id('attempts'),_creationTime:v.number(),...attemptFields});
 export default defineSchema({
-  viewers:defineTable({hash:v.string(),label:v.string(),grantedAt:v.number()}).index('by_hash',['hash']),
+  viewers:defineTable({hash:v.string(),label:v.string(),grantedAt:v.number(),subjects:v.optional(v.array(subjectValue))}).index('by_hash',['hash']),
   devices:defineTable({actor:v.string(),submitted:v.boolean()}).index('by_actor',['actor']),
   subjectDevices:defineTable({subject:subjectValue,actor:v.string()}).index('by_subject_actor',['subject','actor']),
   totals:defineTable({key:totalKey,submissions:v.number(),devices:v.number(),score:v.number(),maximum:v.number(),activeMs:v.number()}).index('by_key',['key']),

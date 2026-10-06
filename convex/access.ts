@@ -9,10 +9,13 @@ export function owner(token:string) {
   const hash=digest(token), expected=process.env.OWNER_TOKEN_HASH;
   if(!expected || hash!==expected)throw new Error('Owner access required.');
 }
-export async function viewer(ctx:QueryCtx,token:string) {
+export async function viewer(ctx:QueryCtx,token:string,subject?:string,identifyOnly=false) {
+  const all=['AP Literature','AP Business'] as const;
   const hash=digest(token);
-  if(process.env.OWNER_TOKEN_HASH && hash===process.env.OWNER_TOKEN_HASH)return {owner:true};
+  if(process.env.OWNER_TOKEN_HASH && hash===process.env.OWNER_TOKEN_HASH)return {owner:true,subjects:[...all]};
   const access=await ctx.db.query('viewers').withIndex('by_hash',q=>q.eq('hash',hash)).unique();
   if(!access)throw new Error('This private link is invalid or has been revoked.');
-  return {owner:false};
+  const subjects=access.subjects||[...all];
+  if(!identifyOnly&&(subject ? !subjects.includes(subject as typeof all[number]) : subjects.length!==2))throw new Error('This link does not include that subject.');
+  return {owner:false,subjects};
 }
