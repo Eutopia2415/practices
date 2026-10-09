@@ -62,3 +62,11 @@ body.practice-page{--ui-bg:var(--page-bg,var(--paper,#fff));--ui-text:var(--page
 @media(prefers-contrast:more){.practice-page header,.practice-page .topbar,.practice-page footer,.practice-page .footer{background:var(--ui-surface);backdrop-filter:none}.practice-page button{border-color:var(--ui-text)}.practice-page .option[aria-checked="true"],.practice-page .choice[aria-pressed="true"]{outline:2px solid var(--ui-text);outline-offset:0}.practice-page :is(.helper,.utility,.source,.author,.review-note){color:var(--ui-text)}}
 
 @media(max-width:900px){.practice-page .footer-middle,.practice-page .foot-mid{flex-direction:column;gap:.25rem}.practice-page #progress{display:inline;font-size:.75rem}}
+
+/* Reversible answer elimination, shared by radio-button assessment pages. */
+.practice-page .option-row .option{flex:1;min-width:0;width:auto}
+.practice-page .option.eliminated{color:var(--ui-text)}
+.practice-page .option.eliminated .option-text{text-decoration:line-through;opacity:.6}
+.practice-page .strike[aria-pressed="true"]{background:var(--ui-soft);border-color:var(--accent)}
+.practice-page .helper{font:.8125rem/1.5 system-ui,sans-serif;color:var(--muted);margin:.75rem 0 0}
+@media(prefers-contrast:more){.practice-page .option.eliminated .option-text{opacity:1}}
