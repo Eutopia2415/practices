@@ -21,6 +21,7 @@ try {
   saved = Array.isArray(state.saved) ? [...new Set(state.saved.filter(id => ids.has(id)))] : [];
   recent = Array.isArray(state.recent) ? [...new Set(state.recent.filter(id => ids.has(id)))].slice(0,3) : [];
 } catch { /* The lobby remains usable when browser storage is unavailable. */ }
+let announcementTimer;
 let type = 'all';
 let route = 'home';
 function persist() {
@@ -113,7 +114,7 @@ document.querySelectorAll('[data-type]').forEach(b=>b.addEventListener('click',(
 $('clear-filters').addEventListener('click',()=>{type='all';$('search').value='';renderList();$('search').focus();});
 document.addEventListener('click',e=>{
   const save=e.target.closest('[data-save]');
-  if(save){const id=save.dataset.save; saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];persist();renderList();document.querySelector(`[data-save="${id}"]`)?.focus();$('announcement').textContent=saved.includes(id)?'Activity saved.':'Activity removed from saved activities.';}
+  if(save){const id=save.dataset.save; saved=saved.includes(id)?saved.filter(x=>x!==id):[...saved,id];persist();renderList();document.querySelector(`[data-save="${id}"]`)?.focus();$('announcement').textContent=saved.includes(id)?'Activity saved.':'Activity removed from saved activities.';clearTimeout(announcementTimer);announcementTimer=setTimeout(()=>{$('announcement').textContent='';},2600);}
   const open=e.target.closest('[data-open]');
   if(open){recent=[open.dataset.open,...recent.filter(id=>id!==open.dataset.open)].slice(0,3);persist();}
 });
