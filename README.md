@@ -19,6 +19,7 @@ The [Practice Room lobby](https://eutopia2415.github.io/practices/) opens the su
 
 ## Business · Unit 1
 
+- [Cumulative diagnostic · October 26](https://eutopia2415.github.io/practices/Business/AP%20Business%20Diagnostic%202026-10-26.html) — 40 original questions across eight cases covering Topics 1.1–1.8 and 2.1 (customers and marketing), weighted toward ownership and shares, PESTEL, ethics, competitive strategy and supplier math. Untimed, saved progress, cross-out controls, explanations after submission, and topic scores. Not an official exam.
 - [Unit 1 · Full practice test · October 6](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Full%20Test%202026-10-06.html) — 40 original questions across eight cases, five per topic (1.1–1.8). Untimed, saved progress, review flags, explanations after submission, and topic scores. Aligned to the assigned BFW Unit 1 textbook and the [Fall 2026 College Board CED](https://apcentral.collegeboard.org/media/pdf/ap-business-personal-finance-course-and-exam-description.pdf); not an official exam.
 
 - [AP Business Unit 1 Practice](https://eutopia2415.github.io/practices/Business/AP%20Business%20Unit%201%20Practice.html) ([file](Business/AP%20Business%20Unit%201%20Practice.html))

@@ -1,6 +1,7 @@
 'use strict';
 // Public student-facing activities only. Keep author banks and worked keys outside this catalog.
 const activities = [
+  {id:'business-diagnostic-20261026',subject:'business',title:'Cumulative diagnostic',detail:'Units 1.1–1.8 + 2.1 · 40 questions on ownership, PESTEL, ethics, supply chains & customers',type:'Assessment',postedAt:'2026-10-26T18:00:00+07:00',file:'Business/AP Business Diagnostic 2026-10-26.html'},
   {id:'business-full-20261006',subject:'business',title:'Unit 1 · Full practice test',detail:'Topics 1.1–1.8 · 40 questions on value, competition, ideas, ethics & operations',type:'Assessment',postedAt:'2026-10-06T15:14:27+07:00',file:'Business/AP Business Unit 1 Full Test 2026-10-06.html'},
   {id:'wind',subject:'lit',title:'Ode to the West Wind',detail:'Poetry · Imagery, rhyme, speaker & themes',type:'Practice',postedAt:'2026-09-24T20:29:34+07:00',file:'English/Ode to the West Wind.html'},
   {id:'autumn-custom',subject:'lit',title:'To Autumn · Custom practice',detail:'Poetry · Personification, tone & stanza shifts',type:'Practice',postedAt:'2026-09-24T16:36:18+07:00',file:'English/To Autumn - Custom Practice.html'},
